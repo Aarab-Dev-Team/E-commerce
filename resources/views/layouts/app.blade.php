@@ -272,6 +272,8 @@
             transform: rotate(45deg);
         }
 
+
+
         /* products section*/
         .products-area { }
         .sorting-bar {
@@ -334,10 +336,16 @@
             color: var(--border-color);
             stroke-width: 1px;
         }
-        .quick-add-btn {
+
+        /* Quick Add Form */
+        .quick-add-form {
             position: absolute;
             bottom: 16px;
             right: 16px;
+            z-index: 5;
+        }
+
+        .quick-add-btn {
             width: 40px;
             height: 40px;
             background: var(--text-main);
@@ -349,12 +357,16 @@
             justify-content: center;
             opacity: 0;
             transform: translateY(10px);
-            transition: var(--transition);
+            transition: var(--transition-speed);
             cursor: pointer;
         }
         .product-card:hover .quick-add-btn {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        .quick-add-btn:hover {
+            background: var(--text-secondary);
         }
         .product-info { padding: 20px; }
         .product-title {
@@ -512,6 +524,50 @@
 }
 
 
+      /* ==========================================================================
+          wishlist style    
+           ========================================================================== */
+/* Wishlist Button */
+.wishlist-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    background: var(--surface-color);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-speed);
+    cursor: pointer;
+    z-index: 5;
+}
+
+.wishlist-btn i {
+    font-size: 18px;
+    transition: var(--transition-speed);
+}
+
+.wishlist-btn:hover {
+    color: #A34A4A;
+    border-color: #A34A4A;
+}
+
+.wishlist-btn.active {
+    background: #A34A4A;
+    color: var(--surface-color);
+    border-color: #A34A4A;
+}
+
+.wishlist-btn.active i {
+    color: var(--surface-color);
+}
+
+
+
         /* ==========================================================================
           responsive 
            ========================================================================== */
@@ -666,6 +722,38 @@
         alert('An error occurred');
     });
 }
+
+
+
+document.querySelectorAll('.wishlist-btn').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const productId = btn.dataset.productId;
+        const icon = btn.querySelector('i');
+        
+        try {
+            const response = await fetch(`/wishlist/toggle/${productId}`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Accept': 'application/json'
+                }
+            });
+            const data = await response.json();
+            if (data.success) {
+                if (data.added) {
+                    icon.classList.add('wishlist-active');
+                } else {
+                    icon.classList.remove('wishlist-active');
+                }
+                // Optionally show a small notification
+            }
+        } catch (error) {
+            console.error('Error toggling wishlist:', error);
+        }
+    });
+});
 
 </script>
 </body>

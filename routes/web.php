@@ -12,6 +12,9 @@ use App\Http\Controllers\OrderController ;
 use App\Http\Controllers\Shop\CatalogController ; 
 use App\Http\Controllers\Shop\CartController ; 
 use App\Http\Controllers\Shop\CheckoutController ; 
+use App\Http\Controllers\AddressController ;
+use App\Http\Controllers\WishlistController ;
+
 
 
 use App\Http\Controllers\HomeController ; 
@@ -28,9 +31,20 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
-      Route::get('/profile/dashboard', fn() => view('profile.dashboard'))->name('profile.dashboard');
+    Route::get('/profile/dashboard', fn() => view('profile.dashboard'))->name('profile.dashboard');
     Route::get('/profile/orders', [OrderController::class, 'index'])->name('profile.orders');
-    Route::get('/profile/addresses', fn() => view('profile.addresses'))->name('profile.addresses');
+    // Route::get('/profile/addresses', fn() => view('profile.addresses'))->name('profile.addresses');
+
+    Route::get('/profile/addresses', [AddressController::class, 'index'])->name('profile.addresses.index');
+    Route::post('/profile/addresses', [AddressController::class, 'store'])->name('profile.addresses.store');
+    Route::patch('/profile/addresses/{address}', [AddressController::class, 'update'])->name('profile.addresses.update');
+    Route::delete('/profile/addresses/{address}', [AddressController::class, 'destroy'])->name('profile.addresses.destroy');
+
+    // wishlist
+
+    Route::get('/profile/wishlist', [WishlistController::class, 'index'])->name('profile.wishlist.index');
+    Route::post('/wishlist/toggle/{product}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
+    Route::delete('/wishlist/{product}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
     
 });
 

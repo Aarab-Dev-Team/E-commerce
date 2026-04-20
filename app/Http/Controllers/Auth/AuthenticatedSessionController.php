@@ -32,7 +32,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('admin.products.index') ; 
         }
 
-        return redirect()->intended(route('shop.index'));
+        return redirect()->intended(route('shop.catalog'));
     }
 
     /**

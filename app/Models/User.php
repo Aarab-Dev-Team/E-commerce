@@ -10,7 +10,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+
 use App\Models\Order ;
+use App\Models\Cart ; 
+use App\Models\Address ; 
+use App\Models\Review ; 
+use App\Models\Wishlist ; 
+
 
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
@@ -37,4 +43,8 @@ class User extends Authenticatable
     public function orders() { return $this->hasMany(Order::class); }
     public function addresses() { return $this->hasMany(Address::class); }
     public function reviews() { return $this->hasMany(Review::class); }
+    public function wishlist()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
 }

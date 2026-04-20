@@ -15,9 +15,14 @@ export default defineConfig({
                 "resources/css/confirmation.css", 
                 'resources/css/order-details.css',
                 'resources/css/profile-orders.css',
+                'resources/css/profile-addresses.css',
+                'resources/js/profile-addresses.js',
+                'resources/css/profile-wishlist.css',
                 'resources/js/app.js'
                 ],
             refresh: true,
         }),
     ],
+
+    
 });

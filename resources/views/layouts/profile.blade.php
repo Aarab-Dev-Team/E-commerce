@@ -261,12 +261,12 @@
                 </div>
 
                 <ul class="sidebar-menu">
-                    <li><a href="{{ route('profile.dashboard') }}"><i class="iconoir-app-window"></i> Dashboard</a></li>
+                    {{-- <li><a href="{{ route('profile.dashboard') }}"><i class="iconoir-app-window"></i> Dashboard</a></li> --}}
                     <li><a href="{{ route('profile.edit') }}" class="{{ request()->routeIs('profile.edit') ? 'active' : '' }}"><i class="iconoir-user"></i> Profile info</a></li>
                     <li><a href="{{ route('profile.orders') }}"><i class="iconoir-box-iso"></i> Orders</a></li>
-                    <li><a href="{{ route('profile.addresses') }}"><i class="iconoir-map-pin"></i> Addresses</a></li>
-                    <li><a href="#"><i class="iconoir-heart"></i> Wishlist</a></li>
-                    <li><a href="#"><i class="iconoir-settings"></i> Settings</a></li>
+                    <li><a href="{{ route('profile.addresses.index') }}"><i class="iconoir-map-pin"></i> Addresses</a></li>
+                    <li><a href="{{ route('profile.wishlist.index') }}"><i class="iconoir-heart"></i> Wishlist</a></li>
+                    {{-- <li><a href="#"><i class="iconoir-settings"></i> Settings</a></li> --}}
                     <li style="margin-top: 24px;">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
