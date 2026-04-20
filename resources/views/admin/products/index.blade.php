@@ -1,88 +1,137 @@
-<x-app-layout>
+@extends('layouts.admin')
 
+@section('title', 'Products — Aura. Admin')
 
-        <x-slot name="header" >
+@section('page-title', 'Products')
 
-                <div class="flex justify-between">
-                      <h1> All Products </h1>
-
-                <a 
-                    href="{{route('admin.products.create')}}"
-
-                    class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ">
-                    + Add Product 
-                </a>
-
-                </div>
-
-
-
-        </x-slot>
-
-
-
-        <div class="py-12">
-        
-        @if(isset($products) && $products->isNotEmpty())
-
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    <table class="min-w-full border-collapse">
-                        <thead>
-                            <tr class="bg-gray-100">
-                                <th class="border p-2">Name</th>
-                                <th class="border p-2">Category</th>
-                                <th class="border p-2">Price</th>
-                                <th class="border p-2">Stock</th>
-                                <th class="border p-2">Status</th>
-                                <th class="border p-2">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($products as $product)
-                                <tr>
-                                    <td class="border p-2">{{ $product->name }}</td>
-                                    <td class="border p-2">{{ $product->categories->name }}</td>
-                                    <td class="border p-2">${{ $product->price }}</td>
-                                    <td class="border p-2">{{ $product->stock_quantity }}</td>
-                                    <td class="border p-2">
-                                        {{ $product->is_active ? '✅ Active' : '❌ Inactive' }}
-                                    </td>
-                                    <td class="flex gap-2">
-                                        <form action="{{ route('admin.products.destroy' , $product->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="bg-red-400 text-red-900 p-2">Delete</button>
-                                        </form>
-                                        <div class="flex-1 ">
-                                        <form action="{{ route('admin.products.edit' , $product->id) }}" method="GET">
-                                            @csrf
-                                            <button type="submit" class="w-full bg-blue-400 text-blue-900 p-2">EDIT</button>
-                                        </form>
-                                        </div>
-                                    
-                                    </td>
-                                </tr>
-                                
-                             
-
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-        @else
-
-                <div class="mx-6 bg-yellow-400 text-center">
-                    <p>There are no products currently available in this section.</p>
-                </div>
-        @endif
-
+@section('content')
+<div class="page">
+    <div class="section-header">
+        <div>
+            <h1>Product catalog</h1>
+            <p>Manage inventory, pricing, and details.</p>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('productModal')">+ Add product</button>
     </div>
 
+    {{-- Search and Filter --}}
+    <form method="GET" action="{{ route('admin.products.index') }}" style="display: flex; gap: 24px; margin-bottom: 24px;">
+        <div class="search-container" style="width: 300px; border-bottom: 1px solid var(--border-subtle);">
+            <i class="iconoir-search"></i>
+            <input type="text" name="search" placeholder="Search by name..." value="{{ request('search') }}">
+        </div>
+        <select name="category" onchange="this.form.submit()" style="width: 200px; padding-bottom: 4px;">
+            <option value="">All categories</option>
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                    {{ $category->name }}
+                </option>
+            @endforeach
+        </select>
+        <button type="submit" class="btn btn-ghost" style="padding: 6px 16px;">Filter</button>
+    </form>
 
+    {{-- Products Table --}}
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($products as $product)
+                <tr>
+                    <td>
+                        <div class="prod-thumb">
+                            @if($product->images && isset($product->images[0]))
+                                <img src="{{ asset('storage/' . $product->images[0]) }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                            @else
+                                <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            @endif
+                        </div>
+                    </td>
+                    <td>{{ $product->name }}</td>
+                    <td>{{ $product->category->name ?? '—' }}</td>
+                    <td>${{ number_format($product->price, 2) }}</td>
+                    <td>{{ $product->stock_quantity }}</td>
+                    <td>
+                        <span class="badge {{ $product->is_active ? 'badge-active' : 'badge-inactive' }}">
+                            {{ $product->is_active ? 'active' : 'inactive' }}
+                        </span>
+                    </td>
+                    <td class="actions-cell">
+                        <i class="iconoir-edit action-icon" onclick="editProduct({{ $product }})"></i>
+                        <form action="{{ route('admin.products.destroy', $product) }}" method="POST" onsubmit="return confirm('Delete this product?');" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" style="background: none; border: none; padding: 0;">
+                                <i class="iconoir-trash action-icon"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="7" style="text-align: center;">No products found.</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 
+    {{-- Pagination --}}
+    <div class="pagination">
+        {{ $products->links('pagination.admin') }}
+    </div>
+</div>
 
+{{-- Include Modal --}}
+@include('admin.products.partials.modal')
+@endsection
 
-</x-app-layout>
+@push('scripts')
+<script>
+    // Pass categories to JavaScript for the modal dropdown
+    window.categories = @json($categories);
+
+    function editProduct(product) {
+        // Populate the modal form with product data
+        const form = document.getElementById('productForm');
+        form.action = `/admin/products/${product.id}`;
+        form.querySelector('input[name="_method"]').value = 'PATCH';
+
+        for (let field in product) {
+            const input = form.querySelector(`[name="${field}"]`);
+            if (input) {
+                if (input.type === 'checkbox') {
+                    input.checked = product[field];
+                } else {
+                    input.value = product[field] || '';
+                }
+            }
+        }
+        // Set category
+        const categorySelect = form.querySelector('[name="category_id"]');
+        if (categorySelect) categorySelect.value = product.category_id;
+
+        document.querySelector('#productModal h2').innerText = 'Edit product';
+        openModal('productModal');
+    }
+
+    // Reset modal when opening for new product
+    document.querySelector('[onclick="openModal(\'productModal\')"]').addEventListener('click', function() {
+        const form = document.getElementById('productForm');
+        form.action = '{{ route("admin.products.store") }}';
+        form.querySelector('input[name="_method"]').value = 'POST';
+        form.reset();
+        document.querySelector('#productModal h2').innerText = 'Add new product';
+    });
+</script>
+@endpush

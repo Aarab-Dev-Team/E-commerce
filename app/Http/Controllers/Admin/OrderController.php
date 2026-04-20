@@ -11,32 +11,64 @@ class OrderController extends Controller
 {
     
 
-        public function index(){
+         /**
+     * Display a listing of orders.
+     */
+    public function index(Request $request)
+    {
+        $query = Order::with('user')->latest();
 
-            $order = Order::with("user")->latest()->paginate(6) ; 
-
-            return view('admin.orders.index' , compact("order")) ; 
-
+        // Filter by status
+        if ($request->filled('status') && $request->status !== 'all') {
+            $query->where('status', $request->status);
         }
 
+        $orders = $query->paginate(15)->withQueryString();
 
-        public function updateStatus(Request $resuest , Order $order){
+        // Count for tabs
+        $counts = [
+            'all' => Order::count(),
+            'pending' => Order::where('status', 'pending')->count(),
+            'processing' => Order::where('status', 'processing')->count(),
+            'shipped' => Order::where('status', 'shipped')->count(),
+            'delivered' => Order::where('status', 'delivered')->count(),
+            'cancelled' => Order::where('status', 'cancelled')->count(),
+        ];
 
-                $validated = $request->validate([
-                    'status' => "required|in:pending,completed,canceled",
-                ]) ; 
+        return view('admin.orders.index', compact('orders', 'counts'));
+    }
 
-                // $order->status = $request->status ; 
+    /**
+     * Display the specified order (JSON for modal or full page).
+     */
+    public function show(Order $order)
+    {
+        $order->load('items.product', 'user');
 
-                // $order->save()  ; 
-
-                $order->update(["status"=>$request->status]) ; 
-
-
-                return redirect()->back()->with('success', "order status updated successfully!") ; 
-
-
+        if (request()->expectsJson()) {
+            return response()->json($order);
         }
+
+        return view('admin.orders.show', compact('order'));
+    }
+
+    /**
+     * Update the order status.
+     */
+    public function update(Request $request, Order $order)
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:pending,processing,shipped,delivered,cancelled',
+        ]);
+
+        $order->update($validated);
+
+        if ($request->expectsJson()) {
+            return response()->json(['success' => true, 'message' => 'Order status updated.']);
+        }
+
+        return redirect()->route('admin.orders.index')->with('success', 'Order status updated.');
+    }
 
         
 

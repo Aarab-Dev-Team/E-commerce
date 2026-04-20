@@ -18,6 +18,7 @@ export default defineConfig({
                 'resources/css/profile-addresses.css',
                 'resources/js/profile-addresses.js',
                 'resources/css/profile-wishlist.css',
+                'resources/css/admin.css',
                 'resources/js/app.js'
                 ],
             refresh: true,

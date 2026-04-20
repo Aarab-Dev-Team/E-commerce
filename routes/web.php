@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 //admin
 use App\Http\Controllers\Admin\ProductController; 
+use App\Http\Controllers\Admin\DashboardController ; 
 
 
 use App\Http\Controllers\OrderController ; 
@@ -102,5 +103,19 @@ Route::get('/shop', [CatalogController::class, 'index'])->name('shop.catalog');
 
 // product detail 
 Route::get('/product/{slug}', [\App\Http\Controllers\ProductController::class, 'show'])->name('shop.product');
+
+
+// ====================================================================
+// Employee
+// =====================================================================
+
+Route::middleware(['auth', "role:admin,employee"])->prefix('admin')->name('admin.')->group(function(){
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('products', ProductController::class);
+    Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class)->only(['index', 'show', 'update']);
+
+});
+
+
 
 require __DIR__.'/auth.php';
