@@ -1,0 +1,468 @@
+/* ==========================================================================
+   HOMEPAGE SPECIFIC STYLES
+   ========================================================================== */
+
+/* Organic Illustrations */
+.organic-path {
+    fill: none;
+    stroke: var(--text-main);
+    stroke-width: 1.5px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Buttons */
+.btn-filled {
+    display: inline-block;
+    background: var(--text-main);
+    color: var(--surface-color);
+    border: 1px solid var(--text-main);
+    padding: 14px 28px;
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition-speed);
+    text-align: center;
+}
+
+.btn-filled:hover {
+    background: var(--text-secondary);
+    border-color: var(--text-secondary);
+}
+
+.btn-ghost {
+    display: inline-block;
+    background: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    padding: 14px 28px;
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition-speed);
+    text-align: center;
+}
+
+.btn-ghost:hover {
+    border-color: var(--text-main);
+}
+
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+.hero {
+    position: relative;
+    padding: 160px 0;
+    background-color: #EAE8E3;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-bg-svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+}
+
+.hero h1 {
+    margin-bottom: 24px;
+}
+
+.hero p {
+    font-size: 18px;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+    line-height: 1.7;
+}
+
+/* ==========================================================================
+   FEATURED CATEGORIES
+   ========================================================================== */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.category-card {
+    display: block;
+}
+
+.category-image {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    transition: var(--transition-speed);
+    position: relative;
+    overflow: hidden;
+    color: var(--text-main);
+}
+
+.category-image-noise {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;               /* ← يمكنك زيادتها إلى 0.3 لوضوح أكثر */
+    pointer-events: none;
+    background-image: 
+        repeating-radial-gradient(circle at 30% 40%, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 8px),
+        repeating-radial-gradient(circle at 70% 80%, rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 1px, transparent 1px, transparent 6px);
+    mix-blend-mode: multiply;
+}
+
+.category-icon-wrapper {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.category-icon-wrapper svg {
+    width: 100%;
+    height: 100%;
+    transform: scale(1.4);        
+    transform-origin: center;
+    transition: transform var(--transition-speed);
+}
+
+.category-card:hover .category-icon-wrapper svg {
+    transform: scale(1.5);
+}
+
+.category-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-main);
+    text-align: center;
+}
+
+/* ==========================================================================
+   NEW ARRIVALS SECTION
+   ========================================================================== */
+.new-arrivals-section h2 {
+    font-size: 32px;
+    line-height: 1.2;
+    margin-bottom: 40px;
+}
+
+/* Product Card Overrides for Homepage */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.product-card {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: var(--transition-speed);
+    cursor: pointer;
+}
+
+.product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.product-image-container {
+    height: 320px;
+    background: var(--bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.product-image-container .placeholder-icon {
+    font-size: 32px;
+    color: var(--border-color);
+    stroke-width: 1px;
+}
+
+.quick-add-btn {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    background: var(--text-main);
+    color: var(--surface-color);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: var(--transition-speed);
+    cursor: pointer;
+}
+
+.quick-add-btn i {
+    font-size: 20px;
+}
+
+.product-card:hover .quick-add-btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.product-info {
+    padding: 20px;
+}
+
+.product-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: var(--text-main);
+}
+
+.product-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   BRAND ETHOS
+   ========================================================================== */
+.ethos-section {
+    background: var(--surface-color);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.ethos-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 80px;
+}
+
+.ethos-text h2 {
+    font-size: 40px;
+    margin-bottom: 24px;
+}
+
+.ethos-text p {
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+    line-height: 1.8;
+    max-width: 440px;
+}
+
+.ethos-illustration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.ethos-illustration svg {
+    width: 300px;
+    height: 300px;
+}
+
+/* ==========================================================================
+   TRUST SIGNALS
+   ========================================================================== */
+.trust-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    text-align: left;
+}
+
+.trust-item svg {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 24px;
+}
+
+.trust-item h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.trust-item p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   TESTIMONIALS
+   ========================================================================== */
+.testimonial-section {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 80px 24px;
+}
+
+.testimonial-quote {
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 1.4;
+    margin-bottom: 32px;
+    color: var(--text-main);
+}
+
+.testimonial-author {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* ==========================================================================
+   NEWSLETTER DEDICATED SECTION
+   ========================================================================== */
+.newsletter-section {
+    border-top: 1px solid var(--border-color);
+    padding: 100px 0;
+    background: var(--surface-color);
+    text-align: center;
+}
+
+.newsletter-section h2 {
+    margin-bottom: 16px;
+}
+
+.newsletter-section p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+}
+
+.newsletter-form-large {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+.newsletter-form-large input {
+    flex: 1;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    padding: 14px 20px;
+    font-size: 14px;
+    border-radius: 4px;
+    color: var(--text-main);
+}
+
+.newsletter-form-large input::placeholder {
+    color: var(--text-secondary);
+}
+
+
+
+
+/* Accordion Filter Groups */
+.filter-group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.filter-group-header h3 {
+    margin-bottom: 0;
+}
+
+.accordion-icon {
+    font-size: 16px;
+    transition: transform 0.2s ease;
+}
+
+.filter-group.collapsed .accordion-icon {
+    transform: rotate(-90deg);
+}
+
+.filter-group.collapsed .filter-group-content {
+    display: none;
+}
+
+.filter-group-content {
+    margin-top: 16px;
+}
+
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+@media (max-width: 992px) {
+    .categories-grid,
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .ethos-container {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        text-align: center;
+    }
+    .ethos-text p {
+        margin: 0 auto 32px;
+    }
+    .trust-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 40px;
+    }
+    .trust-item svg {
+        margin: 0 auto 24px;
+    }
+
+    .category-image svg {
+        width: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .categories-grid,
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+    .newsletter-form-large {
+        flex-direction: column;
+    }
+}
+
+
+

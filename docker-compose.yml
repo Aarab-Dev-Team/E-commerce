@@ -1,0 +1,60 @@
+services:
+  app:
+    
+    image: php:8.4-fpm
+    container_name: laravel_app
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    environment:
+      - DB_HOST=mysql
+      - DB_DATABASE=e_commerce
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+  
+    command: >
+      bash -c "
+      apt-get update && apt-get install -y libzip-dev zip unzip git &&
+      docker-php-ext-install pdo pdo_mysql zip &&
+      curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer &&
+      composer install &&
+      php artisan key:generate --ansi &&
+      php artisan migrate --force &&
+      php artisan serve --host=0.0.0.0 --port=8000
+      "
+    ports:
+      - "8000:8000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  mysql:
+    image: mysql:8.4 # Using 8.4 to stay modern with your PHP version
+    container_name: laravel_mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: e_commerce
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  node:
+    image: node:20
+    container_name: laravel_vite
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    ports:
+      - "5173:5173"
+    command: >
+      bash -c "npm install && npm run dev -- --host 0.0.0.0"
+
+volumes:
+  mysql_data:
