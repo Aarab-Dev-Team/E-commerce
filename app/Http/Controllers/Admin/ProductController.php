@@ -68,7 +68,9 @@ class ProductController extends Controller
                 }
                 }
                 $validated['images'] = $imagePaths;
-                $validated['is_active'] = $request->boolean('is_active');
+
+                $isActive = auth()->user()->role === 'admin' ? $request->boolean('is_active', false) : false;
+                $validated['is_active'] = $isActive;
 
                 Product::create($validated);
 
@@ -109,7 +111,10 @@ class ProductController extends Controller
                 }
                 }
                 $validated['images'] = $imagePaths;
-                $validated['is_active'] = $request->boolean('is_active');
+                
+                //only admin can toggle is_active value : 
+                $isActive = auth()->user()->role === 'admin' ? $request->boolean('is_active', false) : false;
+                $validated['is_active'] = $isActive;
 
                 $product->update($validated);
 
