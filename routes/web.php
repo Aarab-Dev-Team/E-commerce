@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 //admin
 use App\Http\Controllers\Admin\ProductController; 
 use App\Http\Controllers\Admin\DashboardController ; 
+use App\Http\Controllers\Admin\UserController ;
+use App\Http\Controllers\Admin\SettingsController ; 
 
 
 use App\Http\Controllers\OrderController ; 
@@ -113,7 +115,11 @@ Route::middleware(['auth', "role:admin,employee"])->prefix('admin')->name('admin
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('products', ProductController::class);
     Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class)->only(['index', 'show', 'update']);
-
+    Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class)->except(['show', 'create', 'edit']);
+    Route::get('users', [UserController::class, 'index'])->name('users.index');
+    Route::patch('users/{user}/role', [UserController::class, 'updateRole'])->name('users.role');
+    Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
+    Route::post('settings', [SettingsController::class, 'update'])->name('settings.update');
 });
 
 
