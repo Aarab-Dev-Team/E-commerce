@@ -17,17 +17,17 @@
           variables 
            ========================================================================== */
         :root {
-            --bg-color: #F5F4F0;
+            --bg-color: #EBE9E1;
             --surface-color: #FFFFFF;
-            --text-main: #1A1A18;
-            --text-secondary: #6B6A66;
-            --border-color: #E8E6E0;
-            --accent-clay: #C4613A;
-            --accent-sage: #7A9E7E;
-            --accent-sand: #D4C5A9;
+            --text-main: #111111;
+            --text-secondary: #4A4A45;
+            --border-color: #D1CFC7;
+            --accent-clay: #D84315;
+            --accent-sage: #388042;
+            --accent-sand: #D19A29;
             --font-primary: 'DM Sans', sans-serif;
             --transition: all 150ms ease-out;
-            --shadow-subtle: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-subtle: 0 2px 8px rgba(0,0,0,0.1);
             --container-width: 1248px;
             --gutter: 24px;
         }

@@ -3,16 +3,16 @@
    ========================================================================== */
 
 :root {
-    --bg-base: #F5F4F0;
+   --bg-base: #EBE9E1;
     --bg-surface: #FFFFFF;
-    --text-primary: #1A1A18;
-    --text-secondary: #6B6A66;
-    --border-subtle: #E8E6E0;
+    --text-primary: #111111;
+    --text-secondary: #4A4A45;
+    --border-subtle: #D1CFC7;
     
-    /* Muted Earthy Accents */
-    --accent-terracotta: #C4613A;
-    --accent-sage: #7A9E7E;
-    --accent-sand: #D4C5A9;
+    /* Stronger Earthy Accents */
+    --accent-terracotta: #D84315;
+    --accent-sage: #388042;
+    --accent-sand: #D19A29;
     
     --font-family: 'Inter', sans-serif;
     
@@ -20,7 +20,7 @@
     --radius-md: 8px;
     --radius-lg: 12px;
     
-    --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.02);
+    --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.05);
     --transition-smooth: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 

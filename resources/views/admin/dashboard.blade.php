@@ -12,7 +12,7 @@
             <p>A summary of recent activity and store metrics.</p>
         </div>
         <div style="display: flex; gap: 12px; z-index: 1;">
-            <a href="{{ route('admin.products.create') }}" class="btn btn-ghost">Add new product</a>
+            <a href="{{ route('admin.products.index') }}" class="btn btn-ghost">Add new product</a>
             <a href="{{ route('admin.orders.index') }}" class="btn btn-primary">View orders</a>
         </div>
     </div>

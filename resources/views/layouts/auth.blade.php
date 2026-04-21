@@ -12,12 +12,12 @@
     
        <style>
         :root {
-            --bg-color: #F5F4F0;
+            --bg-color: #EBE9E1;
             --surface-color: #FFFFFF;
-            --text-main: #1A1A18;
-            --text-secondary: #6B6A66;
-            --border-color: #E8E6E0;
-            --accent-sage: #7A9E7E;
+            --text-main: #111111;
+            --text-secondary: #4A4A45;
+            --border-color: #D1CFC7;
+            --accent-sage: #388042;
             --font-family: 'Inter', sans-serif;
             --transition: 200ms ease-out;
         }
