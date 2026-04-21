@@ -14,9 +14,9 @@ class EmployeeUserSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            "name"=>"employee"  , 
+            "name"=>"employee@gmail.com"  , 
             "email"=>"employee@gmail.com" , 
-            "password"=>"employeeadmin" , 
+            "password"=>"employee@gmail.com" , 
             "role"=> "employee", 
         ]); 
     }

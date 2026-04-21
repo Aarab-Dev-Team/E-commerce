@@ -50,19 +50,19 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::middleware(['auth' , "role:admin"])->prefix("admin")->group(function(){
-        Route::get('/products' ,ProductController::class.'@index' )->name('admin.products.index') ; 
-        Route::get('/products/create' , ProductController::class.'@create')->name('admin.products.create') ; 
-        Route::post('/products' , [ProductController::class , "store"])->name('admin.products.store') ; 
+// Route::middleware(['auth' , "role:admin"])->prefix("admin")->group(function(){
+//         Route::get('/products' ,ProductController::class.'@index' )->name('admin.products.index') ; 
+//         Route::get('/products/create' , ProductController::class.'@create')->name('admin.products.create') ; 
+//         Route::post('/products' , [ProductController::class , "store"])->name('admin.products.store') ; 
 
-        Route::get('/products/{id}/edit' , [ProductController::class , "edit"])->name('admin.products.edit') ; 
-        Route::put('/products/{product}' , [ProductController::class , "update"])->name('admin.products.update') ; 
-        Route::delete('/products/{product}' , [ProductController::class , "destroy"])->name('admin.products.destroy');
+//         Route::get('/products/{id}/edit' , [ProductController::class , "edit"])->name('admin.products.edit') ; 
+//         Route::put('/products/{product}' , [ProductController::class , "update"])->name('admin.products.update') ; 
+//         Route::delete('/products/{product}' , [ProductController::class , "destroy"])->name('admin.products.destroy');
 
-        Route::get('/orders', [\App\Http\Controller\Admin\OrderController::class , "index"])->name('admin.orders.index') ; 
-        Route::patch('/orders/{order}/status' , [\App\Http\Controller\Admin\OrderController::class , "updateStatus"])->name('admin.orders.status');
-})
-;
+//         Route::get('/orders', [\App\Http\Controller\Admin\OrderController::class , "index"])->name('admin.orders.index') ; 
+//         Route::patch('/orders/{order}/status' , [\App\Http\Controller\Admin\OrderController::class , "updateStatus"])->name('admin.orders.status');
+// })
+// ;
 
 
 // Route::resource('shop',\App\Http\Controllers\ProductController::class) ; 
@@ -106,7 +106,7 @@ Route::get('/product/{slug}', [\App\Http\Controllers\ProductController::class, '
 
 
 // ====================================================================
-// Employee
+// Employee and Admin
 // =====================================================================
 
 Route::middleware(['auth', "role:admin,employee"])->prefix('admin')->name('admin.')->group(function(){
