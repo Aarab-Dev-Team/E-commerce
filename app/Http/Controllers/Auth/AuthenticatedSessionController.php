@@ -28,9 +28,15 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if($request->user()->role==="admin"){
-            return redirect()->route('admin.products.index') ; 
+
+        $user = $request->user();
+
+        // Redirect based on role
+        if (in_array($user->role, ['admin', 'employee'])) {
+            return redirect()->route('admin.dashboard');
         }
+
+        // Default (customer)
 
         return redirect()->intended(route('shop.catalog'));
     }
