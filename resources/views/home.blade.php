@@ -144,36 +144,49 @@
     </section>
 
     {{-- ========== TRUST SIGNALS ========== --}}
-    <section class="container">
-        <div class="trust-grid">
+
+
+     <section class="container">
+        <div class="trust-grid ">
             <div class="trust-item">
-                <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                    <path class="organic-path" d="M12,24 C18,12 36,12 36,12 C36,12 36,30 24,36 C16,40 12,32 12,24 Z" />
-                    <path class="organic-path" d="M12,24 C20,28 28,30 36,12" opacity="0.5" />
+                <svg class="sketch-icon" viewBox="0 0 48 48" stroke="var(--text-main)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 16 L23.5 25.5 L43.5 15.5" />
+                    <path d="M4 16 L24 6.5 L44 15.5 M4 16 L4.5 32.5 L23.5 42 L43.5 32 L44 15.5" />
+                    <path d="M23.5 25.5 L23.5 42" />
+                    <path d="M4 16 L24 6.5 L44 15.5 L23.5 25.5 Z" fill="var(--accent-sand)" fill-opacity="0.15" stroke="none"/>
                 </svg>
                 <h3>Conscious delivery</h3>
-                <p>Carbon-neutral shipping in recyclable packaging.</p>
+                <p>Carbon-neutral shipping in fully recyclable, unbleached packaging.</p>
             </div>
+
             <div class="trust-item">
-                <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                    <rect class="organic-path" x="14" y="22" width="20" height="16" rx="2" />
-                    <path class="organic-path" d="M18,22 C18,16 20,12 24,12 C28,12 30,16 30,22" />
-                    <circle cx="24" cy="30" r="1.5" class="organic-path" />
+                <svg class="sketch-icon" viewBox="0 0 48 48" stroke="var(--text-main)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 22 C14 12, 16 6, 24 6 C32 6, 34 12, 34 22" />
+                    <path d="M10 22 L38 21.5 L39 42 L9 42.5 Z" />
+                    <circle cx="24" cy="32" r="2.5" />
+                    <path d="M24 34.5 L24 38" />
+                    <path d="M10 22 L38 21.5 L39 42 L9 42.5 Z" fill="var(--accent-sage)" fill-opacity="0.15" stroke="none"/>
                 </svg>
                 <h3>Secure transaction</h3>
-                <p>Encrypted payment, privacy protected.</p>
+                <p>Encrypted payment gateways ensuring your data remains private.</p>
             </div>
+
             <div class="trust-item">
-                <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                    <path class="organic-path" d="M14,24 C14,14 24,10 32,16 C38,20 36,32 26,36 C20,38 12,34 12,26" />
-                    <path class="organic-path" d="M12,26 L12,18" />
-                    <path class="organic-path" d="M12,26 L20,24" />
+                <svg class="sketch-icon" viewBox="0 0 48 48" stroke="var(--text-main)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="24" cy="24" r="16" fill="var(--accent-sage)" fill-opacity="0.15" stroke="none" />
+                    
+                    <path d="M36 24c0-6.6-5.4-12-12-12s-12 5.4-12 12 5.4 12 12 12c3.3 0 6.3-1.3 8.5-3.5" />
+                    
+                    <polyline points="26 38 32.5 31.5 26 25" />
                 </svg>
                 <h3>Mindful returns</h3>
-                <p>30-day policy, because fit matters.</p>
+                <p>30-day return policy to ensure the piece fits your space perfectly.</p>
             </div>
         </div>
-    </section>  
+    </section>
+
+    
+   
 
     {{-- ========== TESTIMONIAL ========== --}}
     <section class="testimonial-section">

@@ -303,7 +303,9 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 48px;
-    text-align: left;
+    text-align: center ;
+
+   
 }
 
 .trust-item svg {

@@ -81,7 +81,9 @@
             <div class="top-actions">
               
                 <div class="user-menu">
+                    <a href="{{ route('profile.edit') }}">
                     <i class="iconoir-user"></i>
+                    </a>
                 </div>
             </div>
         </header>

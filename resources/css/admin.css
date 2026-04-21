@@ -22,6 +22,9 @@
     
     --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.05);
     --transition-smooth: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+
+    
 }
 
 * {
@@ -81,7 +84,7 @@ p { color: var(--text-secondary); margin-bottom: 16px; font-weight: 300; }
 
 .top-bar {
     height: 80px;
-    padding: 0 64px;
+    padding: 10px     64px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -90,6 +93,7 @@ p { color: var(--text-secondary); margin-bottom: 16px; font-weight: 300; }
     position: sticky;
     top: 0;
     z-index: 10;
+
 }
 
 .content-area {
@@ -356,7 +360,7 @@ td { font-weight: 300; }
     position: absolute;
     right: -10px;
     bottom: -10px;
-    opacity: 0.06;
+    opacity: 0.26;
     width: 120px;
     height: 120px;
     pointer-events: none;
@@ -422,8 +426,8 @@ input:focus, select:focus, textarea:focus {
 .page-num.active { color: var(--text-primary); font-weight: 400; border-bottom: 1px solid var(--text-primary); }
 
 /* Actions Cell */
-.actions-cell { display: flex; gap: 16px; align-items: center; }
-.action-icon { cursor: pointer; color: var(--text-secondary); transition: var(--transition-smooth); font-size: 16px; }
+/* .actions-cell { display: flex; gap: 16px; align-items: end; } */
+.action-icon { cursor: pointer; color: var(--text-secondary); transition: var(--transition-smooth); font-size: 18px; margin : 0 10px}
 .action-icon:hover { color: var(--text-primary); }
 .action-icon.danger:hover { color: var(--accent-terracotta); }
 
@@ -506,8 +510,8 @@ input:focus, select:focus, textarea:focus {
     width: 350px;
     height: 350px;
     pointer-events: none;
-    z-index: 0;
-    opacity: 0.12;
+    z-index: -10;
+    opacity: 0.72;
 }
 
 /* Tabs */
