@@ -17,16 +17,16 @@
     {{-- Core CSS Variables and Reset (matches profile.html) --}}
     <style>
         :root {
-            --bg-color: #EBE9E1;
+            --bg-color: #F5F4F0;
             --surface-color: #FFFFFF;
-            --text-main: #111111;
-            --text-secondary: #4A4A45;
-            --border-color: #D1CFC7;
-            --accent-clay: #D84315;
-            --accent-sage: #388042;
-            --accent-sand: #D19A29;
+            --text-main: #1A1A18;
+            --text-secondary: #6B6A66;
+            --border-color: #E8E6E0;
+            --accent-clay: #C4613A;
+            --accent-sage: #7A9E7E;
+            --accent-sand: #D4C5A9;
             --font-primary: 'DM Sans', sans-serif;
-            --transition-speed: 200ms;
+            --transition-speed: 150ms;
         }
 
         * {
@@ -119,7 +119,7 @@
         .avatar-small {
             width: 48px;
             height: 48px;
-            border-radius: 50%;
+            border-radius: 4px;
             background: var(--border-color);
             display: flex;
             align-items: center;
@@ -147,7 +147,7 @@
             padding: 12px 16px;
             text-decoration: none;
             color: var(--text-secondary);
-            border-radius: 6px;
+            border-radius: 4px;
             transition: var(--transition-speed);
         }
 

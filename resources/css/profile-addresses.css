@@ -92,7 +92,7 @@
 .address-card {
     background: var(--surface-color);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 24px;
     display: flex;
     flex-direction: column;
@@ -167,7 +167,7 @@
 }
 
 .action-link.danger {
-    color: #A34A4A;
+    color: var(--accent-clay);
 }
 
 .action-link.danger:hover {
@@ -184,7 +184,7 @@
     padding: 64px 24px;
     background: var(--surface-color);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 4px;
 }
 
 .empty-state i {
@@ -226,9 +226,9 @@
     width: 100%;
     max-width: 600px;
     max-height: 90vh;
-    border-radius: 8px;
+    border-radius: 4px;
     overflow-y: scroll;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     display: flex;
     flex-direction: column;
 }
@@ -343,7 +343,7 @@
     justify-content: flex-end;
     gap: 16px;
     background: #FDFDFD;
-    border-radius: 0 0 8px 8px;
+    border-radius: 0 0 4px 4px;
 }
 
 /* Responsive */

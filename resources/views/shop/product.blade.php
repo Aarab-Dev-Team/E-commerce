@@ -206,7 +206,7 @@
                                 ->exists();
                         @endphp
                         @if($reviewerPurchased)
-                            <span style="background: var(--accent-sage); color: white; font-size: 10px; padding: 2px 8px; border-radius: 20px; margin-left: 10px;">✓ VERIFIED BUYER</span>
+                            <span style="background: var(--accent-sage); color: white; font-size: 10px; padding: 2px 8px; border-radius: 4px; margin-left: 10px; opacity: 0.85;">✓ Verified buyer</span>
                         @endif
                     </div>
                     <span class="review-date">{{ $review->created_at->format('F d, Y') }}</span>
@@ -228,7 +228,7 @@
 @auth
 @if($canReview)
 <div id="reviewModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
-    <div style="background:var(--surface-color); padding:40px; border-radius:8px; max-width:500px; width:90%;">
+    <div style="background:var(--surface-color); padding:40px; border-radius:4px; max-width:500px; width:90%;">
         <h3>Share your perspective</h3>
         <form action="{{ route('reviews.store', $product->id) }}" method="POST">
             @csrf
@@ -273,7 +273,7 @@
     {{-- Review Modal (simplified) --}}
     @auth
     <div id="reviewModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
-        <div style="background:var(--surface-color); padding:40px; border-radius:8px; max-width:500px; width:90%;">
+        <div style="background:var(--surface-color); padding:40px; border-radius:4px; max-width:500px; width:90%;">
             <h3>Share your perspective</h3>
             {{-- {{ route('reviews.store', $product->id) }} --}}
             <form action="#" method="POST">

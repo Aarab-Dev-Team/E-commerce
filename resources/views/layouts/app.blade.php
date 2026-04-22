@@ -17,17 +17,17 @@
           variables 
            ========================================================================== */
         :root {
-            --bg-color: #EBE9E1;
+            --bg-color: #F5F4F0;
             --surface-color: #FFFFFF;
-            --text-main: #111111;
-            --text-secondary: #4A4A45;
-            --border-color: #D1CFC7;
-            --accent-clay: #D84315;
-            --accent-sage: #388042;
-            --accent-sand: #D19A29;
+            --text-main: #1A1A18;
+            --text-secondary: #6B6A66;
+            --border-color: #E8E6E0;
+            --accent-clay: #C4613A;
+            --accent-sage: #7A9E7E;
+            --accent-sand: #D4C5A9;
             --font-primary: 'DM Sans', sans-serif;
             --transition: all 150ms ease-out;
-            --shadow-subtle: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-subtle: 0 2px 8px rgba(0,0,0,0.06);
             --container-width: 1248px;
             --gutter: 24px;
 
@@ -299,7 +299,7 @@
             width: 16px;
             height: 16px;
             border: 1px solid var(--border-color);
-            border-radius: 4px;
+            border-radius: 2px;
             margin-right: 12px;
             background: var(--surface-color);
             transition: var(--transition);
@@ -356,7 +356,7 @@
         .product-card {
             background: var(--surface-color);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border-radius: 4px;
             overflow: hidden;
             transition: var(--transition);
             cursor: pointer;
@@ -399,7 +399,7 @@
             background: var(--text-main);
             color: var(--surface-color);
             border: none;
-            border-radius: 50%;
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -585,29 +585,29 @@
     background: var(--surface-color);
     color: var(--text-main);
     border: 1px solid var(--border-color);
-    border-radius: 50%;
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: var(--transition-speed);
+    transition: var(--transition));
     cursor: pointer;
     z-index: 5;
 }
 
 .wishlist-btn i {
     font-size: 18px;
-    transition: var(--transition-speed);
+    transition: var(--transition);
 }
 
 .wishlist-btn:hover {
-    color: #A34A4A;
-    border-color: #A34A4A;
+    color: var(--accent-clay);
+    border-color: var(--accent-clay);
 }
 
 .wishlist-btn.active {
-    background: #A34A4A;
+    background: var(--accent-clay);
     color: var(--surface-color);
-    border-color: #A34A4A;
+    border-color: var(--accent-clay);
 }
 
 .wishlist-btn.active i {

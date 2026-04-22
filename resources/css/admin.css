@@ -3,25 +3,25 @@
    ========================================================================== */
 
 :root {
-   --bg-base: #EBE9E1;
+   --bg-base: #F5F4F0;
     --bg-surface: #FFFFFF;
-    --text-primary: #111111;
-    --text-secondary: #4A4A45;
-    --border-subtle: #D1CFC7;
+    --text-primary: #1A1A18;
+    --text-secondary: #6B6A66;
+    --border-subtle: #E8E6E0;
     
-    /* Stronger Earthy Accents */
-    --accent-terracotta: #D84315;
-    --accent-sage: #388042;
-    --accent-sand: #D19A29;
+    /* Muted Earthy Accents */
+    --accent-terracotta: #C4613A;
+    --accent-sage: #7A9E7E;
+    --accent-sand: #D4C5A9;
     
-    --font-family: 'Inter', sans-serif;
+    --font-family: 'DM Sans', sans-serif;
     
-    --radius-sm: 4px;
-    --radius-md: 8px;
-    --radius-lg: 12px;
+    --radius-sm: 2px;
+    --radius-md: 4px;
+    --radius-lg: 4px;
     
     --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.05);
-    --transition-smooth: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-smooth: all 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
 
     
@@ -200,7 +200,7 @@ p { color: var(--text-secondary); margin-bottom: 16px; font-weight: 300; }
     justify-content: center;
     width: 36px;
     height: 36px;
-    border-radius: 50%;
+    border-radius: 4px;
     border: 1px solid var(--border-subtle);
     background-color: var(--bg-surface);
     cursor: pointer;
@@ -232,7 +232,7 @@ p { color: var(--text-secondary); margin-bottom: 16px; font-weight: 300; }
     justify-content: center;
     gap: 8px;
     padding: 12px 24px;
-    border-radius: 40px;
+    border-radius: 4px;
     font-family: var(--font-family);
     font-size: 14px;
     font-weight: 400;
@@ -304,12 +304,11 @@ td { font-weight: 300; }
 .badge {
     display: inline-flex;
     align-items: center;
-    padding: 4px 10px;
-    border-radius: 20px;
+    padding: 4px 8px;
+    border-radius: 4px;
     font-size: 11px;
     font-weight: 400;
     letter-spacing: 0.02em;
-    text-transform: lowercase;
 }
 
 .badge-pending { background-color: transparent; border: 1px solid var(--accent-sand); color: #8C7B5D; }
@@ -573,8 +572,8 @@ input:focus, select:focus, textarea:focus {
     font-size: 15px;
     background-color: var(--border-subtle);
     color: var(--text-primary);
-    padding: 4px 12px;
-    border-radius: 20px;
+    padding: 4px 10px;
+    border-radius: 4px;
     margin-left: 12px;
 }
 
@@ -596,13 +595,13 @@ input:focus, select:focus, textarea:focus {
 .btn-icon {
     width: 32px;
     height: 32px;
-    border-radius: 8px;
+    border-radius: 4px;
     border: 1px solid var(--border-subtle);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--text-primary);
-    transition: all 0.2s;
+    transition: all 0.15s;
     background: transparent;
     cursor: pointer;
 }
@@ -650,7 +649,7 @@ input:focus, select:focus, textarea:focus {
     color: var(--text-primary);
     padding: 8px 12px;
     background-color: var(--bg-base);
-    border-radius: 6px;
+    border-radius: 4px;
     border: 1px solid var(--border-subtle);
 }
 

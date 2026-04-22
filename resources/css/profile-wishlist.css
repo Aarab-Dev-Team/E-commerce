@@ -30,7 +30,7 @@
 .wishlist-card {
     background: var(--surface-color);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 4px;
     overflow: hidden;
     transition: var(--transition-speed);
     display: flex;
@@ -72,7 +72,7 @@
     right: 12px;
     width: 32px;
     height: 32px;
-    border-radius: 50%;
+    border-radius: 4px;
     background: var(--surface-color);
     border: 1px solid var(--border-color);
     color: var(--text-secondary);
@@ -89,8 +89,8 @@
 }
 
 .btn-remove:hover {
-    color: #A34A4A;
-    border-color: #A34A4A;
+    color: var(--accent-clay);
+    border-color: var(--accent-clay);
 }
 
 .product-info {
@@ -125,7 +125,7 @@
     padding: 80px 24px;
     background: var(--surface-color);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 4px;
 }
 
 .empty-state i {

@@ -57,9 +57,9 @@
                 <tr>
                     <td>
                         <div class="product-cell" style="display: flex; align-items: center; gap: 12px;">
-                            <div class="avatar-img" style="width: 32px; height: 32px; border-radius: 6px; background: #F0EBF8; display: flex; align-items: center; justify-content: center;">
+                            <div class="avatar-img" style="width: 32px; height: 32px; border-radius: 4px; background: var(--bg-base); display: flex; align-items: center; justify-content: center;">
                                 @if($product->images && isset($product->images[0]))
-                                    <img src="{{ asset('storage/' . $product->images[0]) }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">
+                                    <img src="{{ asset('storage/' . $product->images[0]) }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
                                 @else
                                     <i class="iconoir-image" style="color: var(--text-muted);"></i>
                                 @endif

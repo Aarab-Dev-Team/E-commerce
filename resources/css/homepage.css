@@ -107,7 +107,7 @@
 .category-image {
     background: var(--surface-color);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 4px;
     height: 380px;
     display: flex;
     align-items: center;
@@ -181,7 +181,7 @@
 .product-card {
     background: var(--surface-color);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 4px;
     overflow: hidden;
     transition: var(--transition-speed);
     cursor: pointer;
@@ -217,7 +217,7 @@
     background: var(--text-main);
     color: var(--surface-color);
     border: none;
-    border-radius: 50%;
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;

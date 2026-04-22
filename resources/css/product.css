@@ -26,9 +26,9 @@
 
 .product-page .main-image {
     height: 600px;
-    border-radius: 8px;
+    border-radius: 4px;
     overflow: hidden;
-    background: #EFEFEA;
+    background: var(--bg-color);
 }
 
 .product-page .main-image img {
@@ -285,7 +285,7 @@
 .product-page .related-products-grid .product-image-container {
     height: 280px;
     margin-bottom: 16px;
-    border-radius: 8px;
+    border-radius: 4px;
     background-color: var(--surface-color);
     border: 1px solid var(--border-color);
 }

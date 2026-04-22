@@ -51,16 +51,15 @@
 .info-card {
   background: var(--surface-color);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 24px;
 }
 
 .info-card h2 {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   margin-bottom: 16px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   color: var(--text-secondary);
 }
 
@@ -107,7 +106,7 @@
 .items-section {
   background: var(--surface-color);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 32px;
   margin-bottom: 40px;
 }

@@ -8,13 +8,12 @@
 
 /* Status Badge */
 .badge {
-  padding: 6px 16px;
-  border-radius: 20px;
+  padding: 4px 10px;
+  border-radius: 4px;
   font-size: 0.875rem;
   font-weight: 500;
   display: inline-block;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.02em;
 }
 
 .badge-shipped { background: #EAE6DF; color: #5C5852; }
@@ -80,7 +79,7 @@
 .card {
   background: var(--surface-color);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 32px;
 }
 
@@ -142,7 +141,7 @@
 .step-dot {
   width: 24px;
   height: 24px;
-  border-radius: 50%;
+  border-radius: 4px;
   background: var(--bg-color);
   border: 1px solid var(--border-color);
   display: flex;
@@ -193,7 +192,7 @@
   height: 96px;
   background: var(--bg-color);
   border: 1px solid var(--border-color);
-  border-radius: 6px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -323,7 +322,7 @@
 /* Support Box */
 .support-box {
   background: var(--bg-color);
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 24px;
   text-align: center;
 }

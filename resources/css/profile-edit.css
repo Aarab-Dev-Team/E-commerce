@@ -5,7 +5,7 @@
 .profile-card {
     background: var(--surface-color);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 4px;
     padding: 40px;
 }
 
@@ -49,7 +49,7 @@
 .form-control {
     padding: 14px 16px;
     border: 1px solid var(--border-color);
-    border-radius: 6px;
+    border-radius: 4px;
     font-family: inherit;
     font-size: 1rem;
     background: transparent;
@@ -78,7 +78,7 @@
 .avatar-large {
     width: 96px;
     height: 96px;
-    border-radius: 50%;
+    border-radius: 4px;
     background: var(--bg-color);
     border: 1px solid var(--border-color);
     display: flex;
@@ -96,7 +96,7 @@
 /* Buttons */
 .btn {
     padding: 14px 24px;
-    border-radius: 6px;
+    border-radius: 4px;
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
@@ -150,7 +150,7 @@
 
 .address-card {
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 24px;
 }
 

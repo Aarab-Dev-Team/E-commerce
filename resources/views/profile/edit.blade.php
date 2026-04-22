@@ -14,7 +14,7 @@
 
     {{-- Success Messages --}}
     @if(session('success'))
-        <div style="background: var(--accent-sage); color: white; padding: 16px; border-radius: 6px; margin-bottom: 20px;">
+        <div style="background: var(--alert-success-bg, #E2EAE3); color: var(--alert-success-text, #4A7052); border: 1px solid var(--alert-success-border, #B8D1BE); padding: 14px 16px; border-radius: 4px; margin-bottom: 20px; font-size: 14px;">
             {{ session('success') }}
         </div>
     @endif

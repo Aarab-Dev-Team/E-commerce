@@ -7,19 +7,19 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css">
     
        <style>
         :root {
-            --bg-color: #EBE9E1;
+            --bg-color: #F5F4F0;
             --surface-color: #FFFFFF;
-            --text-main: #111111;
-            --text-secondary: #4A4A45;
-            --border-color: #D1CFC7;
-            --accent-sage: #388042;
-            --font-family: 'Inter', sans-serif;
-            --transition: 200ms ease-out;
+            --text-main: #1A1A18;
+            --text-secondary: #6B6A66;
+            --border-color: #E8E6E0;
+            --accent-sage: #7A9E7E;
+            --font-family: 'DM Sans', sans-serif;
+            --transition: 150ms ease-out;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -68,7 +68,7 @@
             width: 100%;
             max-width: 440px;
             padding: 48px;
-            border-radius: 8px;
+            border-radius: 4px;
             border: 1px solid var(--border-color);
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
