@@ -14,7 +14,7 @@
             <label for="name">Full name</label>
             <input id="name" type="text" name="name" value="{{ old('name') }}" placeholder="Arlo Jensen" required>
             @error('name')
-                <span style="color: var(--accent-terracotta); font-size: 12px;">{{ $message }}</span>
+                <span style="color: red; font-weight: 500; font-size: 12px;">{{ $message }}</span>
             @enderror
         </div>
 
@@ -23,7 +23,7 @@
             <label for="email">Email address</label>
             <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="name@email.com" required>
             @error('email')
-                <span style="color: var(--accent-terracotta); font-size: 12px;">{{ $message }}</span>
+                <span style="color: red; font-weight: 500; font-size: 12px;">{{ $message }}</span>
             @enderror
         </div>
 
@@ -32,7 +32,7 @@
             <label for="password">Password</label>
             <input id="password" type="password" name="password" placeholder="Min. 8 characters" required>
             @error('password')
-                <span style="color: var(--accent-terracotta); font-size: 12px;">{{ $message }}</span>
+                <span style="color: red; font-weight: 500; font-size: 12px;">{{ $message }}</span>
             @enderror
         </div>
 
@@ -43,10 +43,13 @@
         </div>
 
         <label class="checkbox-container" style="margin-bottom: 24px;">
-            <input type="checkbox" name="terms" required>
+            <input type="checkbox" name="terms">
             <div class="custom-check"></div>
             <span style="line-height: 1.4;">I agree to the <a href="#" class="text-link">Terms of Service</a> and <a href="#" class="text-link">Privacy Policy</a></span>
         </label>
+        @error('terms')
+            <p style="color:red; font-size: 12px; font-weight: 500;">{{ $message }}</p>
+        @enderror
 
         <button type="submit" class="btn-submit">Create account</button>
     </form>
