@@ -4,7 +4,7 @@
 
         <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 8px;">
             <h2 style="margin: 0;" id="modal-order-number">#ORD-1234</h2>
-            <span class="badge badge-pending" id="modal-status-badge">pending</span>
+            <span class="badge badge-pending" id="modal-status-badge">Pending</span>
         </div>
         <p style="margin-bottom: 40px;" id="modal-order-date">Placed on ...</p>
 
@@ -22,7 +22,7 @@
         </div>
 
         <h3 style="margin-bottom: 16px;">Items</h3>
-        <div style="border: 1px solid var(--border-subtle); border-radius: var(--radius-md); margin-bottom: 32px;">
+        <div style="border: 1px solid var(--border-subtle); border-radius: 4px; margin-bottom: 32px;">
             <table style="margin-bottom: 0;">
                 <thead style="border-bottom: 1px solid var(--border-subtle);">
                     <tr>
@@ -35,7 +35,7 @@
                     {{-- Filled by JavaScript --}}
                 </tbody>
             </table>
-            <div style="padding: 16px; background-color: #FAFAF8; border-top: 1px solid var(--border-subtle);">
+            <div style="padding: 16px; background-color: var(--bg-base); border-top: 1px solid var(--border-subtle);">
                 <div style="display: flex; justify-content: space-between; font-weight: 400;">
                     <span>Subtotal <span id="modal-total-items"></span></span>
                     <span id="modal-subtotal">$0.00</span>
@@ -56,6 +56,7 @@
             <p id="modal-payment-method">—</p>
         </div>
 
+        {{-- Status update (both roles) --}}
         <form id="status-update-form" method="POST" style="margin-top: 32px;">
             @csrf
             @method('PUT')
@@ -69,9 +70,20 @@
                         <option value="delivered">Delivered</option>
                         <option value="cancelled">Cancelled</option>
                     </select>
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn btn-primary">Update status</button>
                 </div>
             </div>
         </form>
+
+        {{-- Admin-only delete --}}
+        @if(auth()->user()->role === 'admin')
+        <form id="modal-delete-form" method="POST" style="margin-top: 16px;" onsubmit="return confirm('Permanently delete this order? This cannot be undone.')">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-ghost" style="color: var(--accent-clay); border-color: var(--accent-clay);">
+                <i class="iconoir-trash" style="margin-right: 6px;"></i>Delete order
+            </button>
+        </form>
+        @endif
     </div>
 </div>

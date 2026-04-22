@@ -4,73 +4,135 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Product ; 
-
+use App\Models\Product;
 
 class ApprovalController extends Controller
 {
-      public function index(Request $request)
+    /**
+     * Both admins and employees can view the queue.
+     * Employees see all pending items (including their own).
+     */
+    public function index(Request $request)
     {
         $query = Product::where('pending_status', '!=', 'approved')
             ->with('category');
 
-        // فلترة حسب النوع
+        // Filter by request type
         if ($request->filled('type')) {
             $query->where('pending_status', 'pending_' . $request->type);
         }
 
-        $products = $query->latest()->paginate(10);
+        $products = $query->latest()->paginate(10)->withQueryString();
 
-        return view('admin.approvals.index', compact('products'));
+        // Pending counts for the badge
+        $pendingCount = Product::where('pending_status', '!=', 'approved')->count();
+
+        return view('admin.approvals.index', compact('products', 'pendingCount'));
     }
 
+    /**
+     * Show diff data for a pending update — admin only.
+     */
+    public function show(Product $product)
+    {
+        if (auth()->user()->role !== 'admin') {
+            abort(403);
+        }
+
+        return response()->json([
+            'product'      => $product,
+            'pending_data' => $product->pending_data,
+            'original_data' => $product->original_data,
+        ]);
+    }
+
+    /**
+     * Approve a pending product action — admin only.
+     */
     public function approve(Product $product)
     {
-        if (auth()->user()->role !== 'admin') abort(403);
+        if (auth()->user()->role !== 'admin') {
+            abort(403);
+        }
 
         switch ($product->pending_status) {
             case 'pending_creation':
                 $product->update(['is_active' => true, 'pending_status' => 'approved']);
+                $message = 'Product approved and is now live.';
                 break;
+
             case 'pending_update':
-                $product->update($product->pending_data);
-                $product->update(['pending_status' => 'approved', 'pending_data' => null, 'original_data' => null]);
+                $pendingData = $product->pending_data;
+                if ($pendingData) {
+                    $product->update($pendingData);
+                }
+                $product->update([
+                    'pending_status' => 'approved',
+                    'pending_data'   => null,
+                    'original_data'  => null,
+                ]);
+                $message = 'Product update approved and applied.';
                 break;
+
             case 'pending_deletion':
+                $productName = $product->name;
                 $product->delete();
-                break;
+                return redirect()->route('admin.approvals.index')->with('alert', [
+                    'type'    => 'success',
+                    'message' => '"' . $productName . '" has been permanently deleted.',
+                ]);
         }
 
-        return back()->with('success', 'Product approved.');
+        return redirect()->route('admin.approvals.index')->with('alert', [
+            'type'    => 'success',
+            'message' => $message ?? 'Approved.',
+        ]);
     }
 
+    /**
+     * Reject a pending product action — admin only.
+     */
     public function reject(Product $product)
     {
-        if (auth()->user()->role !== 'admin') abort(403);
-
-        if ($product->pending_status === 'pending_update' && $product->original_data) {
-            $product->update($product->original_data);
-        }
-        if ($product->pending_status === 'pending_deletion') {
-            $product->update(['is_active' => true]);
-        }
-        if ($product->pending_status === 'pending_creation') {
-            $product->delete();
-            return back()->with('success', 'Product creation rejected.');
+        if (auth()->user()->role !== 'admin') {
+            abort(403);
         }
 
-        $product->update(['pending_status' => 'approved', 'pending_data' => null, 'original_data' => null]);
+        switch ($product->pending_status) {
+            case 'pending_creation':
+                $product->delete();
+                return redirect()->route('admin.approvals.index')->with('alert', [
+                    'type'    => 'success',
+                    'message' => 'Product creation rejected and removed.',
+                ]);
 
-        return back()->with('success', 'Changes rejected.');
-    }
+            case 'pending_update':
+                if ($product->original_data) {
+                    $product->update($product->original_data);
+                }
+                $product->update([
+                    'pending_status' => 'approved',
+                    'pending_data'   => null,
+                    'original_data'  => null,
+                ]);
+                $message = 'Update rejected. Original data restored.';
+                break;
 
-    public function show(Product $product)
-    {
-        if (auth()->user()->role !== 'admin') abort(403);
-        return response()->json([
-            'product' => $product,
-            'pending_data' => $product->pending_data,
-            'original_data' => $product->original_data,
+            case 'pending_deletion':
+                $product->update([
+                    'is_active'      => true,
+                    'pending_status' => 'approved',
+                ]);
+                $message = 'Deletion rejected. Product reactivated.';
+                break;
+
+            default:
+                $message = 'Request rejected.';
+        }
+
+        return redirect()->route('admin.approvals.index')->with('alert', [
+            'type'    => 'success',
+            'message' => $message,
         ]);
     }
 }

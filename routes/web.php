@@ -109,29 +109,27 @@ Route::middleware(['auth', 'role:admin,employee'])->prefix('admin')->name('admin
     // Products (employee can manage, but publish requires admin approval - handled in controller logic)
     Route::resource('products', AdminProductController::class);
 
-    // Orders (view & update status)
-    Route::resource('orders', AdminOrderController::class)->only(['index', 'show', 'update']);
+    // Orders (view & update status — both roles; delete admin-only via controller guard)
+    Route::resource('orders', AdminOrderController::class)->only(['index', 'show', 'update', 'destroy']);
     Route::patch('orders/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.status');
 
-    // Categories (admin only? We'll restrict via middleware later, but for simplicity, employee may view)
+    // Approvals — both roles can VIEW the queue; approve/reject guarded in controller
+    Route::prefix('approvals')->name('approvals.')->group(function () {
+        Route::get('/', [ApprovalController::class, 'index'])->name('index');
+        Route::get('/{product}', [ApprovalController::class, 'show'])->name('show');
+        Route::post('/{product}/approve', [ApprovalController::class, 'approve'])->name('approve');
+        Route::post('/{product}/reject', [ApprovalController::class, 'reject'])->name('reject');
+    });
+
+    // Categories (admin only)
     Route::resource('categories', CategoryController::class)->except(['show', 'create', 'edit']);
 
-    // Users (admin only)
+    // Users & Settings (admin only)
     Route::middleware('role:admin')->group(function () {
         Route::get('users', [UserController::class, 'index'])->name('users.index');
         Route::patch('users/{user}/role', [UserController::class, 'updateRole'])->name('users.role');
         Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
         Route::post('settings', [SettingsController::class, 'update'])->name('settings.update');
-
-        //approve/reject actions  : 
-        Route::prefix('admin/approvals')->name('approvals.')->group(function () {
-            Route::get('/', [ApprovalController::class, 'index'])->name('index');
-            Route::get('/{product}', [ApprovalController::class, 'show'])->name('show');
-            Route::post('/{product}/approve', [ApprovalController::class, 'approve'])->name('approve');
-            Route::post('/{product}/reject', [ApprovalController::class, 'reject'])->name('reject');
-        });
-
-
     });
 });
 

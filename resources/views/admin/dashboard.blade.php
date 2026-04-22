@@ -1,14 +1,17 @@
 @extends('layouts.admin')
 
 @section('title', 'Dashboard — Aura. Admin')
-
 @section('page-title', 'Overview')
 
 @section('content')
 <div class="page">
     <div class="section-header">
         <div>
-            <h1>Employee dashboard</h1>
+            @if(auth()->user()->role === 'admin')
+                <h1>Admin dashboard</h1>
+            @else
+                <h1>Employee workspace</h1>
+            @endif
             <p>A summary of recent activity and store metrics.</p>
         </div>
         <div style="display: flex; gap: 12px; z-index: 1;">
@@ -48,9 +51,25 @@
                 <path d="M50,80 C20,80 20,40 50,20 C80,40 80,80 50,80 Z M50,20 L50,80" fill="none" stroke="var(--text-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </div>
+        {{-- Admin-only: pending approvals card --}}
+        @if(auth()->user()->role === 'admin')
+        <div class="card" style="border-left: 3px solid var(--accent-clay);">
+            <div class="stat-label">Pending approvals</div>
+            <div class="stat-value">{{ $pendingApprovals }}</div>
+            @if($pendingApprovals > 0)
+                <a href="{{ route('admin.approvals.index') }}" style="font-size: 12px; color: var(--accent-clay); text-decoration: none; display: inline-block; margin-top: 8px;">
+                    Review now →
+                </a>
+            @endif
+            <svg class="card-svg-bg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50,20 L50,50 M50,65 L50,70" fill="none" stroke="var(--text-primary)" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="50" cy="50" r="35" fill="none" stroke="var(--text-primary)" stroke-width="1.5"/>
+            </svg>
+        </div>
+        @endif
     </div>
 
-    <h3>Recent orders</h3>
+    <h3 style="margin-top: 48px; margin-bottom: 16px;">Recent orders</h3>
     <div class="table-wrapper">
         <table>
             <thead>
@@ -66,7 +85,7 @@
             <tbody>
                 @forelse($recentOrders as $order)
                 <tr>
-                    <td>#{{ $order->order_number }}</td>
+                    <td style="font-weight: 500;">#{{ $order->order_number }}</td>
                     <td>{{ $order->user->name ?? 'Guest' }}</td>
                     <td>{{ $order->created_at->format('M d, Y') }}</td>
                     <td>${{ number_format($order->total_amount, 2) }}</td>
@@ -76,18 +95,18 @@
                         </span>
                     </td>
                     <td>
-                        <a href="{{ route('admin.orders.show', $order) }}" class="table-link">View</a>
+                        <a href="{{ route('admin.orders.index') }}" class="table-link">View</a>
                     </td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="6" style="text-align: center;">No orders found.</td>
+                    <td colspan="6" style="text-align: center; padding: 40px; color: var(--text-muted);">No orders found.</td>
                 </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
 
-    <a href="{{ route('admin.orders.index') }}" class="table-link" style="font-size: 13px;">View all orders →</a>
+    <a href="{{ route('admin.orders.index') }}" class="table-link" style="font-size: 13px; display: inline-block; margin-top: 16px;">View all orders →</a>
 </div>
 @endsection
