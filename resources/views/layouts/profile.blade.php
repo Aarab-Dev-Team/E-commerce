@@ -65,12 +65,10 @@
 
         /* Header */
         .profile-header {
-            padding: 40px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            
             border-bottom: 1px solid var(--border-color);
             margin-bottom: 64px;
+            
         }
 
         .logo {
@@ -232,14 +230,28 @@
 
     <div class="container">
         {{-- Header --}}
-        <header class="profile-header">
-            <a href="{{ url('/') }}" class="logo">Aura.</a>
-            <nav class="header-nav">
-                <a href="{{ route('shop.catalog') }}">Shop</a>
-                <a href="#">Journal</a>
-                <a href="{{ route('cart.index') }}"><i class="iconoir-cart"></i> Cart</a>
-                <a href="{{ route('profile.edit') }}"><i class="iconoir-user"></i> Profile</a>
-            </nav>
+        <header class="profile-header" >
+
+            <div style="display:flex ; justify-content:space-between ; align-items:center ; padding : 40px 0" >
+                <a href="{{ url('/') }}" class="logo">Aura.</a>
+                <nav class="header-nav">
+                    <a href="{{ route('shop.catalog') }}">Shop</a>
+                    <a href="#">Journal</a>
+                    <a href="{{ route('cart.index') }}"><i class="iconoir-cart"></i> Cart</a>
+                    <a href="{{ route('profile.edit') }}"><i class="iconoir-user"></i> Profile</a>
+                </nav>
+
+            </div>
+
+             {{-- Alert Container --}}
+            @if(session('alert'))
+                <div class="container" style="margin-top: 20px;">
+                    <x-alert :type="session('alert')['type']" 
+                            :message="session('alert')['message']" 
+                            :icon="session('alert')['icon'] ?? null" />
+                </div>
+            @endif
+            
         </header>
 
         {{-- Main Layout with Sidebar and Content --}}

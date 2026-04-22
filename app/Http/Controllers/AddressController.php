@@ -66,6 +66,8 @@ class AddressController extends Controller
         return redirect()->route('profile.addresses.index')->with('success', 'Address saved successfully.');
     }
 
+
+        
     /**
      * Update the specified address.
      */

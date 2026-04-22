@@ -13,7 +13,7 @@
 <div x-data="{ show: true }" x-show="show" x-transition.duration.300ms
      class="alert alert-{{ $type }}"
      style="display: flex; align-items: center; justify-content: space-between; 
-            padding: 16px 20px; border-radius: 8px; ;
+            padding: 16px 20px ;
             background-color: var(--alert-bg, #f0f0f0); 
             color: var(--alert-text, #1a1a1a);
         

@@ -74,19 +74,35 @@
 
     {{-- Main Content Wrapper --}}
     <div class="main-wrapper">
+
         {{-- Top Bar --}}
         <header class="top-bar">
-            <div class="page-title-display">@yield('page-title', 'Overview')</div>
+            <div  style="display:flex ; justify-content:space-between; align-items:center ; padding : 10px 64px">
+                <div class="page-title-display">@yield('page-title', 'Overview')</div>
 
-            <div class="top-actions">
-              
-                <div class="user-menu">
-                    <a href="{{ route('profile.edit') }}">
-                    <i class="iconoir-user"></i>
-                    </a>
+                <div class="top-actions">
+                
+                    <div class="user-menu">
+                        <a href="{{ route('profile.edit') }}">
+                        <i class="iconoir-user"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
+
+            
+             {{-- Alert Container --}}
+            @if(session('alert'))
+                <div >
+                    <x-alert :type="session('alert')['type']" 
+                            :message="session('alert')['message']" 
+                            :icon="session('alert')['icon'] ?? null" />
+                </div>
+            @endif
+ 
         </header>
+
+        
 
         {{-- Dynamic Content Area --}}
         <main class="content-area">

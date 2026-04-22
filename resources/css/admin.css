@@ -84,10 +84,6 @@ p { color: var(--text-secondary); margin-bottom: 16px; font-weight: 300; }
 
 .top-bar {
     height: 80px;
-    padding: 10px     64px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     border-bottom: 1px solid var(--border-subtle);
     background-color: rgba(245, 244, 240, 0.95);
     position: sticky;

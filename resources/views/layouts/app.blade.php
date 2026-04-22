@@ -144,6 +144,7 @@
             top: 0;
             z-index: 100;
 
+
          
         }
 
@@ -153,6 +154,7 @@
             
             /* padding: 0px var(--gutter);   */
             padding: 24px 0;
+
 
         }
 
@@ -680,7 +682,7 @@
 
     {{-- Alert Container --}}
     @if(session('alert'))
-        <div class="container" style="margin-top: 20px;">
+        <div  ">
             <x-alert :type="session('alert')['type']" 
                      :message="session('alert')['message']" 
                      :icon="session('alert')['icon'] ?? null" />

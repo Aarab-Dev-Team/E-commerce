@@ -30,10 +30,18 @@
                 </div>
                 <div class="form-group">
                     <label>Status</label>
-                    <select name="is_active">
-                        <option value="1">Active</option>
-                        <option value="0">Inactive</option>
-                    </select>
+                    @if(auth()->user()->role === 'admin')
+                        <select name="is_active">
+                            <option value="1">Active</option>
+                            <option value="0">Inactive</option>
+                        </select>
+                    @else
+                        {{-- Employee: show readonly text and a hidden input to preserve value --}}
+                        <p style="padding: 12px 0; margin:0; border-bottom: 1px solid var(--border-subtle);">
+                            <span id="statusDisplay">Inactive</span>
+                        </p>
+                        <input type="hidden" name="Inactive" id="statusHidden" value="0">
+                    @endif
                 </div>
             </div>
 
