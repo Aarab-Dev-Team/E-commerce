@@ -17,20 +17,62 @@
           variables 
            ========================================================================== */
         :root {
-            --bg-color: #F5F4F0;
+            --bg-color: #EBE9E1;
             --surface-color: #FFFFFF;
-            --text-main: #1A1A18;
-            --text-secondary: #6B6A66;
-            --border-color: #E8E6E0;
-            --accent-clay: #C4613A;
-            --accent-sage: #7A9E7E;
-            --accent-sand: #D4C5A9;
+            --text-main: #111111;
+            --text-secondary: #4A4A45;
+            --border-color: #D1CFC7;
+            --accent-clay: #D84315;
+            --accent-sage: #388042;
+            --accent-sand: #D19A29;
             --font-primary: 'DM Sans', sans-serif;
             --transition: all 150ms ease-out;
-            --shadow-subtle: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-subtle: 0 2px 8px rgba(0,0,0,0.1);
             --container-width: 1248px;
             --gutter: 24px;
+
+
+            /* alert */
+                --alert-success-bg: #E2EAE3;
+                --alert-success-text: #4A7052;
+                --alert-success-border: #B8D1BE;
+                
+                --alert-error-bg: #F3E2DC;
+                --alert-error-text: #A34A28;
+                --alert-error-border: #E0B9AC;
+                
+                --alert-warning-bg: #F3EBE1;
+                --alert-warning-text: #9A7B4F;
+                --alert-warning-border: #DCC9B4;
+                
+                --alert-info-bg: #E8EAEA;
+                --alert-info-text: #5B6B6B;
+                --alert-info-border: #C5CBCB;
+            
         }
+
+
+        .alert-success {
+            --alert-bg: var(--alert-success-bg);
+            --alert-text: var(--alert-success-text);
+            --alert-border: var(--alert-success-border);
+        }
+        .alert-error {
+            --alert-bg: var(--alert-error-bg);
+            --alert-text: var(--alert-error-text);
+            --alert-border: var(--alert-error-border);
+        }
+        .alert-warning {
+            --alert-bg: var(--alert-warning-bg);
+            --alert-text: var(--alert-warning-text);
+            --alert-border: var(--alert-warning-border);
+        }
+        .alert-info {
+            --alert-bg: var(--alert-info-bg);
+            --alert-text: var(--alert-info-text);
+            --alert-border: var(--alert-info-border);
+        }
+
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -98,16 +140,20 @@
         .main-header {
             background-color: rgba(245, 244, 240, 0.98);
             border-bottom: 1px solid var(--border-color);
-            padding: 24px 0;
             position: sticky;
             top: 0;
             z-index: 100;
+
+         
         }
 
         .header-container {
             max-width: var(--container-width);
             margin: 0 auto;
-            padding: 0px var(--gutter);  
+            
+            /* padding: 0px var(--gutter);   */
+            padding: 24px 0;
+
         }
 
         .main-header .header-container {
@@ -600,37 +646,50 @@
         </div>
     </div>
 
-    <header class="main-header">
-    <div class="header-container">
-        <a href="{{ url('/') }}" class="logo">Aura.</a>
-        
-        <nav class="nav-links">
-            <a href="{{ route('shop.catalog') }}" class="{{ request()->routeIs('shop.catalog') ? 'active' : '' }}">Shop</a>
-            <a href="#">Editorial</a>
-        </nav>
+    <header class="main-header" >
+        <div class="header-container">
+            <a href="{{ url('/') }}" class="logo">Aura.</a>
+            
+            <nav class="nav-links">
+                <a href="{{ route('shop.catalog') }}" class="{{ request()->routeIs('shop.catalog') ? 'active' : '' }}">Shop</a>
+                <a href="#">Editorial</a>
+            </nav>
 
-        <div class="search-bar">
-            <i class="iconoir-search"></i>
-            <input type="text" placeholder="Search catalog...">
+            <div class="search-bar">
+                <i class="iconoir-search"></i>
+                <input type="text" placeholder="Search catalog...">
+            </div>
+
+            <div class="header-actions">
+                @auth
+                    <a href="{{ route('profile.edit') }}"><i class="iconoir-user"></i></a>
+                    <a href="{{ route('cart.index') }}"><i class="iconoir-shopping-bag"></i></a>
+                    <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+                        @csrf
+                        <button type="submit" style="background:none; border:none; cursor:pointer; padding:0;">
+                            <i class="iconoir-log-out"></i>
+                        </button>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}"><i class="iconoir-user"></i></a>
+                    <a href="{{ route('cart.index') }}"><i class="iconoir-shopping-bag"></i></a>
+                @endauth
+            </div>
         </div>
 
-        <div class="header-actions">
-            @auth
-                <a href="{{ route('profile.edit') }}"><i class="iconoir-user"></i></a>
-                <a href="{{ route('cart.index') }}"><i class="iconoir-shopping-bag"></i></a>
-                <form method="POST" action="{{ route('logout') }}" style="display:inline;">
-                    @csrf
-                    <button type="submit" style="background:none; border:none; cursor:pointer; padding:0;">
-                        <i class="iconoir-log-out"></i>
-                    </button>
-                </form>
-            @else
-                <a href="{{ route('login') }}"><i class="iconoir-user"></i></a>
-                <a href="{{ route('cart.index') }}"><i class="iconoir-shopping-bag"></i></a>
-            @endauth
+
+    {{-- Alert Container --}}
+    @if(session('alert'))
+        <div class="container" style="margin-top: 20px;">
+            <x-alert :type="session('alert')['type']" 
+                     :message="session('alert')['message']" 
+                     :icon="session('alert')['icon'] ?? null" />
         </div>
-    </div>
+    @endif
+
 </header>
+
+
 
     <main>
         @yield('content')

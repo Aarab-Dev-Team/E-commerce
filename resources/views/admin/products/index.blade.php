@@ -51,7 +51,7 @@
                     <td>
                         <div class="prod-thumb">
                             @if($product->images && isset($product->images[0]))
-                                <img src="{{ asset('storage/' . $product->images[0]) }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                <img src="{{ $product->images[0] }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: cover;">
                             @else
                                 <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
                             @endif
@@ -66,7 +66,7 @@
                             {{ $product->is_active ? 'active' : 'inactive' }}
                         </span>
                     </td>
-                    <td class="actions-cell">
+                    <td class="actions-cell" >
                         <i class="iconoir-edit action-icon" onclick="editProduct({{ $product }})"></i>
                         <form action="{{ route('admin.products.destroy', $product) }}" method="POST" onsubmit="return confirm('Delete this product?');" style="display: inline;">
                             @csrf

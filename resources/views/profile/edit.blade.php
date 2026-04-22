@@ -103,37 +103,44 @@
         </form>
     </section>
 
-    {{-- Saved Addresses Card --}}
-    <section class="profile-card">
-        <div class="profile-card-header" style="display: flex; justify-content: space-between; align-items: center;">
-            <div>
-                <h2>Saved addresses</h2>
-                <p>Where we send your orders.</p>
-            </div>
-            <button class="btn btn-ghost" style="padding: 8px 16px; font-size: 0.875rem;"><i class="iconoir-plus"></i> Add new</button>
-        </div>
 
-        <div class="address-grid">
-            @forelse(auth()->user()->addresses as $address)
-                <div class="address-card">
-                    <h3>{{ $address->type === 'shipping' ? 'Shipping' : 'Billing' }}</h3>
-                    <p>{{ $address->address_line_1 }}</p>
-                    @if($address->address_line_2)<p>{{ $address->address_line_2 }}</p>@endif
-                    <p>{{ $address->city }}, {{ $address->state }} {{ $address->postal_code }}</p>
-                    <p>{{ $address->country }}</p>
-                    <div class="address-actions">
-                        <a href="#">Edit</a>
-                        <form action="#" method="POST" style="display: inline;">
-                            @csrf @method('DELETE')
-                            <button type="submit" style="background: none; border: none; padding: 0;">Remove</button>
-                        </form>
+    @auth 
+
+        @if(auth()->user()->role==="customer")
+            {{-- Saved Addresses Card --}}
+            <section class="profile-card">
+                <div class="profile-card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h2>Saved addresses</h2>
+                        <p>Where we send your orders.</p>
                     </div>
+                    <button class="btn btn-ghost" style="padding: 8px 16px; font-size: 0.875rem;"><i class="iconoir-plus"></i> Add new</button>
                 </div>
-            @empty
-                <p>No saved addresses yet.</p>
-            @endforelse
-        </div>
-    </section>
+
+                <div class="address-grid">
+                    @forelse(auth()->user()->addresses as $address)
+                        <div class="address-card">
+                            <h3>{{ $address->type === 'shipping' ? 'Shipping' : 'Billing' }}</h3>
+                            <p>{{ $address->address_line_1 }}</p>
+                            @if($address->address_line_2)<p>{{ $address->address_line_2 }}</p>@endif
+                            <p>{{ $address->city }}, {{ $address->state }} {{ $address->postal_code }}</p>
+                            <p>{{ $address->country }}</p>
+                            <div class="address-actions">
+                                <a href="#">Edit</a>
+                                <form action="#" method="POST" style="display: inline;">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" style="background: none; border: none; padding: 0;">Remove</button>
+                                </form>
+                            </div>
+                        </div>
+                    @empty
+                        <p>No saved addresses yet.</p>
+                    @endforelse
+                </div>
+            </section>
+
+        @endif
+    @endauth
 
     {{-- Danger Zone --}}
     <section class="profile-card danger-zone">

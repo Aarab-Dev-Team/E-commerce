@@ -17,14 +17,14 @@
     {{-- Core CSS Variables and Reset (matches profile.html) --}}
     <style>
         :root {
-            --bg-color: #F5F4F0;
+            --bg-color: #EBE9E1;
             --surface-color: #FFFFFF;
-            --text-main: #1A1A18;
-            --text-secondary: #6B6A66;
-            --border-color: #E8E6E0;
-            --accent-clay: #C4613A;
-            --accent-sage: #7A9E7E;
-            --accent-sand: #D4C5A9;
+            --text-main: #111111;
+            --text-secondary: #4A4A45;
+            --border-color: #D1CFC7;
+            --accent-clay: #D84315;
+            --accent-sage: #388042;
+            --accent-sand: #D19A29;
             --font-primary: 'DM Sans', sans-serif;
             --transition-speed: 200ms;
         }
@@ -261,11 +261,29 @@
                 </div>
 
                 <ul class="sidebar-menu">
-                    {{-- <li><a href="{{ route('profile.dashboard') }}"><i class="iconoir-app-window"></i> Dashboard</a></li> --}}
+                    
+                    @auth 
+                        @if(in_array(auth()->user()->role , ['admin' , "employee"]))
+
+                            <li><a href="{{ route('dashboard') }}"><i class="iconoir-app-window"></i> Dashboard</a></li>
+
+                        @endif
+
+                    @endauth
                     <li><a href="{{ route('profile.edit') }}" class="{{ request()->routeIs('profile.edit') ? 'active' : '' }}"><i class="iconoir-user"></i> Profile info</a></li>
-                    <li><a href="{{ route('profile.orders') }}"><i class="iconoir-box-iso"></i> Orders</a></li>
-                    <li><a href="{{ route('profile.addresses.index') }}"><i class="iconoir-map-pin"></i> Addresses</a></li>
-                    <li><a href="{{ route('profile.wishlist.index') }}"><i class="iconoir-heart"></i> Wishlist</a></li>
+                    
+
+                    @auth 
+                        @if(auth()->user()->role==="customer")
+
+                                <li><a href="{{ route('profile.orders') }}"><i class="iconoir-box-iso"></i> Orders</a></li>
+                                <li><a href="{{ route('profile.addresses.index') }}"><i class="iconoir-map-pin"></i> Addresses</a></li>
+                                <li><a href="{{ route('profile.wishlist.index') }}"><i class="iconoir-heart"></i> Wishlist</a></li>
+                        @endif
+
+                    @endauth
+
+    
                     {{-- <li><a href="#"><i class="iconoir-settings"></i> Settings</a></li> --}}
                     <li style="margin-top: 24px;">
                         <form method="POST" action="{{ route('logout') }}">
