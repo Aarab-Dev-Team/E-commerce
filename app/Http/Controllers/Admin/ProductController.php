@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product ; 
 use App\Models\Category ;
+use Illuminate\Support\Str;
+
 
 class ProductController extends Controller
 {
@@ -69,13 +71,42 @@ class ProductController extends Controller
                 }
                 $validated['images'] = $imagePaths;
 
-                $isActive = auth()->user()->role === 'admin' ? $request->boolean('is_active', false) : false;
-                $validated['is_active'] = $isActive;
+                $productData = [
+                        'name' => $validated['name'],
+                        'slug' => $validated['slug'] ?? Str::slug($validated['name']),
+                        'description' => $validated['description'],
+                        'price' => $validated['price'],
+                        'stock_quantity' => $validated['stock_quantity'],
+                        'category_id' => $validated['category_id'],
+                        'origin' => $validated['origin'] ?? null,
+                        'material' => $validated['material'] ?? null,
+                        'color' => $validated['color'] ?? null,
+                        'images' => $imagePaths,
+                ];
 
-                Product::create($validated);
+                  if (auth()->user()->role === 'employee') {
+                        $productData['is_active'] = false;
+                        $productData['pending_status'] = 'pending_creation';
+                        $message = 'Product submitted for approval.';
+                } else {
+                        $productData['is_active'] = $request->boolean('is_active', false);
+                        $productData['pending_status'] = 'approved';
+                        $message = 'Product created successfully.';
+                }
 
-                return redirect()->route('admin.products.index')->with('success', 'Product created successfully.');
+            
+
+         
+                Product::create($productData);
+
+
+                return redirect()->route('admin.products.index')->with('alert', [
+                        "type" => "success"  , 
+                        "message" => $message , 
+                ]);
+
         }
+        
 
         /**
          * Update the specified product.
@@ -111,14 +142,45 @@ class ProductController extends Controller
                 }
                 }
                 $validated['images'] = $imagePaths;
+
+                $updateData = [
+                        'name' => $validated['name'],
+                        'slug' => $validated['slug'] ?? Str::slug($validated['name']),
+                        'description' => $validated['description'],
+                        'price' => $validated['price'],
+                        'stock_quantity' => $validated['stock_quantity'],
+                        'category_id' => $validated['category_id'],
+                        'origin' => $validated['origin'] ?? null,
+                        'material' => $validated['material'] ?? null,
+                        'color' => $validated['color'] ?? null,
+                        'images' => $imagePaths,
+                ];
                 
                 //only admin can toggle is_active value : 
-                $isActive = auth()->user()->role === 'admin' ? $request->boolean('is_active', false) : false;
-                $validated['is_active'] = $isActive;
+                 if (auth()->user()->role === 'employee') {
+                        //employee
+                        $product->update([
+                        'pending_status' => 'pending_update',
+                        'pending_data' => $updateData,
+                        'original_data' => $product->only(array_keys($updateData)),
+                        ]);
+                        $message = 'Product update submitted for approval.';
+                } else {
+                        //admin
+                        $updateData['is_active'] = $request->boolean('is_active');
+                        $product->update($updateData);
+                        $product->update([
+                        'pending_status' => 'approved',
+                        'pending_data' => null,
+                        'original_data' => null,
+                        ]);
+                        $message = 'Product updated successfully.';
+                }
 
-                $product->update($validated);
 
-                return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');
+                return redirect()->route('admin.products.index')->with('alert',[
+                        "type"=>"success" , "message"=>  $message   
+                ]);
         }
 
         /**
@@ -126,7 +188,23 @@ class ProductController extends Controller
          */
         public function destroy(Product $product)
         {
-                $product->delete();
-                return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully.');
+                if (auth()->user()->role === 'employee') {
+                        $product->update([
+                        'is_active' => false,
+                        'pending_status' => 'pending_deletion',
+                        ]);
+                        $message = 'Product deletion submitted for approval.';
+                } else {
+                        $product->delete();
+                        $message = 'Product deleted permanently.';
+                }
+
+                return redirect()->route('admin.products.index')->with('alert',[
+                        "type"=>"success" , "message"=>  $message   
+                ]);
         }
+
+
+
+
 }

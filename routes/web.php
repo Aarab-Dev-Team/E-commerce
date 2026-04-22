@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\ApprovalController ; 
 
 // Front Controllers
 use App\Http\Controllers\HomeController;
@@ -121,6 +122,16 @@ Route::middleware(['auth', 'role:admin,employee'])->prefix('admin')->name('admin
         Route::patch('users/{user}/role', [UserController::class, 'updateRole'])->name('users.role');
         Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
         Route::post('settings', [SettingsController::class, 'update'])->name('settings.update');
+
+        //approve/reject actions  : 
+        Route::prefix('admin/approvals')->name('approvals.')->group(function () {
+            Route::get('/', [ApprovalController::class, 'index'])->name('index');
+            Route::get('/{product}', [ApprovalController::class, 'show'])->name('show');
+            Route::post('/{product}/approve', [ApprovalController::class, 'approve'])->name('approve');
+            Route::post('/{product}/reject', [ApprovalController::class, 'reject'])->name('reject');
+        });
+
+
     });
 });
 

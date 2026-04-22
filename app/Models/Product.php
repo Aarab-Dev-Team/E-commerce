@@ -29,6 +29,9 @@ class Product extends Model
         'material',
         'images',
         'is_active',
+        'pending_status',
+        'pending_data',
+        'original_data',
     ];
 
     /**
@@ -38,6 +41,8 @@ class Product extends Model
         'images' => 'array',       
         'price' => 'decimal:2',
         'is_active' => 'boolean',
+        'pending_data' => 'array',
+        'original_data' => 'array',
     ];
 
     public function category() { return $this->belongsTo(Category::class); }

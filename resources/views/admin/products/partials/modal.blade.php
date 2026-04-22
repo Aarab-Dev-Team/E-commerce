@@ -4,7 +4,7 @@
         <h2>Add new product</h2>
         <p style="margin-bottom: 32px;">Enter details for the new catalog item.</p>
 
-        <form id="productForm" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitProductForm(this);">
+        <form id="productForm"  action="{{ route('admin.products.store') }}"  method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitProductForm(this);">
             @csrf
             <input type="hidden" name="_method" value="POST">
 
@@ -36,11 +36,8 @@
                             <option value="0">Inactive</option>
                         </select>
                     @else
-                        {{-- Employee: show readonly text and a hidden input to preserve value --}}
-                        <p style="padding: 12px 0; margin:0; border-bottom: 1px solid var(--border-subtle);">
-                            <span id="statusDisplay">Inactive</span>
-                        </p>
-                        <input type="hidden" name="Inactive" id="statusHidden" value="0">
+                        <p><span id="statusDisplay">Inactive</span></p>
+                        <input type="hidden" name="is_active" value="0">
                     @endif
                 </div>
             </div>

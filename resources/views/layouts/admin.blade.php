@@ -44,9 +44,15 @@
                 </a>
             </li>
 
+            
+
             {{-- Admin-only links (will be wrapped with @can later) --}}
             @if(auth()->user()->role === 'admin')
                 <div class="nav-divider"></div>
+                <li class="nav-item {{ request()->routeIs('admin.approvals.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.approvals.index') }}"><i class="iconoir-bell"></i> Approvals</a>
+                </li>
+
                 <li class="nav-item {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.categories.index') }}"><i class="iconoir-folder"></i> Categories</a>
                 </li>

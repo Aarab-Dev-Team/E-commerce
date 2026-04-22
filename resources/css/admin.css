@@ -565,3 +565,114 @@ input:focus, select:focus, textarea:focus {
     object-fit: cover;
 }
 .prod-thumb svg { width: 20px; height: 20px; stroke: var(--border-subtle); stroke-width: 1; }
+
+
+/* Approval Queue Specific */
+
+.count-badge {
+    font-size: 15px;
+    background-color: var(--border-subtle);
+    color: var(--text-primary);
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-left: 12px;
+}
+
+.badge-creation {
+    color: var(--accent-sage);
+    border-color: var(--border-subtle);
+}
+
+.badge-update {
+    color: #4A7FA5;
+    border-color: var(--border-subtle);
+}
+
+.badge-deletion {
+    color: var(--accent-terracotta);
+    border-color: var(--border-subtle);
+}
+
+.btn-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    transition: all 0.2s;
+    background: transparent;
+    cursor: pointer;
+}
+
+.btn-icon:hover {
+    background-color: var(--bg-base);
+}
+
+.btn-icon.approve:hover {
+    border-color: var(--accent-sage);
+    color: var(--accent-sage);
+}
+
+.btn-icon.reject:hover {
+    border-color: var(--accent-terracotta);
+    color: var(--accent-terracotta);
+}
+
+.diff-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+}
+
+.diff-column h4 {
+    font-size: 13px;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+}
+
+.diff-item {
+    margin-bottom: 16px;
+}
+
+.diff-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.diff-value {
+    font-size: 15px;
+    color: var(--text-primary);
+    padding: 8px 12px;
+    background-color: var(--bg-base);
+    border-radius: 6px;
+    border: 1px solid var(--border-subtle);
+}
+
+.diff-value.changed {
+    background-color: rgba(92, 138, 110, 0.1);
+    border-color: var(--accent-sage);
+}
+
+.hero-art {
+    width: 120px;
+    height: 120px;
+}
+
+.organic-svg path.stroke-path {
+    stroke: var(--text-primary);
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.organic-svg path.fill-path {
+    fill: var(--accent-terracotta);
+    stroke: none;
+}
