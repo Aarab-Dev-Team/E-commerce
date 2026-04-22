@@ -21,7 +21,7 @@
             <label for="email">Email address</label>
             <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="name@email.com" required autofocus>
             @error('email')
-                <span style="color: var(--accent-terracotta); font-size: 12px;">{{ $message }}</span>
+                <span style="color: red; font-weight: 500; font-size: 12px;">{{ $message }}</span>
             @enderror
         </div>
 
@@ -36,7 +36,7 @@
             <input id="password" type="password" name="password" placeholder="••••••••" required>
             <i class="iconoir-eye-empty input-icon" onclick="togglePassword(this)"></i>
             @error('password')
-                <span style="color: var(--accent-terracotta); font-size: 12px;">{{ $message }}</span>
+                <span style="color: red; font-weight: 500; font-size: 12px;">{{ $message }}</span>
             @enderror
         </div>
 
