@@ -52,10 +52,7 @@ class CartController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('alert', [
-            'type'=> "success" , 
-            'message'=> 'Product added to cart.'
-        ]);
+        return redirect()->back()->with('success', 'Product added to cart.');
     }
 
     /**
