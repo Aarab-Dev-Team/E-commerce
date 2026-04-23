@@ -101,6 +101,7 @@
 }
 
 .team-card h4 {
+    font-size: 1.3rem;
     margin-bottom: 4px;
 }
 
@@ -112,7 +113,7 @@
 }
 
 .team-card p {
-    font-size: 0.875rem;
+    font-size: 1rem;
     margin-bottom: 24px;
     line-height: 1.5;
     color: var(--text-secondary);
@@ -166,19 +167,22 @@
 }
 
 .step-number {
-    font-size: 0.875rem;
+    font-size: 1.3rem;
     color: var(--accent-clay); /* use --accent-terracotta from app */
     margin-bottom: 16px;
     display: block;
 }
 
 .process-step h4 {
+    font-size: 1.2rem;
+
     margin-bottom: 12px;
 }
 
 .process-step p {
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: var(--text-secondary);
+    
 }
 
 /* CTA Section */

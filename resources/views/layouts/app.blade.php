@@ -490,10 +490,13 @@
             gap: 8px;
         }
         .sort-dropdown select {
-            background: transparent;
-            border: none;
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: white;
+            font-family: var(--font-main);
             color: var(--text-main);
-            font-size: 14px;
+            outline: none;
             cursor: pointer;
         }
 
