@@ -106,7 +106,12 @@
             max-width: var(--container-width);
             margin: 0 auto;
             padding: 30px var(--gutter);
-            
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 16px;
+            }
         }
 
         /* ==========================================================================
@@ -141,25 +146,25 @@
             position: sticky;
             top: 0;
             z-index: 100;
-
-
-         
+            backdrop-filter: blur(8px);
         }
 
         .header-container {
             max-width: var(--container-width);
             margin: 0 auto;
-            
-            /* padding: 0px var(--gutter);   */
-            padding: 24px 0;
-
-
         }
 
         .main-header .header-container {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            padding: 20px var(--gutter);
+        }
+
+        @media (max-width: 1024px) {
+            .main-header .header-container {
+                padding: 16px var(--gutter);
+            }
         }
 
         .logo > * {
@@ -228,11 +233,24 @@
         .header-actions {
             display: flex;
             gap: 20px;
+            align-items: center;
         }
         .header-actions i {
             font-size: 22px;
             color: var(--text-main);
             cursor: pointer;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-main);
+            order: -1;
+            z-index: 301;
+            position: relative;
         }
 
         /* ==========================================================================
@@ -490,10 +508,13 @@
             gap: 8px;
         }
         .sort-dropdown select {
-            background: transparent;
-            border: none;
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: white;
+            font-family: var(--font-main);
             color: var(--text-main);
-            font-size: 14px;
+            outline: none;
             cursor: pointer;
         }
 
@@ -591,17 +612,21 @@
             margin-top: 64px;
         }
         .page-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            font-size: 14px;
-            color: var(--text-secondary);
-            border-radius: 4px;
+             width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-color);
+      background: var(--surface-bg);
+      border-radius: 4px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: var(--transition-speed);
         }
         .page-link.active {
-            color: var(--text-main);
+            background: var(--text-main); color: var(--bg-color); border-color: var(--text-main); 
             font-weight: 500;
         }
         .page-link:not(.disabled):hover {
@@ -638,6 +663,11 @@
             display: flex;
             gap: 8px;
             max-width: 320px;
+        }
+        @media (max-width: 768px) {
+            .newsletter-form {
+                max-width: 100%;
+            }
         }
         .newsletter-form input {
             flex: 1;
@@ -747,19 +777,77 @@
         /* ==========================================================================
           responsive 
            ========================================================================== */
+        @media (max-width: 1024px) {
+            .nav-links { gap: 20px; }
+            .search-bar { margin: 0 20px; }
+        }
+
         @media (max-width: 992px) {
             .shop-container { grid-template-columns: 1fr; }
             .products-grid { grid-template-columns: repeat(2, 1fr); }
-            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: repeat(2, 2fr); }
             .decor-svg { display: none; }
         }
+
         @media (max-width: 768px) {
             h1 { font-size: 40px; }
-            .nav-menu { display: none; }
-            .search-box { display: none; }
+            
+            .top-bar .top-bar-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 4px;
+            }
+
+            .menu-toggle { display: block; }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: auto;
+                background: var(--surface-color);
+                flex-direction: column;
+                padding: 120px 40px 60px;
+                transform: translateY(-100%);
+                transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.3s ease, visibility 0.3s;
+                z-index: 300;
+                box-shadow: none;
+                border-bottom: 1px solid var(--border-color);
+                visibility: hidden;
+                opacity: 0;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                visibility: visible;
+                opacity: 1;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            }
+
+            .nav-links a {
+                font-size: 20px;
+            }
+
+            .search-bar {
+                display: none; /* Can be moved inside nav-links or shown on toggle */
+            }
+
+            .header-actions { gap: 15px; }
+
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
             .products-grid { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr; }
-            .top-bar { flex-direction: column; gap: 8px; }
+            .header-actions a:not(:last-child) { display: none; } /* Hide some actions on very small screens if needed */
+            .header-actions i { font-size: 20px; }
         }
 
 
@@ -780,7 +868,9 @@
 
     <header class="main-header" >
         <div class="header-container">
-         
+            <button class="menu-toggle" id="menuToggle">
+                <i class="iconoir-menu"></i>
+            </button>
 
             <a href="{{ url('/') }}" class="logo">
     <span class="aura-text">Aura</span><span class="dot">◼</span>
@@ -885,6 +975,34 @@
 <script>
 (function () {
     const CSRF = document.querySelector('meta[name="csrf-token"]')?.content;
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.querySelector('.nav-links');
+    const body = document.body;
+
+    if (menuToggle) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = menuToggle.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.className = 'iconoir-xmark';
+                body.style.overflow = 'hidden'; // Prevent scroll
+            } else {
+                icon.className = 'iconoir-menu';
+                body.style.overflow = '';
+            }
+        });
+    }
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (navLinks && navLinks.classList.contains('active')) {
+            if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                navLinks.classList.remove('active');
+                menuToggle.querySelector('i').className = 'iconoir-menu';
+                body.style.overflow = '';
+            }
+        }
+    });
 
     // ── Quick-add AJAX (intercepts every .quick-add-form on any page) ──
     document.addEventListener('submit', async function (e) {
