@@ -22,14 +22,23 @@
         <div class="wishlist-grid">
             @foreach($wishlistItems as $item)
                 @php $product = $item->product; @endphp
+
                 <article class="wishlist-card">
-                    <form action="{{ route('wishlist.destroy', $product) }}" method="POST" onsubmit="return confirm('Are you sure you want to remove this item?');">
+
+                    <form action="{{ route('profile.wishlist.destroy', $product) }}"
+                          method="POST"
+                          onsubmit="return confirm('Are you sure you want to remove this item?');">
+
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn-remove" aria-label="Remove from wishlist">
+
+                        <button type="submit"
+                                class="btn-remove"
+                                aria-label="Remove from wishlist">
                             <i class="iconoir-trash"></i>
                         </button>
                     </form>
+
                     <a href="{{ route('shop.product', $product->slug) }}" class="product-img-link">
                         @if($product->images && isset($product->images[0]))
                             <img src="{{ $product->images[0] }}" alt="{{ $product->name }}">
@@ -37,12 +46,19 @@
                             <i class="iconoir-camera"></i>
                         @endif
                     </a>
+
                     <div class="product-info">
                         <h3 class="product-title">
-                            <a href="{{ route('shop.product', $product->slug) }}">{{ $product->name }}</a>
+                            <a href="{{ route('shop.product', $product->slug) }}">
+                                {{ $product->name }}
+                            </a>
                         </h3>
-                        <span class="product-price">${{ number_format($product->price, 2) }}</span>
+
+                        <span class="product-price">
+                            ${{ number_format($product->price, 2) }}
+                        </span>
                     </div>
+
                 </article>
             @endforeach
         </div>

@@ -65,19 +65,19 @@
 
                 <p class="product-desc">{{ $product->description }}</p>
 
-                {{-- Add to Cart Form --}}
-                <form action="{{ route('cart.add', $product->id) }}" method="POST">
-                    @csrf
-                    <div class="add-to-cart-wrapper">
-                        <div class="qty-selector">
-                            <button type="button" onclick="decrementQty()">-</button>
-                            <span id="quantity-display">1</span>
-                            <button type="button" onclick="incrementQty()">+</button>
-                            <input type="hidden" name="quantity" id="quantity-input" value="1" min="1" max="{{ $product->stock_quantity }}">
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-add">Add to cart</button>
+                {{-- Add to Cart --}}
+                <div class="add-to-cart-wrapper">
+                    <div class="qty-selector">
+                        <button type="button" onclick="decrementQty()">-</button>
+                        <span id="quantity-display">1</span>
+                        <button type="button" onclick="incrementQty()">+</button>
+                        <input type="hidden" id="quantity-input" value="1" min="1" max="{{ $product->stock_quantity }}">
                     </div>
-                </form>
+                    <button type="button" id="add-to-cart-btn"
+                            class="btn btn-primary btn-add"
+                            data-add-url="{{ route('cart.add', $product->id) }}"
+                            onclick="addToCart(this)">Add to cart</button>
+                </div>
 
                 <div class="stock-status">
                     @if($product->stock_quantity > 0)
@@ -306,6 +306,8 @@
 
 @push('scripts')
 <script>
+    const CSRF = document.querySelector('meta[name="csrf-token"]')?.content;
+
     // Quantity selector
     function incrementQty() {
         let input = document.getElementById('quantity-input');
@@ -325,6 +327,46 @@
         if (val > 1) {
             input.value = val - 1;
             display.textContent = val - 1;
+        }
+    }
+
+    async function addToCart(btn) {
+        if (btn.disabled) return;
+        btn.disabled = true;
+        const qty = parseInt(document.getElementById('quantity-input').value) || 1;
+        const originalText = btn.textContent;
+
+        try {
+            const res = await fetch(btn.dataset.addUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': CSRF,
+                },
+                body: JSON.stringify({ quantity: qty }),
+            });
+            const data = await res.json();
+            if (data.success) {
+                btn.textContent = 'Added to cart ✓';
+                btn.style.background = 'var(--accent-sage, #6b8f71)';
+                btn.style.borderColor = 'var(--accent-sage, #6b8f71)';
+                // update nav badge
+                document.querySelectorAll('[data-cart-count]').forEach(el => {
+                    el.textContent = data.cart_count;
+                    el.dataset.cartCount = data.cart_count;
+                });
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                    btn.style.borderColor = '';
+                    btn.disabled = false;
+                }, 2000);
+            } else {
+                btn.disabled = false;
+            }
+        } catch {
+            btn.disabled = false;
         }
     }
 

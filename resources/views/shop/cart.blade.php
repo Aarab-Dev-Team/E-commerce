@@ -47,25 +47,25 @@
                                         {{ $item->product->origin ?? 'Origin' }}
                                     </p>
                                     <div class="item-actions">
-                                        <form action="{{ route('cart.update', $item->id) }}" method="POST" style="display: inline;">
-                                            @csrf
-                                            @method('PATCH')
-                                            <div class="qty-control">
-                                                <button type="button" class="qty-btn" onclick="decrementQty(this)">-</button>
-                                                <input type="number" name="quantity" value="{{ $item->quantity }}" min="1" max="99" class="qty-number" style="width: 50px; text-align: center; border: none; background: transparent;" onchange="this.form.submit()">
-                                                <button type="button" class="qty-btn" onclick="incrementQty(this)">+</button>
-                                            </div>
-                                        </form>
-                                        <div class="item-price">${{ number_format($item->price_at_time * $item->quantity, 2) }}</div>
+                                        <div class="qty-control"
+                                             data-item-id="{{ $item->id }}"
+                                             data-update-url="{{ route('cart.update', $item->id) }}"
+                                             data-price="{{ $item->price_at_time }}">
+                                            <button type="button" class="qty-btn" onclick="decrementQty(this)">-</button>
+                                            <input type="number" name="quantity" value="{{ $item->quantity }}" min="1" max="99"
+                                                   class="qty-number"
+                                                   style="width: 50px; text-align: center; border: none; background: transparent;"
+                                                   onchange="updateQty(this)">
+                                            <button type="button" class="qty-btn" onclick="incrementQty(this)">+</button>
+                                        </div>
+                                        <div class="item-price" data-item-price="{{ $item->id }}">${{ number_format($item->price_at_time * $item->quantity, 2) }}</div>
                                     </div>
                                 </div>
-                                <form action="{{ route('cart.remove', $item->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="remove-btn" aria-label="Remove item">
-                                        <i class="iconoir-cancel"></i>
-                                    </button>
-                                </form>
+                                <button type="button" class="remove-btn" aria-label="Remove item"
+                                        data-remove-url="{{ route('cart.remove', $item->id) }}"
+                                        onclick="removeItem(this)">
+                                    <i class="iconoir-cancel"></i>
+                                </button>
                             </div>
                         @endforeach
                     </div>
@@ -80,7 +80,7 @@
                     
                     <div class="summary-row">
                         <span>Subtotal</span>
-                        <span>${{ number_format($subtotal, 2) }}</span>
+                        <span id="summary-subtotal">${{ number_format($subtotal, 2) }}</span>
                     </div>
                     <div class="summary-row">
                         <span>Shipping</span>
@@ -89,7 +89,7 @@
                     
                     <div class="summary-row total">
                         <span>Total</span>
-                        <span>${{ number_format($subtotal, 2) }}</span>
+                        <span id="summary-total">${{ number_format($subtotal, 2) }}</span>
                     </div>
                     
                     {{-- {{ route('checkout.index') }} --}}
@@ -151,22 +151,110 @@
 
 @push('scripts')
 <script>
+    const CSRF = document.querySelector('meta[name="csrf-token"]')?.content ?? '{{ csrf_token() }}';
+
+    function fmt(num) {
+        return '$' + Number(num).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    function updateQty(input) {
+        const ctrl   = input.closest('.qty-control');
+        const itemId = ctrl.dataset.itemId;
+        const price  = parseFloat(ctrl.dataset.price);
+        const qty    = Math.max(1, Math.min(99, parseInt(input.value) || 1));
+        input.value  = qty;
+        input.disabled = true;
+
+        fetch(ctrl.dataset.updateUrl, {
+            method : 'POST',
+            headers: {
+                'Content-Type'    : 'application/json',
+                'Accept'          : 'application/json',
+                'X-CSRF-TOKEN'    : CSRF,
+                'X-HTTP-Method-Override': 'PATCH',
+            },
+            body: JSON.stringify({ quantity: qty, _method: 'PATCH' }),
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (!data.success) return;
+
+            // update this row's line total
+            const priceEl = document.querySelector(`[data-item-price="${itemId}"]`);
+            if (priceEl) priceEl.textContent = fmt(price * qty);
+
+            // update summary
+            const sub = document.getElementById('summary-subtotal');
+            const tot = document.getElementById('summary-total');
+            if (sub) sub.textContent = fmt(data.subtotal);
+            if (tot) tot.textContent = fmt(data.subtotal);
+
+            // update nav badge if present
+            document.querySelectorAll('[data-cart-count]').forEach(el => {
+                el.textContent = data.cart_count;
+                el.dataset.cartCount = data.cart_count;
+            });
+        })
+        .catch(() => { /* silently fail – user can still reload */ })
+        .finally(() => { input.disabled = false; });
+    }
+
     function incrementQty(btn) {
         const input = btn.parentElement.querySelector('input');
-        const val = parseInt(input.value);
-        if (val < 99) {
-            input.value = val + 1;
-            input.form.submit();
-        }
+        const val   = parseInt(input.value);
+        if (val < 99) { input.value = val + 1; updateQty(input); }
     }
 
     function decrementQty(btn) {
         const input = btn.parentElement.querySelector('input');
-        const val = parseInt(input.value);
-        if (val > 1) {
-            input.value = val - 1;
-            input.form.submit();
-        }
+        const val   = parseInt(input.value);
+        if (val > 1) { input.value = val - 1; updateQty(input); }
+    }
+
+    function removeItem(btn) {
+        btn.disabled = true;
+        const url = btn.dataset.removeUrl;
+
+        fetch(url, {
+            method : 'POST',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Accept'       : 'application/json',
+                'X-CSRF-TOKEN' : CSRF,
+                'X-HTTP-Method-Override': 'DELETE',
+            },
+            body: JSON.stringify({ _method: 'DELETE' }),
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (!data.success) { btn.disabled = false; return; }
+
+            // remove the cart-item row with a fade-out
+            const row = btn.closest('.cart-item');
+            if (row) {
+                row.style.transition = 'opacity 0.3s';
+                row.style.opacity    = '0';
+                setTimeout(() => row.remove(), 300);
+            }
+
+            // update summary
+            const sub = document.getElementById('summary-subtotal');
+            const tot = document.getElementById('summary-total');
+            if (sub) sub.textContent = fmt(data.subtotal);
+            if (tot) tot.textContent = fmt(data.subtotal);
+
+            // update nav badge
+            document.querySelectorAll('[data-cart-count]').forEach(el => {
+                el.textContent = data.cart_count;
+                el.dataset.cartCount = data.cart_count;
+            });
+
+            // if cart is now empty, reload to show the empty state
+            if (data.cart_count === 0) {
+                setTimeout(() => location.reload(), 350);
+            }
+        })
+        .catch(() => { btn.disabled = false; });
     }
 </script>
 @endpush
