@@ -88,7 +88,9 @@
                     </td>
                     <td class="actions-cell">
                         {{-- Edit --}}
-                        <i class="iconoir-edit action-icon" onclick="editProduct({{ $product }})" title="Edit"></i>
+                        <button type="submit" class="btn-icon" style="color: var(--text-primary);"  title="Edit"  onclick="editProduct({{ $product }})">
+                             <i class="iconoir-edit " title="Edit"></i>
+                        </button>
 
                         {{-- Delete / Submit for deletion --}}
                         @if($product->pending_status === 'pending_deletion')
@@ -97,8 +99,8 @@
                             <form action="{{ route('admin.products.destroy', $product) }}" method="POST" onsubmit="return confirm('{{ auth()->user()->role === 'admin' ? 'Permanently delete this product?' : 'Submit deletion request for admin approval?' }}')" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer;" title="{{ auth()->user()->role === 'admin' ? 'Delete' : 'Request deletion' }}">
-                                    <i class="iconoir-trash action-icon"></i>
+                                <button type="submit" class="btn-icon" style="color: var(--accent-terracotta);"  title="{{ auth()->user()->role === 'admin' ? 'Delete' : 'Request deletion' }}">
+                                    <i class="iconoir-trash "></i>
                                 </button>
                             </form>
                         @endif

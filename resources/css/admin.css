@@ -415,7 +415,7 @@ input:focus, select:focus, textarea:focus {
 .page-num.active { color: var(--text-primary); font-weight: 400; border-bottom: 1px solid var(--text-primary); }
 
 /* Actions Cell */
-/* .actions-cell { display: flex; gap: 16px; align-items: end; } */
+.actions-cell { display: flex; align-items: center; gap: 16px;  height: 110px; }
 .action-icon { cursor: pointer; color: var(--text-secondary); transition: var(--transition-smooth); font-size: 18px; margin : 0 10px}
 .action-icon:hover { color: var(--text-primary); }
 .action-icon.danger:hover { color: var(--accent-terracotta); }

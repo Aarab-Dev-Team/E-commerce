@@ -55,12 +55,12 @@
         @if(auth()->user()->role === 'admin')
         <div class="card" style="border-left: 3px solid var(--accent-clay);">
             <div class="stat-label">Pending approvals</div>
-            <div class="stat-value">{{ $pendingApprovals }}</div>
-            @if($pendingApprovals > 0)
+            {{-- <div class="stat-value">{{ $pendingApprovals }}</div> --}}
+            {{-- @if($pendingApprovals > 0)
                 <a href="{{ route('admin.approvals.index') }}" style="font-size: 12px; color: var(--accent-clay); text-decoration: none; display: inline-block; margin-top: 8px;">
                     Review now →
                 </a>
-            @endif
+            @endif --}}
             <svg class="card-svg-bg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50,20 L50,50 M50,65 L50,70" fill="none" stroke="var(--text-primary)" stroke-width="2" stroke-linecap="round"/>
                 <circle cx="50" cy="50" r="35" fill="none" stroke="var(--text-primary)" stroke-width="1.5"/>

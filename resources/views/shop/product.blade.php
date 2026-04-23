@@ -142,29 +142,31 @@
                     <path d="M4 16 L23.5 25.5 L43.5 15.5" />
                     <path d="M4 16 L24 6.5 L44 15.5 M4 16 L4.5 32.5 L23.5 42 L43.5 32 L44 15.5" />
                     <path d="M23.5 25.5 L23.5 42" />
-                    <path d="M4 16 L24 6.5 L44 15.5 L23.5 25.5 Z" fill="var(--accent-sand)" fill-opacity="0.15" stroke="none"/>
+                    <path d="M4 16 L24 6.5 L44 15.5 L23.5 25.5 Z" fill="var(--accent-clay)"  stroke="none"/>
                 </svg>
                 <h3>Conscious delivery</h3>
                 <p>Carbon-neutral shipping in fully recyclable, unbleached packaging.</p>
             </div>
 
             <div class="highlight-item">
-                <svg class="sketch-icon" viewBox="0 0 48 48" stroke="var(--text-main)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="sketch-icon" viewBox="0 0 48 48" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M14 22 C14 12, 16 6, 24 6 C32 6, 34 12, 34 22" />
                     <path d="M10 22 L38 21.5 L39 42 L9 42.5 Z" />
                     <circle cx="24" cy="32" r="2.5" />
                     <path d="M24 34.5 L24 38" />
-                    <path d="M10 22 L38 21.5 L39 42 L9 42.5 Z" fill="var(--accent-sage)" fill-opacity="0.15" stroke="none"/>
+                    <path d="M10 22 L38 21.5 L39 42 L9 42.5 Z" fill="var(--accent-clay)"  stroke="none"/>
                 </svg>
                 <h3>Secure transaction</h3>
                 <p>Encrypted payment gateways ensuring your data remains private.</p>
             </div>
 
             <div class="highlight-item">
-                <svg class="sketch-icon" viewBox="0 0 48 48" stroke="var(--text-main)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 24 C12 16, 18 10, 26 10 C34 10, 38 16, 38 24 C38 32, 32 38, 22 38 C16 38, 11 34, 11 34" />
-                    <path d="M11 26 L11 34 L19 34" />
-                    <circle cx="24" cy="24" r="14" fill="var(--accent-terracotta)" fill-opacity="0.1" stroke="none" />
+                <svg class="sketch-icon" viewBox="0 0 48 48" stroke="black" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="24" cy="24" r="16" fill="var(--accent-clay)" fill-opacity="0.9"  stroke="none" />
+                    
+                    <path d="M36 24c0-6.6-5.4-12-12-12s-12 5.4-12 12 5.4 12 12 12c3.3 0 6.3-1.3 8.5-3.5" />
+                    
+                    <polyline points="26 38 32.5 31.5 26 25" />
                 </svg>
                 <h3>Mindful returns</h3>
                 <p>30-day return policy to ensure the piece fits your space perfectly.</p>
