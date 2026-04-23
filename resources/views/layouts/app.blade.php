@@ -17,39 +17,37 @@
           variables 
            ========================================================================== */
         :root {
-            --bg-color: #F5F4F0;
-            --surface-color: #FFFFFF;
-            --text-main: #1A1A18;
-            --text-secondary: #6B6A66;
-            --border-color: #E8E6E0;
-            --accent-clay: #C4613A;
-            --accent-sage: #7A9E7E;
-            --accent-sand: #D4C5A9;
-            --font-primary: 'DM Sans', sans-serif;
-            --transition: all 150ms ease-out;
-            --shadow-subtle: 0 2px 8px rgba(0,0,0,0.06);
-            --container-width: 1248px;
-            --gutter: 24px;
+    --bg-color: #F5F4F0;
+    --surface-color: #FFFFFF;
+    --text-main: #1A1A18;
+    --text-secondary: #6B6A66;
+    --border-color: #E8E6E0;
+    --accent-clay: #F04A20;       /* ← was #FB593B */
+    --accent-sage: #4E8C5A;       /* ← was #7A9E7E */
+    --accent-sand: #C4A06A;       /* ← was #D4C5A9 */
+    --font-primary: 'DM Sans', sans-serif;
+    --transition: all 150ms ease-out;
+    --shadow-subtle: 0 2px 8px rgba(0,0,0,0.06);
+    --container-width: 1248px;
+    --gutter: 24px;
 
+    /* alert */
+    --alert-success-bg:     #C8E6CC;
+    --alert-success-text:   #1E5E2A;
+    --alert-success-border: #6BBF78;
 
-            /* alert */
-                --alert-success-bg: #E2EAE3;
-                --alert-success-text: #4A7052;
-                --alert-success-border: #B8D1BE;
-                
-                --alert-error-bg: #F3E2DC;
-                --alert-error-text: #A34A28;
-                --alert-error-border: #E0B9AC;
-                
-                --alert-warning-bg: #F3EBE1;
-                --alert-warning-text: #9A7B4F;
-                --alert-warning-border: #DCC9B4;
-                
-                --alert-info-bg: #E8EAEA;
-                --alert-info-text: #5B6B6B;
-                --alert-info-border: #C5CBCB;
-            
-        }
+    --alert-error-bg:       #FAD0C4;
+    --alert-error-text:     #8B2500;
+    --alert-error-border:   #E8714A;
+
+    --alert-warning-bg:     #FDECC8;
+    --alert-warning-text:   #7A4D00;
+    --alert-warning-border: #F0B840;
+
+    --alert-info-bg:        #C8DFEE;
+    --alert-info-text:      #1A4A6B;
+    --alert-info-border:    #5FA8D8;
+}
 
 
         .alert-success {
@@ -164,11 +162,20 @@
             justify-content: space-between;
         }
 
-        .logo {
+        .logo > * {
             font-size: 24px;
             font-weight: 500;
-            color: var(--text-main);
             letter-spacing: -0.04em;
+        }
+
+        .aura-text {
+            color: var(--accent-clay);
+        }
+
+        .dot {
+            color: black;     
+            font-size: 10px;    
+            margin: 0 1px
         }
         .search-bar {
             flex: 1;
@@ -650,7 +657,11 @@
 
     <header class="main-header" >
         <div class="header-container">
-            <a href="{{ url('/') }}" class="logo">Aura.</a>
+         
+
+            <a href="{{ url('/') }}" class="logo">
+    <span class="aura-text">Aura</span><span class="dot">◼</span>
+</a>
             
             <nav class="nav-links">
                 <a href="{{ route('shop.catalog') }}" class="{{ request()->routeIs('shop.catalog') ? 'active' : '' }}">Shop</a>

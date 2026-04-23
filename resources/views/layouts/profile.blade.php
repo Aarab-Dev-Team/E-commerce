@@ -22,9 +22,9 @@
             --text-main: #1A1A18;
             --text-secondary: #6B6A66;
             --border-color: #E8E6E0;
-            --accent-clay: #C4613A;
-            --accent-sage: #7A9E7E;
-            --accent-sand: #D4C5A9;
+            --accent-clay: #D95835;        /* ← was #C4613A */
+            --accent-sage: #4E8C5A;        /* ← was #7A9E7E */
+            --accent-sand: #C4A06A;        /* ← was #D4C5A9 */
             --font-primary: 'DM Sans', sans-serif;
             --transition-speed: 150ms;
         }
