@@ -1,24 +1,26 @@
-@props(['product'])
+@props(['product'   , 'is_Home_Page' => false])
 
 <article class="product-card">
     <a href="{{ route('shop.product', $product->slug) }}" class="product-link">
         <div class="product-image-container">
 
             {{-- Wishlist Button --}}
-            @auth
-                @php
-                    $isWishlisted = $product->isWishlistedBy(auth()->user());
-                @endphp
-                <button 
-                    type="button"
-                    class="wishlist-btn {{ $isWishlisted ? 'active' : '' }}"
-                    aria-label="{{ $isWishlisted ? 'Remove from wishlist' : 'Add to wishlist' }}"
-                    data-product-id="{{ $product->id }}"
-                    data-in-wishlist="{{ $isWishlisted ? 'true' : 'false' }}"
-                >
-                    <i class="iconoir-heart{{ $isWishlisted ? ' active' : '' }}"></i>
-                </button>
-            @endauth
+            @if(!$is_Home_Page)
+                @auth
+                    @php
+                        $isWishlisted = $product->isWishlistedBy(auth()->user());
+                    @endphp
+                    <button 
+                        type="button"
+                        class="wishlist-btn {{ $isWishlisted ? 'active' : '' }}"
+                        aria-label="{{ $isWishlisted ? 'Remove from wishlist' : 'Add to wishlist' }}"
+                        data-product-id="{{ $product->id }}"
+                        data-in-wishlist="{{ $isWishlisted ? 'true' : 'false' }}"
+                    >
+                        <i class="iconoir-heart{{ $isWishlisted ? ' active' : '' }}"></i>
+                    </button>
+                @endauth
+            @endif
 
             {{-- Product Image --}}
             @if($product->images && isset($product->images[0]))
@@ -26,15 +28,20 @@
             @else
                 <i class="iconoir-camera placeholder-icon"></i>
             @endif
+            
 
-            {{-- Quick Add Button --}}
-            <form action="{{ route('cart.add', $product->id) }}" method="POST" class="quick-add-form">
-                @csrf
-                <input type="hidden" name="quantity" value="1">
-                <button type="submit" class="quick-add-btn" aria-label="Quick add">
-                    <i class="iconoir-plus"></i>
-                </button>
-            </form>
+            @if(!$is_Home_Page)
+                {{-- Quick Add Button --}}
+                <form action="{{ route('cart.add', $product->id) }}" method="POST" class="quick-add-form">
+                    @csrf
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit" class="quick-add-btn" aria-label="Quick add">
+                        <i class="iconoir-plus"></i>
+                    </button>
+                </form>
+
+            @endif 
+
         </div>
 
         <div class="product-info">
