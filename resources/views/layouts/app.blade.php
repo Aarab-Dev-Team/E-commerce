@@ -255,8 +255,8 @@
             right: 48px;
             top: 50%;
             transform: translateY(-50%);
-            width: 220px;
-            height: 220px;
+            width: 250px;
+            height: 250px;
             pointer-events: none;
         }
 
@@ -377,7 +377,7 @@
         .product-image-container img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit :contain;
         }
         .placeholder-icon {
             font-size: 32px;

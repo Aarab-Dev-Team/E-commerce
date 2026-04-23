@@ -10,13 +10,15 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
-use App\Http\Controllers\Admin\ApprovalController ; 
+use App\Http\Controllers\Admin\ApprovalController;
+use App\Http\Controllers\Admin\CouponController as AdminCouponController;
 
 // Front Controllers
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Shop\CatalogController;
 use App\Http\Controllers\Shop\CartController;
 use App\Http\Controllers\Shop\CheckoutController;
+use App\Http\Controllers\Shop\CouponController as ShopCouponController;
 use App\Http\Controllers\OrderController; // Customer Orders
 use App\Http\Controllers\ProductController; // Product detail
 use App\Http\Controllers\AddressController;
@@ -38,6 +40,9 @@ Route::prefix('cart')->name('cart.')->group(function () {
     Route::patch('/{item}', [CartController::class, 'update'])->name('update');
     Route::delete('/{item}', [CartController::class, 'remove'])->name('remove');
     Route::delete('/', [CartController::class, 'clear'])->name('clear');
+    // Coupon
+    Route::post('/coupon/apply', [ShopCouponController::class, 'apply'])->name('coupon.apply');
+    Route::delete('/coupon/remove', [ShopCouponController::class, 'remove'])->name('coupon.remove');
 });
 
 /*
@@ -130,6 +135,11 @@ Route::middleware(['auth', 'role:admin,employee'])->prefix('admin')->name('admin
         Route::patch('users/{user}/role', [UserController::class, 'updateRole'])->name('users.role');
         Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
         Route::post('settings', [SettingsController::class, 'update'])->name('settings.update');
+        // Coupons
+        Route::get('coupons', [AdminCouponController::class, 'index'])->name('coupons.index');
+        Route::post('coupons', [AdminCouponController::class, 'store'])->name('coupons.store');
+        Route::patch('coupons/{coupon}', [AdminCouponController::class, 'update'])->name('coupons.update');
+        Route::delete('coupons/{coupon}', [AdminCouponController::class, 'destroy'])->name('coupons.destroy');
     });
 });
 
