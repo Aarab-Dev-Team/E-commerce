@@ -67,6 +67,18 @@
             </svg>
         </div>
         @endif
+        
+        {{-- Total Revenue Card --}}
+        @if(auth()->user()->role === 'admin')
+        <div class="card" style="border-left: 3px solid var(--accent-forest);">
+            <div class="stat-label">Total revenue</div>
+            <div class="stat-value">${{ number_format($totalRevenue, 2) }}</div>
+            <svg class="card-svg-bg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20,60 Q40,80 60,40 T80,30" fill="none" stroke="var(--text-primary)" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M70,30 L80,30 L80,40" fill="none" stroke="var(--text-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        @endif
     </div>
 
     <h3 style="margin-top: 48px; margin-bottom: 16px;">Recent orders</h3>

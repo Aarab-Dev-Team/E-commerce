@@ -8,6 +8,7 @@ use App\Services\CartService;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Address;
+use App\Models\Coupon;
 use Illuminate\Support\Str;
 
 class CheckoutController extends Controller
@@ -37,7 +38,21 @@ class CheckoutController extends Controller
             $addresses = auth()->user()->addresses;
         }
 
-        return view('shop.checkout', compact('cartItems', 'subtotal', 'addresses'));
+        // Resolve applied coupon from session
+        $appliedCoupon  = null;
+        $discountAmount = 0;
+        if (session('applied_coupon')) {
+            $coupon = Coupon::where('code', session('applied_coupon'))->first();
+            if ($coupon && $coupon->isValid((float) $subtotal)) {
+                $appliedCoupon  = $coupon;
+                $discountAmount = $coupon->calculateDiscount((float) $subtotal);
+            } else {
+                session()->forget('applied_coupon');
+            }
+        }
+        $total = max(0, $subtotal - $discountAmount);
+
+        return view('shop.checkout', compact('cartItems', 'subtotal', 'addresses', 'appliedCoupon', 'discountAmount', 'total'));
     }
 
     /**
@@ -78,20 +93,37 @@ class CheckoutController extends Controller
             'Email: ' . $validated['email'],
         ]));
 
-        $total = $this->cartService->subtotal(); // Free shipping for now
+        $subtotal = $this->cartService->subtotal();
+
+        // Apply coupon from session
+        $couponCode     = null;
+        $discountAmount = 0;
+        if (session('applied_coupon')) {
+            $coupon = Coupon::where('code', session('applied_coupon'))->first();
+            if ($coupon && $coupon->isValid((float) $subtotal)) {
+                $discountAmount = $coupon->calculateDiscount((float) $subtotal);
+                $couponCode     = $coupon->code;
+                $coupon->increment('uses');
+            }
+            session()->forget('applied_coupon');
+        }
+
+        $total = max(0, $subtotal - $discountAmount);
 
         // Determine payment status
         $paymentStatus = ($validated['payment_method'] === 'cod') ? 'pending' : 'paid';
 
         // Create order
         $order = Order::create([
-            'user_id' => auth()->id(),
-            'order_number' => 'ORD-' . strtoupper(Str::random(8)),
-            'total_amount' => $total,
-            'status' => 'pending',
-            'payment_status' => $paymentStatus,
-            'payment_method' => $validated['payment_method'],
+            'user_id'          => auth()->id(),
+            'order_number'     => 'ORD-' . strtoupper(Str::random(8)),
+            'total_amount'     => $total,
+            'status'           => 'pending',
+            'payment_status'   => $paymentStatus,
+            'payment_method'   => $validated['payment_method'],
             'shipping_address' => $shippingAddress,
+            'coupon_code'      => $couponCode,
+            'discount_amount'  => $discountAmount,
         ]);
 
         // Move cart items to order items

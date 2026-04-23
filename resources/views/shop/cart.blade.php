@@ -96,11 +96,57 @@
                     <a href="{{ route('checkout.index') }}" class="btn btn-primary" style="display: block; margin-bottom: 16px;">Proceed to checkout</a>
                     <a href="{{ route('shop.catalog') }}" class="btn btn-ghost" style="display: block;">Continue shopping</a>
 
-                    {{-- Promo Code --}}
-                    <div class="promo-code">
-                        <input type="text" class="promo-input" placeholder="Enter coupon code">
-                        <button class="btn-apply">Apply</button>
+                    {{-- Coupon Code --}}
+                    @php
+                        $appliedCouponCode = session('applied_coupon');
+                        $appliedCoupon     = $appliedCouponCode ? \App\Models\Coupon::where('code', $appliedCouponCode)->first() : null;
+                        $discountAmount    = 0;
+                        if ($appliedCoupon && $appliedCoupon->isValid((float) $subtotal)) {
+                            $discountAmount = $appliedCoupon->calculateDiscount((float) $subtotal);
+                        } elseif ($appliedCouponCode) {
+                            session()->forget('applied_coupon');
+                            $appliedCoupon = null;
+                        }
+                        $orderTotal = max(0, $subtotal - $discountAmount);
+                    @endphp
+
+                    <div class="coupon-section">
+                        @if($appliedCoupon)
+                            <div class="coupon-applied">
+                                <div class="coupon-applied-info">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>
+                                    <span><strong>{{ $appliedCoupon->code }}</strong>
+                                        — {{ $appliedCoupon->type === 'percentage' ? $appliedCoupon->value . '% off' : '$' . number_format($appliedCoupon->value, 2) . ' off' }}
+                                    </span>
+                                </div>
+                                <form method="POST" action="{{ route('cart.coupon.remove') }}">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" class="coupon-remove" title="Remove coupon">×</button>
+                                </form>
+                            </div>
+                        @else
+                            <form method="POST" action="{{ route('cart.coupon.apply') }}" class="coupon-form">
+                                @csrf
+                                <input type="text" name="coupon_code"
+                                       class="coupon-input {{ $errors->has('coupon_code') ? 'coupon-input-error' : '' }}"
+                                       placeholder="Enter coupon code"
+                                       value="{{ old('coupon_code') }}"
+                                       autocomplete="off">
+                                <button type="submit" class="coupon-btn">Apply</button>
+                            </form>
+                            @error('coupon_code')
+                                <p class="coupon-error">{{ $message }}</p>
+                            @enderror
+                        @endif
                     </div>
+
+                    {{-- Updated totals with discount --}}
+                    @if($discountAmount > 0)
+                    <div class="summary-row discount-row">
+                        <span>Discount</span>
+                        <span class="discount-value">−${{ number_format($discountAmount, 2) }}</span>
+                    </div>
+                    @endif
 
                     {{-- Trust Signals --}}
                     <div class="trust-signals">

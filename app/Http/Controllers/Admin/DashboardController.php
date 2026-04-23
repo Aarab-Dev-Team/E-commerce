@@ -10,13 +10,14 @@ use App\Models\Product ;
 
 class DashboardController extends Controller
 {
-      public function index()
+    public function index()
     {
         // Statistics
         $totalOrders = Order::count();
         $pendingOrders = Order::where('status', 'pending')->count();
         $processingOrders = Order::where('status', 'processing')->count();
         $activeProducts = Product::where('is_active', true)->count();
+        $totalRevenue = Order::whereNotIn('status', ['cancelled', 'refunded'])->sum('total_amount');
 
         // Recent orders (latest 5)
         $recentOrders = Order::with('user')
@@ -29,6 +30,7 @@ class DashboardController extends Controller
             'pendingOrders',
             'processingOrders',
             'activeProducts',
+            'totalRevenue',
             'recentOrders'
         ));
     }

@@ -20,6 +20,8 @@ class Order extends Model
         'shipping_address',
         'billing_address',
         'notes',
+        'coupon_code',
+        'discount_amount',
     ];
 
 
