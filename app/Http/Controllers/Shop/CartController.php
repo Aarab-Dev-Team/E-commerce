@@ -63,15 +63,34 @@ class CartController extends Controller
         $quantity = (int) $request->input('quantity');
         $this->cartService->updateQuantity($itemId, $quantity);
 
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success'    => true,
+                'cart_count' => $this->cartService->count(),
+                'subtotal'   => $this->cartService->subtotal(),
+                'item_total' => $this->cartService->items()
+                                    ->firstWhere('id', $itemId)
+                                    ?->price_at_time * $quantity,
+            ]);
+        }
+
         return redirect()->route('cart.index')->with('success', 'Cart updated.');
     }
 
     /**
      * Remove an item from the cart.
      */
-    public function remove(int $itemId)
+    public function remove(Request $request, int $itemId)
     {
         $this->cartService->remove($itemId);
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success'    => true,
+                'cart_count' => $this->cartService->count(),
+                'subtotal'   => $this->cartService->subtotal(),
+            ]);
+        }
 
         return redirect()->route('cart.index')->with('success', 'Item removed.');
     }

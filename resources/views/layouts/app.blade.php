@@ -749,73 +749,54 @@
 
     @stack('scripts')
 <script>
-    function quickAdd(productId) {
-    fetch(`/cart/add/${productId}`, {
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ quantity: 1 })
-    })
-    .then(async response => {
-        const text = await response.text();
-        console.log('Response status:', response.status);
-        console.log('Response text:', text);
-        try {
-            return JSON.parse(text);
-        } catch (e) {
-            console.error('Invalid JSON response');
-            return { success: false };
-        }
-    })
-    .then(data => {
-        console.log('Parsed data:', data);
-        if (data.success) {
-            alert('Product added to cart');
-        } else {
-            alert('Could not add product');
-        }
-    })
-    .catch(error => {
-        console.error('Fetch error:', error);
-        alert('An error occurred');
-    });
-}
+(function () {
+    const CSRF = document.querySelector('meta[name="csrf-token"]')?.content;
 
-
-
-document.querySelectorAll('.wishlist-btn').forEach(btn => {
-    btn.addEventListener('click', async (e) => {
+    // ── Quick-add AJAX (intercepts every .quick-add-form on any page) ──
+    document.addEventListener('submit', async function (e) {
+        const form = e.target.closest('.quick-add-form');
+        if (!form) return;           // not our form
         e.preventDefault();
-        e.stopPropagation();
-        const productId = btn.dataset.productId;
-        const icon = btn.querySelector('i');
-        
+
+        const btn  = form.querySelector('.quick-add-btn');
+        const icon = btn?.querySelector('i');
+        if (btn) btn.disabled = true;
+
         try {
-            const response = await fetch(`/wishlist/toggle/${productId}`, {
-                method: 'POST',
+            const res  = await fetch(form.action, {
+                method : 'POST',
                 headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    'Accept': 'application/json'
-                }
+                    'Content-Type': 'application/json',
+                    'Accept'      : 'application/json',
+                    'X-CSRF-TOKEN': CSRF,
+                },
+                body: JSON.stringify({ quantity: 1 }),
             });
-            const data = await response.json();
+            const data = await res.json();
+
             if (data.success) {
-                if (data.added) {
-                    icon.classList.add('wishlist-active');
-                } else {
-                    icon.classList.remove('wishlist-active');
-                }
-                // Optionally show a small notification
+                // ✓ visual feedback on the button
+                if (icon) icon.className = 'iconoir-check';
+                if (btn)  btn.style.background = 'var(--accent-sage)';
+
+                // update nav cart badge(s)
+                document.querySelectorAll('[data-cart-count]').forEach(el => {
+                    el.textContent = data.cart_count;
+                    el.dataset.cartCount = data.cart_count;
+                });
+
+                setTimeout(() => {
+                    if (icon) icon.className = 'iconoir-plus';
+                    if (btn)  { btn.style.background = ''; btn.disabled = false; }
+                }, 1500);
+            } else {
+                if (btn) btn.disabled = false;
             }
-        } catch (error) {
-            console.error('Error toggling wishlist:', error);
+        } catch {
+            if (btn) btn.disabled = false;
         }
     });
-});
-
+})();
 </script>
 </body>
 </html>
