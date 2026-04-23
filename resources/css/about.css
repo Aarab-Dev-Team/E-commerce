@@ -1,0 +1,208 @@
+/* ==========================================================================
+   ABOUT PAGE SPECIFIC STYLES
+   ========================================================================== */
+
+/* Specific Sections */
+.intro-section {
+    padding: 140px 0 100px;
+    position: relative;
+}
+
+.intro-section h1 {
+    max-width: 800px;
+    margin-bottom: 32px;
+}
+
+.intro-section p {
+    max-width: 500px;
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+.intro-illustration {
+    position: absolute;
+    right: 0;
+    top: 80px;
+    width: 300px;
+    height: 300px;
+    opacity: 1;
+    z-index: -1;
+}
+
+/* Organic SVGs */
+.organic-svg {
+    stroke: var(--text-main);
+    stroke-width: 1.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    display: block;
+}
+
+.organic-svg-wash {
+    fill: var(--accent-sand);
+    opacity: 0.15;
+}
+
+/* Story Section */
+.story-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 24px;
+}
+
+.story-title {
+    position: sticky;
+    top: 40px;
+}
+
+.story-content p {
+    margin-bottom: 24px;
+    font-size: 1.25rem;
+    max-width: 680px;
+    color: var(--text-secondary);
+}
+
+/* Values Section */
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.value-item .icon-wrapper {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 24px;
+}
+
+.value-item h4 {
+    margin-bottom: 12px;
+}
+
+.value-item p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+/* Team Section */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+}
+
+.team-card {
+    padding: 24px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+}
+
+.team-card h4 {
+    margin-bottom: 4px;
+}
+
+.team-card .role {
+    color: var(--accent-sage);
+    font-size: 0.875rem;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.team-card p {
+    font-size: 0.875rem;
+    margin-bottom: 24px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+.team-socials {
+    display: flex;
+    gap: 12px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 16px;
+}
+
+.team-socials a {
+    color: var(--text-secondary);
+}
+
+.team-socials a:hover {
+    color: var(--text-main);
+}
+
+/* Tech Stack */
+.tech-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 48px;
+}
+
+.tech-pill {
+    border: 1px solid var(--border-color);
+    padding: 12px 24px;
+    border-radius: 40px;
+    background: var(--surface-color);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Process Section */
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+}
+
+.process-step {
+    position: relative;
+}
+
+.step-number {
+    font-size: 0.875rem;
+    color: var(--accent-clay); /* use --accent-terracotta from app */
+    margin-bottom: 16px;
+    display: block;
+}
+
+.process-step h4 {
+    margin-bottom: 12px;
+}
+
+.process-step p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+/* CTA Section */
+.cta-section {
+    text-align: center;
+    padding: 120px 0;
+    background-color: var(--surface-color);
+}
+
+.cta-section h2 {
+    margin-bottom: 40px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    h1 { font-size: 3rem; }
+    h2 { font-size: 2rem; }
+    .story-grid, .values-grid, .process-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: repeat(2, 1fr); }
+    .intro-illustration { display: none; }
+}
+
+@media (max-width: 600px) {
+    h1 { font-size: 2.5rem; }
+    .team-grid { grid-template-columns: 1fr; }
+    .section-padding { padding: 64px 0; }
+}

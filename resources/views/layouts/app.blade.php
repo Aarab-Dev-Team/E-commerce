@@ -262,8 +262,8 @@
             right: 48px;
             top: 50%;
             transform: translateY(-50%);
-            width: 250px;
-            height: 250px;
+            width: 280px;
+            height: 280px;
             pointer-events: none;
         }
 
@@ -283,50 +283,194 @@
             padding-bottom: 120px;
         }
 
-        /*filters */
-        .sidebar { padding-top: 8px; }
-        .filter-group { margin-bottom: 40px; }
-        .filter-group h3 {
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 16px;
-        }
-        .filter-list { list-style: none; }
-        .filter-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 12px;
-            cursor: pointer;
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-        .filter-item:hover { color: var(--text-main); }
-        .filter-checkbox {
-            appearance: none;
-            width: 16px;
-            height: 16px;
-            border: 1px solid var(--border-color);
-            border-radius: 2px;
-            margin-right: 12px;
-            background: var(--surface-color);
-            transition: var(--transition);
-        }
-        .filter-checkbox:checked {
-            background: var(--text-main);
-            border-color: var(--text-main);
-        }
-        .filter-checkbox:checked::after {
-            content: '';
-            position: absolute;
-            left: 4px;
-            top: 1px;
-            width: 4px;
-            height: 8px;
-            border: solid var(--surface-color);
-            border-width: 0 1px 1px 0;
-            transform: rotate(45deg);
-        }
+        /*filters + Sidebar Container */
 
+           
+.sidebar { 
+    padding-right: 40px; 
+}
+
+/* Active Filters Section */
+.active-filters {
+    margin-bottom: 48px;
+}
+
+.filter-label-sm {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: lowercase; /* Editorial style choice */
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    letter-spacing: 0.05em;
+}
+
+.filter-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.filter-pill {
+    background-color: var(--accent-clay); /* Warm Sand Accent */
+    color: var(--bg-color);
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.filter-clear {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    margin-left: 8px;
+    transition: color 200ms ease-out;
+}
+
+.filter-clear:hover { color: var(--text-main); }
+
+/* Filter Groups */
+.filter-group { 
+    margin-bottom: 40px; 
+    border-top: 1px solid var(--border-color);
+    padding-top: 24px;
+}
+
+.filter-group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.filter-group h3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-count {
+    font-weight: 300;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.accordion-icon {
+    font-size: 16px;
+    color: var(--text-muted);
+    transition: transform 200ms ease-out;
+}
+
+.filter-group.collapsed .filter-group-content { display: none; }
+.filter-group.collapsed .accordion-icon { transform: rotate(-90deg); }
+
+/* Filter Items (Checkboxes) */
+.filter-list { list-style: none; }
+
+.filter-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text-muted);
+    transition: color 200ms ease-out;
+}
+
+.filter-item:hover { color: var(--text-main); }
+
+.filter-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    margin-right: 14px;
+    background: var(--surface-bg);
+    cursor: pointer;
+    position: relative;
+    transition: all 200ms ease-out;
+}
+
+.filter-checkbox:checked {
+    background: var(--text-main);
+    border-color: var(--text-main);
+}
+
+.filter-checkbox:checked::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 1.5px 1.5px 0;
+    transform: rotate(45deg);
+}
+
+/* Price Range Specifics */
+.price-range-wrap {
+    padding-top: 8px;
+}
+
+.price-range-display {
+    font-size: 14px;
+    color: var(--text-main);
+    margin-bottom: 16px;
+}
+
+.price-inputs {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.price-input-group label {
+    font-size: 11px;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 4px;
+}
+
+.price-input {
+    width: 100%;
+    border: 1px solid var(--border-color);
+    background: var(--surface-bg);
+    padding: 8px;
+    font-family: var(--font-main);
+    font-size: 13px;
+    border-radius: 4px;
+    outline: none;
+}
+
+.price-input:focus { border-color: var(--text-main); }
+
+.price-apply-btn {
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    border: 1px solid var(--text-main);
+    font-family: var(--font-main);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 200ms ease-out;
+}
+
+.price-apply-btn:hover {
+    background: var(--text-main);
+    color: var(--bg-color);
+}
+      
 
 
         /* products section*/
@@ -473,7 +617,7 @@
           footer 
            ========================================================================== */
         .footer {
-             background-color: var(--surface-color);
+             background-color: black;
             border-top: 1px solid var(--border-color);
             padding: 80px 0 40px;
         }
@@ -487,6 +631,7 @@
             font-size: 14px;
             font-weight: 500;
             margin-bottom: 24px;
+            color : var(--accent-clay) ; 
         }
         .footer-col p { font-size: 13px; margin-bottom: 24px; }
         .newsletter-form {
@@ -503,7 +648,7 @@
             border-radius: 4px;
         }
         .btn-filled {
-            background: var(--text-main);
+            background: var(--accent-clay);
             color: var(--surface-color);
             border: none;
             padding: 0 24px;
@@ -522,7 +667,11 @@
             border-top: 1px solid var(--border-color);
         }
         .social-links { display: flex; gap: 20px; }
-        .social-links a { color: var(--text-secondary); font-size: 18px; }
+        .social-links a { color: white; font-size: 18px; }
+
+        .copyright{
+            color : white ; 
+        }
 
         /* ==========================================================================
           optimization
@@ -548,35 +697,7 @@
             border: 1px solid var(--text-main);
         }
 
-        /* Accordion Filter Groups */
-.filter-group-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    user-select: none;
-}
-
-.filter-group-header h3 {
-    margin-bottom: 0;
-}
-
-.accordion-icon {
-    font-size: 16px;
-    transition: transform 0.2s ease;
-}
-
-.filter-group.collapsed .accordion-icon {
-    transform: rotate(-90deg);
-}
-
-.filter-group.collapsed .filter-group-content {
-    display: none;
-}
-
-.filter-group-content {
-    margin-top: 16px;
-}
+    
 
 
       /* ==========================================================================
@@ -640,6 +761,8 @@
             .footer-grid { grid-template-columns: 1fr; }
             .top-bar { flex-direction: column; gap: 8px; }
         }
+
+
     </style>
     @stack('styles')
 </head>
@@ -665,7 +788,7 @@
             
             <nav class="nav-links">
                 <a href="{{ route('shop.catalog') }}" class="{{ request()->routeIs('shop.catalog') ? 'active' : '' }}">Shop</a>
-                <a href="#">Editorial</a>
+                <a href="{{ route('about') }}">About</a>
             </nav>
 
             <div class="search-bar">

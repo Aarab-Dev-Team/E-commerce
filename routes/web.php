@@ -32,6 +32,9 @@ use App\Http\Controllers\WishlistController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/shop', [CatalogController::class, 'index'])->name('shop.catalog');
 Route::get('/product/{slug}', [ProductController::class, 'show'])->name('shop.product');
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
 
 // Cart (accessible to guests and customers)
 Route::prefix('cart')->name('cart.')->group(function () {
