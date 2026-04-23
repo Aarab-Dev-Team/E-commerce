@@ -591,17 +591,21 @@
             margin-top: 64px;
         }
         .page-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            font-size: 14px;
-            color: var(--text-secondary);
-            border-radius: 4px;
+             width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-color);
+      background: var(--surface-bg);
+      border-radius: 4px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: var(--transition-speed);
         }
         .page-link.active {
-            color: var(--text-main);
+            background: var(--text-main); color: var(--bg-color); border-color: var(--text-main); 
             font-weight: 500;
         }
         .page-link:not(.disabled):hover {
