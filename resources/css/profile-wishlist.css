@@ -1,126 +1,250 @@
 /* ==========================================================================
-   PROFILE WISHLIST PAGE STYLES (Grid, Cards, Empty State)
+   WISHLIST PAGE — premium redesign
    ========================================================================== */
 
-/* Page Header */
-.page-header {
+/* ── Page header ─────────────────────────────────────────────────────────── */
+.wishlist-page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
     margin-bottom: 40px;
     padding-bottom: 24px;
     border-bottom: 1px solid var(--border-color);
+    gap: 16px;
 }
 
-.page-header h1 {
+.wishlist-page-header__text h1 {
     font-size: 28px;
-    margin-bottom: 8px;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
 }
 
-.page-header p {
-    font-size: 15px;
+.wishlist-page-header__text p {
+    font-size: 14px;
     color: var(--text-secondary);
 }
 
-/* Wishlist Grid */
+.wishlist-count-badge {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 4px 14px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* ── Grid ────────────────────────────────────────────────────────────────── */
 .wishlist-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    gap: 20px;
 }
 
-/* Product Card */
-.wishlist-card {
+/* ── Card ────────────────────────────────────────────────────────────────── */
+.wl-card {
+    position: relative;
     background: var(--surface-color);
     border: 1px solid var(--border-color);
     border-radius: 4px;
     overflow: hidden;
-    transition: var(--transition-speed);
     display: flex;
     flex-direction: column;
+    transition: box-shadow 220ms ease, transform 220ms ease;
+}
+
+.wl-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+}
+
+/* ── Image container ─────────────────────────────────────────────────────── */
+.wl-card__image {
     position: relative;
-}
-
-.wishlist-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-}
-
-.product-img-link {
     display: block;
-    height: 280px;
+    height: 300px;
     background: var(--bg-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     border-bottom: 1px solid var(--border-color);
-    color: var(--border-color);
-    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
-.product-img-link img {
+.wl-card__image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 400ms ease;
 }
 
-.product-img-link i {
-    font-size: 40px;
-    stroke-width: 1px;
+.wl-card:hover .wl-card__image img {
+    transform: scale(1.03);
 }
 
-.btn-remove {
+.wl-card__placeholder {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 32px;
-    height: 32px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    color: var(--border-color);
+}
+
+/* ── Hover overlay ───────────────────────────────────────────────────────── */
+.wl-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(17, 17, 17, 0.32);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 20px;
+    opacity: 0;
+    transition: opacity 250ms ease;
+}
+
+.wl-card:hover .wl-card__overlay {
+    opacity: 1;
+}
+
+.wl-card__add-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface-color);
+    color: var(--text-main);
+    border: none;
     border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 180ms ease, transform 180ms ease;
+    transform: translateY(6px);
+}
+
+.wl-card:hover .wl-card__add-btn {
+    transform: translateY(0);
+}
+
+.wl-card__add-btn:hover {
+    background: var(--bg-color);
+}
+
+.wl-card__add-btn.added {
+    background: var(--accent-sage);
+    color: #fff;
+}
+
+.wl-card__add-btn i {
+    font-size: 16px;
+}
+
+/* ── Outline button ──────────────────────────────────────────────────────── */
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    padding: 12px 24px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition-speed);
+}
+
+.btn-outline:hover {
+    background: var(--bg-color);
+}
+
+/* ── Remove button ───────────────────────────────────────────────────────── */
+.wl-card__remove {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 3;
+    width: 30px;
+    height: 30px;
     background: var(--surface-color);
     border: 1px solid var(--border-color);
+    border-radius: 50%;
     color: var(--text-secondary);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: var(--transition-speed);
-    z-index: 2;
+    opacity: 0;
+    transition: opacity 200ms ease, color 150ms ease, border-color 150ms ease;
 }
 
-.btn-remove i {
-    font-size: 16px;
+.wl-card__remove i {
+    font-size: 14px;
+    pointer-events: none;
 }
 
-.btn-remove:hover {
+.wl-card:hover .wl-card__remove {
+    opacity: 1;
+}
+
+.wl-card__remove:hover {
     color: var(--accent-clay);
     border-color: var(--accent-clay);
 }
 
-.product-info {
+/* ── Card info ───────────────────────────────────────────────────────────── */
+.wl-card__info {
     padding: 16px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
+    flex: 1;
 }
 
-.product-title {
+.wl-card__name {
     font-size: 14px;
     font-weight: 500;
     color: var(--text-main);
+    line-height: 1.4;
+    transition: color 150ms ease;
 }
 
-.product-title a:hover {
+.wl-card__name:hover {
     color: var(--text-secondary);
 }
 
-.product-price {
+.wl-card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.wl-card__material {
+    font-size: 12px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.wl-card__price {
     font-size: 14px;
-    color: var(--text-secondary);
+    font-weight: 500;
+    color: var(--text-main);
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
-/* Empty State */
-.empty-state {
+/* ── Empty state ─────────────────────────────────────────────────────────── */
+.wl-empty {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     text-align: center;
     padding: 80px 24px;
     background: var(--surface-color);
@@ -128,42 +252,38 @@
     border-radius: 4px;
 }
 
-.empty-state i {
-    font-size: 56px;
-    color: var(--border-color);
-    margin-bottom: 24px;
-    stroke-width: 1px;
-}
-
-.empty-state p {
-    color: var(--text-secondary);
-    margin-bottom: 32px;
-    font-size: 16px;
-}
-
-/* Button */
-.btn-filled {
-    display: inline-flex;
+.wl-empty__icon {
+    width: 72px;
+    height: 72px;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    background: var(--text-main);
-    color: var(--surface-color);
-    border: 1px solid var(--text-main);
-    padding: 12px 28px;
-    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.wl-empty__icon i {
+    font-size: 32px;
+    color: var(--border-color);
+}
+
+.wl-empty h2 {
+    font-size: 20px;
     font-weight: 400;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: var(--transition-speed);
+    margin-bottom: 8px;
+    color: var(--text-main);
 }
 
-.btn-filled:hover {
-    background: var(--text-secondary);
-    border-color: var(--text-secondary);
+.wl-empty p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+    max-width: 320px;
 }
 
-/* Responsive */
+/* ── Responsive ──────────────────────────────────────────────────────────── */
 @media (max-width: 992px) {
     .wishlist-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -174,4 +294,120 @@
     .wishlist-grid {
         grid-template-columns: 1fr;
     }
+
+    .wishlist-page-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .wl-card__image {
+        height: 240px;
+    }
+}
+
+/* ── Confirm dialog ───────────────────────────────────────────────────────── */
+.wl-dialog-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    background: rgba(17, 17, 17, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    transition: opacity 220ms ease;
+}
+
+.wl-dialog-backdrop--visible {
+    opacity: 1;
+}
+
+.wl-dialog {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 40px 36px 32px;
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+    transform: scale(0.94) translateY(8px);
+    transition: transform 220ms ease, opacity 220ms ease;
+    opacity: 0;
+}
+
+.wl-dialog-backdrop--visible .wl-dialog {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+.wl-dialog__icon {
+    width: 56px;
+    height: 56px;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.wl-dialog__icon i {
+    font-size: 24px;
+    color: var(--text-secondary);
+}
+
+.wl-dialog h3 {
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--text-main);
+    margin-bottom: 8px;
+}
+
+.wl-dialog p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+    line-height: 1.6;
+}
+
+.wl-dialog__actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.wl-dialog__cancel,
+.wl-dialog__confirm {
+    flex: 1;
+    padding: 11px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.wl-dialog__cancel {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+}
+
+.wl-dialog__cancel:hover {
+    background: var(--bg-color);
+    border-color: var(--text-secondary);
+}
+
+.wl-dialog__confirm {
+    background: var(--text-main);
+    border: 1px solid var(--text-main);
+    color: var(--surface-color);
+}
+
+.wl-dialog__confirm:hover {
+    background: var(--accent-clay);
+    border-color: var(--accent-clay);
 }
