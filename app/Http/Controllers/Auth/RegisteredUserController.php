@@ -28,7 +28,7 @@ class RegisteredUserController extends Controller
      *
      * @throws ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, \App\Services\CartService $cartService): RedirectResponse
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -40,6 +40,9 @@ class RegisteredUserController extends Controller
         ]
         );
 
+        // Store old session ID before login
+        $oldSessionId = $request->session()->getId();
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -50,6 +53,10 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        // Merge guest cart items into the user's cart
+        $cartService->mergeGuestCartWithUser($oldSessionId);
+
         return redirect(route('shop.catalog', absolute: false));
     }
+
 }
