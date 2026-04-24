@@ -196,4 +196,31 @@
     .address-grid {
         grid-template-columns: 1fr;
     }
+
+    .profile-card {
+        padding: 28px 24px;
+    }
+
+    .avatar-upload {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-card {
+        padding: 20px 16px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    h1 { font-size: 1.75rem; }
 }

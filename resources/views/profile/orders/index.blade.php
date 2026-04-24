@@ -51,7 +51,7 @@
             </div>
         @empty
             <div class="table-row">
-                <div class="col" style="grid-column: span 5; text-align: center; padding: 40px;">
+                <div class="col" style="grid-column: span 5; text-align: center; padding: 40px; display: flex; justify-content: center; align-items: center;">
                     No orders found.
                 </div>
             </div>

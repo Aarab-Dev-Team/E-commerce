@@ -75,7 +75,7 @@
     color: var(--text-main);
     font-weight: 500;
     border: 1px solid var(--border-color);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
 }
 
 .sidebar-menu i {
@@ -105,18 +105,22 @@
         grid-template-columns: 1fr;
         gap: 40px;
     }
+
     .profile-sidebar {
         position: static;
         display: flex;
         overflow-x: auto;
         padding-bottom: 16px;
     }
+
     .user-info-small {
         display: none;
     }
+
     .sidebar-menu {
         flex-direction: row;
     }
+
     .sidebar-menu a {
         white-space: nowrap;
     }
