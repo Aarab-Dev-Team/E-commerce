@@ -26,26 +26,22 @@
     @endif
 
     {{-- Filters --}}
-    <form method="GET" action="{{ route('admin.users.index') }}" class="filters-bar">
-        <div style="flex-grow: 1; max-width: 320px;">
-            <label>Search</label>
-            <div class="search-container" style="width: 100%;">
-                <i class="iconoir-search"></i>
-                <input type="text" name="search" placeholder="Name or email address..." value="{{ request('search') }}">
-            </div>
+    <form method="GET" action="{{ route('admin.users.index') }}" class="admin-filter-form">
+        <div class="search-boxed" style="width: 320px;">
+            <i class="iconoir-search"></i>
+            <input type="text" name="search" placeholder="Search by name or email..." value="{{ request('search') }}">
         </div>
-        <div style="width: 200px;">
-            <label>Filter by role</label>
-            <select name="role" onchange="this.form.submit()">
-                <option value="">All roles</option>
-                <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                <option value="employee" {{ request('role') == 'employee' ? 'selected' : '' }}>Employee</option>
-                <option value="customer" {{ request('role') == 'customer' ? 'selected' : '' }}>Customer</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-ghost">Filter</button>
+
+        <select name="role" onchange="this.form.submit()" class="input-styled" style="width: 200px;">
+            <option value="">All roles</option>
+            <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+            <option value="employee" {{ request('role') == 'employee' ? 'selected' : '' }}>Employee</option>
+            <option value="customer" {{ request('role') == 'customer' ? 'selected' : '' }}>Customer</option>
+        </select>
+
+        <button type="submit" class="btn-ghost">Filter</button>
         @if(request()->anyFilled(['search', 'role']))
-            <a href="{{ route('admin.users.index') }}" class="btn btn-ghost">Clear</a>
+            <a href="{{ route('admin.users.index') }}" class="btn-ghost" style="display: flex; align-items: center; justify-content: center; text-decoration: none;">Clear</a>
         @endif
     </form>
 
