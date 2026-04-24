@@ -265,8 +265,8 @@
     {{-- ========== NEWSLETTER ========== --}}
     <section class="newsletter-section">
         <div class="container">
-            <h2>Aura Journal</h2>
-            <p>Irregular dispatches on design, craft, and slow living.</p>
+            <h2>Stay connected</h2>
+            <p>Get notified about project updates, new features, and our development journey.</p>
             <form class="newsletter-form-large" onsubmit="event.preventDefault();">
                 <input type="email" placeholder="Your email address" required>
                 <button type="submit" class="btn-filled">Subscribe</button>

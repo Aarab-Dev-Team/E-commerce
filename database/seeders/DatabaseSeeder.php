@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             EmployeeUserSeeder::class,
             CouponSeeder::class,
+            DemoDataSeeder::class,
         ]);
     }
 }
