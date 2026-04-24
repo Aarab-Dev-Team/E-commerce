@@ -88,35 +88,35 @@
             @csrf
             <div class="form-group">
                 <label for="code">Coupon Code</label>
-                <input type="text" id="code" name="code" required placeholder="e.g. SUMMER20" style="text-transform: uppercase;">
+                <input type="text" id="code" name="code" class="input-styled" required placeholder="e.g. SUMMER20" style="text-transform: uppercase;">
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label for="type">Discount Type</label>
-                    <select id="type" name="type" required>
+                    <select id="type" name="type" class="input-styled" required>
                         <option value="percentage">Percentage (%)</option>
                         <option value="fixed">Fixed Amount ($)</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="value">Discount Value</label>
-                    <input type="number" id="value" name="value" required min="0.01" step="0.01" placeholder="e.g. 10">
+                    <input type="number" id="value" name="value" class="input-styled" required min="0.01" step="0.01" placeholder="e.g. 10">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label for="min_order_amount">Min. Order Amount (Optional)</label>
-                    <input type="number" id="min_order_amount" name="min_order_amount" min="0" step="0.01" placeholder="e.g. 50">
+                    <input type="number" id="min_order_amount" name="min_order_amount" class="input-styled" min="0" step="0.01" placeholder="e.g. 50">
                 </div>
                 <div class="form-group">
                     <label for="max_uses">Max Uses (Optional)</label>
-                    <input type="number" id="max_uses" name="max_uses" min="1" placeholder="e.g. 100">
+                    <input type="number" id="max_uses" name="max_uses" class="input-styled" min="1" placeholder="e.g. 100">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label for="expires_at">Expiration Date (Optional)</label>
-                    <input type="date" id="expires_at" name="expires_at">
+                    <input type="date" id="expires_at" name="expires_at" class="input-styled">
                 </div>
                 <div class="form-group" style="display: flex; align-items: flex-end; padding-bottom: 12px;">
                     <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
@@ -143,30 +143,30 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="edit-type">Discount Type</label>
-                    <select id="edit-type" name="type" required>
+                    <select id="edit-type" name="type" class="input-styled" required>
                         <option value="percentage">Percentage (%)</option>
                         <option value="fixed">Fixed Amount ($)</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="edit-value">Discount Value</label>
-                    <input type="number" id="edit-value" name="value" required min="0.01" step="0.01">
+                    <input type="number" id="edit-value" name="value" class="input-styled" required min="0.01" step="0.01">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label for="edit-min_order_amount">Min. Order Amount (Optional)</label>
-                    <input type="number" id="edit-min_order_amount" name="min_order_amount" min="0" step="0.01">
+                    <input type="number" id="edit-min_order_amount" name="min_order_amount" class="input-styled" min="0" step="0.01">
                 </div>
                 <div class="form-group">
                     <label for="edit-max_uses">Max Uses (Optional)</label>
-                    <input type="number" id="edit-max_uses" name="max_uses" min="1">
+                    <input type="number" id="edit-max_uses" name="max_uses" class="input-styled" min="1">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label for="edit-expires_at">Expiration Date (Optional)</label>
-                    <input type="date" id="edit-expires_at" name="expires_at">
+                    <input type="date" id="edit-expires_at" name="expires_at" class="input-styled">
                 </div>
                 <div class="form-group" style="display: flex; align-items: flex-end; padding-bottom: 12px;">
                     <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">

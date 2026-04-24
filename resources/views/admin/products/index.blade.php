@@ -17,7 +17,7 @@
 <form method="GET" action="{{ route('admin.products.index') }}" class="admin-filter-form">
     
     {{-- Search --}}
-    <div class="search-boxed">
+    <div class="search-boxed" style="width: 320px;">
         <i class="iconoir-search"></i>
         <input type="text" name="search" placeholder="Search by name..." value="{{ request('search') }}">
     </div>

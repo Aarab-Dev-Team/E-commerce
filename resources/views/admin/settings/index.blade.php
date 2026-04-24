@@ -26,11 +26,11 @@
             <h3 style="margin-bottom: 24px;">General</h3>
             <div class="form-group">
                 <label>Store Name</label>
-                <input type="text" name="store_name" value="{{ old('store_name', $settings['store_name']) }}" required>
+                <input type="text" name="store_name" value="{{ old('store_name', $settings['store_name']) }}" class="input-styled" required>
             </div>
             <div class="form-group">
                 <label>Contact Email</label>
-                <input type="email" name="contact_email" value="{{ old('contact_email', $settings['contact_email']) }}" required>
+                <input type="email" name="contact_email" value="{{ old('contact_email', $settings['contact_email']) }}" class="input-styled" required>
             </div>
 
             <div class="nav-divider" style="margin: 32px 0;"></div>
@@ -39,7 +39,7 @@
             <div class="form-row">
                 <div class="form-group">
                     <label>Base Currency</label>
-                    <select name="currency">
+                    <select name="currency" class="input-styled">
                         <option value="USD" {{ $settings['currency'] == 'USD' ? 'selected' : '' }}>USD ($)</option>
                         <option value="EUR" {{ $settings['currency'] == 'EUR' ? 'selected' : '' }}>EUR (€)</option>
                         <option value="GBP" {{ $settings['currency'] == 'GBP' ? 'selected' : '' }}>GBP (£)</option>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="form-group">
                     <label>Timezone</label>
-                    <select name="timezone">
+                    <select name="timezone" class="input-styled">
                         <option value="PT" {{ $settings['timezone'] == 'PT' ? 'selected' : '' }}>Pacific Time (PT)</option>
                         <option value="ET" {{ $settings['timezone'] == 'ET' ? 'selected' : '' }}>Eastern Time (ET)</option>
                         <option value="UTC" {{ $settings['timezone'] == 'UTC' ? 'selected' : '' }}>Coordinated Universal Time (UTC)</option>
@@ -57,4 +57,4 @@
         </form>
     </div>
 </div>
-@endsection
+@endsection 

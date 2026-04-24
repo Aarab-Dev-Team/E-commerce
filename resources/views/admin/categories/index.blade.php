@@ -43,14 +43,18 @@
                     <td><code style="font-size: 12px; color: var(--text-secondary);">/{{ $category->slug }}</code></td>
                     <td>{{ $category->products_count ?? 0 }}</td>
                     <td class="actions-cell">
-                        <i class="iconoir-edit action-icon" onclick="editCategory({{ $category }})"></i>
-                        <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" onsubmit="return confirm('Delete this category? Products will have no category.');" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" style="background: none; border: none; padding: 0;">
-                                <i class="iconoir-trash action-icon danger"></i>
+                        <div style="display: flex; gap: 8px;">
+                            <button type="button" class="btn-icon" onclick="editCategory({{ $category }})" title="Edit">
+                                <i class="iconoir-edit-pencil"></i>
                             </button>
-                        </form>
+                            <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" onsubmit="return confirm('Delete this category? Products will have no category.');" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn-icon" style="color: var(--accent-terracotta);" title="Delete">
+                                    <i class="iconoir-trash"></i>
+                                </button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 @empty

@@ -3,6 +3,34 @@
 @section('title', 'Pending Approvals — Aura. Admin')
 @section('page-title', 'Approvals')
 
+@push('styles')
+<style>
+    .tabs {
+        border-bottom: none !important;
+        gap: 12px !important;
+        margin-bottom: 32px !important;
+    }
+    .tab {
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border-subtle) !important;
+        border-radius: 4px !important;
+        padding: 8px 16px !important;
+        margin-bottom: 0 !important;
+        font-size: 13px;
+        transition: all 0.2s ease;
+    }
+    .tab:hover {
+        border-color: var(--text-secondary) !important;
+        color: var(--text-primary) !important;
+    }
+    .tab.active {
+        border-color: var(--text-primary) !important;
+        color: var(--text-primary) !important;
+        background-color: var(--bg-base);
+    }
+</style>
+@endpush
+
 @section('content')
 <div class="page">
     <div class="section-header" style="align-items: flex-start;">
@@ -22,7 +50,7 @@
     </div>
 
     {{-- Tabs --}}
-    <div class="tabs" style="margin-bottom: 32px;">
+    <div class="tabs">
         <a href="{{ route('admin.approvals.index') }}" class="tab {{ !request('type') ? 'active' : '' }}">All requests</a>
         <a href="{{ route('admin.approvals.index', ['type' => 'creation']) }}" class="tab {{ request('type') == 'creation' ? 'active' : '' }}">Creations</a>
         <a href="{{ route('admin.approvals.index', ['type' => 'update']) }}" class="tab {{ request('type') == 'update' ? 'active' : '' }}">Updates</a>

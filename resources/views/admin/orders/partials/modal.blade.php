@@ -63,7 +63,7 @@
             <div class="form-group">
                 <label>Update order status</label>
                 <div style="display: flex; gap: 16px;">
-                    <select name="status" id="status-select" style="width: auto; min-width: 200px;">
+                    <select name="status" id="status-select" class="input-styled" style="width: auto; min-width: 200px;">
                         <option value="pending">Pending</option>
                         <option value="processing">Processing</option>
                         <option value="shipped">Shipped</option>

@@ -10,12 +10,12 @@
 
             <div class="form-group">
                 <label>Category name *</label>
-                <input type="text" name="name" placeholder="e.g. Ceramics" required>
+                <input type="text" name="name" placeholder="e.g. Ceramics" class="input-styled" required>
             </div>
 
             <div class="form-group">
                 <label>URL Slug (optional)</label>
-                <input type="text" name="slug" placeholder="e.g. ceramics (auto-generated if empty)">
+                <input type="text" name="slug" placeholder="e.g. ceramics (auto-generated if empty)" class="input-styled">
             </div>
 
             <div class="modal-footer">
