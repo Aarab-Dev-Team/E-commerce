@@ -20,6 +20,8 @@
 </head>
 <body>
 
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
     {{-- Sidebar --}}
     <aside class="sidebar">
 
@@ -96,8 +98,13 @@
 
         {{-- Top Bar --}}
         <header class="top-bar">
-            <div  style="display:flex ; justify-content:space-between; align-items:center ; padding : 10px 64px">
-                <div class="page-title-display">@yield('page-title', 'Overview')</div>
+            <div class="top-bar-content">
+                <div style="display: flex; align-items: center; gap: 16px;">
+                    <button class="mobile-toggle" id="sidebarToggle">
+                        <i class="iconoir-menu"></i>
+                    </button>
+                    <div class="page-title-display">@yield('page-title', 'Overview')</div>
+                </div>
 
                 <div class="top-actions">
                 
@@ -141,8 +148,26 @@
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('active');
         }
-        // Close modal on background click
+
+        // Sidebar Toggle for Mobile
         document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.querySelector('.sidebar');
+            const toggle = document.getElementById('sidebarToggle');
+            const overlay = document.getElementById('sidebarOverlay');
+
+            if (toggle && sidebar && overlay) {
+                toggle.addEventListener('click', () => {
+                    sidebar.classList.toggle('active');
+                    overlay.classList.toggle('active');
+                });
+
+                overlay.addEventListener('click', () => {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                });
+            }
+
+            // Close modal on background click
             document.querySelectorAll('.modal-overlay').forEach(overlay => {
                 overlay.addEventListener('click', (e) => {
                     if (e.target === overlay) {

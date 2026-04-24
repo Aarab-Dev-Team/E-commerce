@@ -44,6 +44,26 @@ body {
     overflow: hidden;
 }
 
+/* Global Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-base);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-subtle);
+    border-radius: 4px;
+    border: 2px solid var(--bg-base);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
 h1, h2, h3, h4, h5, h6 {
     color: var(--text-primary);
     font-weight: 400;
@@ -69,7 +89,7 @@ p { color: var(--text-secondary); margin-bottom: 16px; font-weight: 300; }
     padding: 40px 24px;
     flex-shrink: 0;
     z-index: 20;
-    /* overflow-y: scroll; */
+    max-height: 100vh;
 }
 
 .main-wrapper {
@@ -87,7 +107,14 @@ p { color: var(--text-secondary); margin-bottom: 16px; font-weight: 300; }
     position: sticky;
     top: 0;
     z-index: 10;
+}
 
+.top-bar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 64px;
+    height: 100%;
 }
 
 .content-area {
@@ -122,6 +149,23 @@ p { color: var(--text-secondary); margin-bottom: 16px; font-weight: 300; }
     flex-direction: column;
     gap: 8px;
     flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 8px; /* Space for scrollbar */
+}
+
+/* Custom Scrollbar for Nav Menu */
+.nav-menu::-webkit-scrollbar {
+    width: 4px;
+}
+.nav-menu::-webkit-scrollbar-track {
+    background: transparent;
+}
+.nav-menu::-webkit-scrollbar-thumb {
+    background: var(--border-subtle);
+    border-radius: 10px;
+}
+.nav-menu::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
 }
 
 .nav-item {
@@ -840,5 +884,160 @@ input:focus, select:focus, textarea:focus {
             opacity: 0.3;
             cursor: not-allowed;
         }
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+/* Mobile Menu Toggle Button */
+.mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    margin-right: 16px;
+}
+
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 15;
+    backdrop-filter: blur(2px);
+    transition: opacity 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+    html {
+        height: auto;
+        overflow-y: auto;
+    }
+    
+    body {
+        display: block !important;
+        height: auto !important;
+        min-height: 100vh;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .main-wrapper {
+        display: block !important;
+        height: auto !important;
+        min-height: 100vh;
+        overflow: visible !important;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: -280px;
+        top: 0;
+        bottom: 0;
+        height: 100vh;
+        z-index: 1000;
+        background-color: var(--bg-base);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 20px 0 50px rgba(0,0,0,0.05);
+    }
+
+    .sidebar.active {
+        transform: translateX(280px);
+    }
+
+    .sidebar-overlay.active {
+        display: block;
+    }
+
+    .mobile-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .content-area {
+        padding: 40px 24px;
+    }
+
+    .top-bar {
+        height: auto;
+        min-height: 70px;
+    }
+
+    .grid-4, .grid-5 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 32px; }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .section-header div:last-child {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 8px !important;
+    }
+
+    .section-header .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .stat-value {
+        font-size: 28px;
+    }
+
+    .card {
+        padding: 24px;
+    }
+
+    .card-svg-bg {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (max-width: 600px) {
+    .grid-4, .grid-5 {
+        grid-template-columns: 1fr;
+    }
+
+    .page-title-display {
+        display: none;
+    }
+
+    .top-actions {
+        gap: 12px;
+    }
+}
+
+/* Fix for horizontal scroll in tables */
+.table-wrapper {
+    margin-left: -24px;
+    margin-right: -24px;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+}
+
+@media (min-width: 769px) {
+    .table-wrapper {
+        margin-left: 0;
+        margin-right: 0;
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+    }
+}
 
 
