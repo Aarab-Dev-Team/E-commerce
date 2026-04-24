@@ -16,18 +16,18 @@
 
             <div class="form-group">
                 <label>Product name</label>
-                <input type="text" name="name" placeholder="e.g. Stoneware mug" required>
+                <input type="text" name="name" placeholder="e.g. Stoneware mug" class="input-styled" required>
             </div>
 
             <div class="form-group">
                 <label>Slug <span style="font-size: 11px; color: var(--text-muted);">(optional, auto-generated)</span></label>
-                <input type="text" name="slug" placeholder="stoneware-mug">
+                <input type="text" name="slug" placeholder="stoneware-mug" class="input-styled">
             </div>
 
             <div class="form-row">
                 <div class="form-group">
                     <label>Category</label>
-                    <select name="category_id" required>
+                    <select name="category_id" class="input-styled" required>
                         <option value="">Select category...</option>
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -37,7 +37,7 @@
                 <div class="form-group">
                     <label>Visibility</label>
                     @if(auth()->user()->role === 'admin')
-                        <select name="is_active">
+                        <select name="is_active" class="input-styled">
                             <option value="1">Active (visible to customers)</option>
                             <option value="0">Inactive (hidden)</option>
                         </select>
@@ -55,34 +55,34 @@
             <div class="form-row">
                 <div class="form-group">
                     <label>Price (USD)</label>
-                    <input type="number" name="price" placeholder="0.00" step="0.01" min="0" required>
+                    <input type="number" name="price" placeholder="0.00" step="0.01" min="0" class="input-styled" required>
                 </div>
                 <div class="form-group">
                     <label>Stock quantity</label>
-                    <input type="number" name="stock_quantity" placeholder="0" min="0" required>
+                    <input type="number" name="stock_quantity" placeholder="0" min="0" class="input-styled" required>
                 </div>
             </div>
 
             <div class="form-group">
                 <label>Description</label>
-                <textarea name="description" placeholder="Brief editorial description of the item..." required></textarea>
+                <textarea name="description" placeholder="Brief editorial description of the item..." class="input-styled" required></textarea>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
                     <label>Material</label>
-                    <input type="text" name="material" placeholder="e.g. Stoneware">
+                    <input type="text" name="material" placeholder="e.g. Stoneware" class="input-styled">
                 </div>
                 <div class="form-group">
                     <label>Origin</label>
-                    <input type="text" name="origin" placeholder="e.g. Kyoto">
+                    <input type="text" name="origin" placeholder="e.g. Kyoto" class="input-styled">
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
                     <label>Color</label>
-                    <input type="text" name="color" placeholder="e.g. Warm Sand">
+                    <input type="text" name="color" placeholder="e.g. Warm Sand" class="input-styled">
                 </div>
                 <div class="form-group">
                     <label>Images</label>
