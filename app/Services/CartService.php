@@ -17,7 +17,6 @@ class CartService
      */
     public function __construct()
     {
-        $this->cart = $this->getOrCreateCart();
     }
 
     /**
@@ -25,7 +24,7 @@ class CartService
      */
     public function getCart(): Cart
     {
-        return $this->cart;
+         return $this->getOrCreateCart();
     }
 
     /**
@@ -34,20 +33,30 @@ class CartService
     protected function getOrCreateCart(): Cart
     {
         if (auth()->check()) {
-            $userCart = Cart::firstOrCreate(['user_id' => auth()->id()]);
-
-            // If a guest cart exists with the current session, merge it into the user's cart
-            $sessionCart = Cart::where('session_id', session()->getId())->first();
-            if ($sessionCart && $sessionCart->id !== $userCart->id) {
-                $this->mergeCarts($sessionCart, $userCart);
-            }
-
-            return $userCart;
+            return Cart::firstOrCreate(['user_id' => auth()->id()]);
         }
 
         // Guest user: cart identified by session_id
         return Cart::firstOrCreate(['session_id' => session()->getId()]);
     }
+
+    /**
+     * Merge items from a guest session into the authenticated user's cart.
+     */
+    public function mergeGuestCartWithUser(?string $oldSessionId): void
+    {
+        if (!$oldSessionId || !auth()->check()) {
+            return;
+        }
+
+        $userCart = Cart::firstOrCreate(['user_id' => auth()->id()]);
+        $guestCart = Cart::where('session_id', $oldSessionId)->first();
+
+        if ($guestCart && $guestCart->id !== $userCart->id) {
+            $this->mergeCarts($guestCart, $userCart);
+        }
+    }
+
 
     /**
      * Merge items from a guest cart into a user cart.
@@ -79,7 +88,7 @@ class CartService
      */
     public function add(Product $product, int $quantity = 1): CartItem
     {
-        $existingItem = $this->cart->items()->where('product_id', $product->id)->first();
+        $existingItem = $this->getCart()->items()->where('product_id', $product->id)->first();
 
         if ($existingItem) {
             $existingItem->update([
@@ -88,7 +97,7 @@ class CartService
             return $existingItem;
         }
 
-        return $this->cart->items()->create([
+        return $this->getCart()->items()->create([
             'product_id'    => $product->id,
             'quantity'      => $quantity,
             'price_at_time' => $product->price,
@@ -100,7 +109,7 @@ class CartService
      */
     public function updateQuantity(int $itemId, int $quantity): bool
     {
-        $item = $this->cart->items()->find($itemId);
+        $item = $this->getCart()->items()->find($itemId);
         if (!$item) {
             return false;
         }
@@ -117,7 +126,7 @@ class CartService
      */
     public function remove(int $itemId): bool
     {
-        $item = $this->cart->items()->find($itemId);
+        $item = $this->getCart()->items()->find($itemId);
         return $item ? $item->delete() : false;
     }
 
@@ -126,7 +135,7 @@ class CartService
      */
     public function clear(): void
     {
-        $this->cart->items()->delete();
+        $this->getCart()->items()->delete();
     }
 
     /**
@@ -134,7 +143,7 @@ class CartService
      */
     public function items(): Collection
     {
-        return $this->cart->items()->with('product')->get();
+        return $this->getCart()->items()->with('product')->get();
     }
 
     /**
@@ -142,7 +151,7 @@ class CartService
      */
     public function count(): int
     {
-        return $this->cart->items()->sum('quantity');
+        return $this->getCart()->items()->sum('quantity');
     }
 
     /**
@@ -150,7 +159,7 @@ class CartService
      */
     public function subtotal(): float
     {
-        return $this->cart->items->sum(function ($item) {
+        return $this->getCart()->items->sum(function ($item) {
             return $item->quantity * $item->price_at_time;
         });
     }
@@ -169,7 +178,7 @@ class CartService
      */
     public function isEmpty(): bool
     {
-        return $this->cart->items()->count() === 0;
+        return $this->getCart()->items()->count() === 0;
     }
 
     /**
@@ -177,17 +186,11 @@ class CartService
      */
     public function transferToUser(int $userId): void
     {
-        $this->cart->update([
+        $this->getCart()->update([
             'user_id'    => $userId,
             'session_id' => null,
         ]);
     }
 
-    /**
-     * Refresh the cart instance (useful after login).
-     */
-    public function refresh(): void
-    {
-        $this->cart = $this->getOrCreateCart();
-    }
+ 
 }

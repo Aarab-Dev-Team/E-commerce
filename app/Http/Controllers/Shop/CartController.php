@@ -10,7 +10,7 @@ use App\Models\Product  ;
 
 class CartController extends Controller
 {
-       protected CartService $cartService;
+    protected CartService $cartService;
 
     public function __construct(CartService $cartService)
     {

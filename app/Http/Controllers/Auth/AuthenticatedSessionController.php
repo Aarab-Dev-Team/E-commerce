@@ -22,12 +22,19 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request, \App\Services\CartService $cartService): RedirectResponse
     {
+
+        // store old session id before login  : 
+        $oldSessionId = $request->session()->getId() ; 
+
+
         $request->authenticate();
 
         $request->session()->regenerate();
 
+        // Merge guest cart items into the user's cart
+        $cartService->mergeGuestCartWithUser($oldSessionId);
 
         $user = $request->user();
 
@@ -40,6 +47,7 @@ class AuthenticatedSessionController extends Controller
 
         return redirect()->intended(route('shop.catalog'));
     }
+
 
     /**
      * Destroy an authenticated session.
