@@ -62,12 +62,19 @@ class WishlistController extends Controller
     /**
      * Remove a specific wishlist item.
      */
-    public function destroy(Product $product)
+    public function destroy(Request $request, Product $product)
     {
         $deleted = auth()->user()
             ->wishlist()
             ->where('product_id', $product->id)
             ->delete();
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => (bool) $deleted,
+                'message' => $deleted ? 'Removed from wishlist' : 'Item not found in wishlist',
+            ], $deleted ? 200 : 404);
+        }
 
         if ($deleted) {
             return redirect()->back()->with('success', 'Removed from wishlist');
