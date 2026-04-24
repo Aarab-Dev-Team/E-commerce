@@ -351,9 +351,20 @@
     .address-grid {
         grid-template-columns: 1fr;
     }
+
     .page-header {
         flex-direction: column;
-        gap: 24px;
+        gap: 20px;
+        align-items: flex-start;
+    }
+
+    /* Button stays natural width — not stretched */
+    .page-header .btn-filled {
+        align-self: flex-start;
+    }
+
+    .address-card {
+        padding: 20px;
     }
 }
 
@@ -361,14 +372,61 @@
     .form-grid {
         grid-template-columns: 1fr;
     }
+
     .form-group.full-width {
         grid-column: span 1;
     }
+
+    /* Modal goes edge-to-edge on small phones */
+    .modal-overlay {
+        padding: 0;
+        align-items: flex-end;
+    }
+
+    .modal-content {
+        max-width: 100%;
+        max-height: 95vh;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .modal-header {
+        padding: 20px 20px;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
     .modal-footer {
+        padding: 16px 20px;
         flex-direction: column;
     }
+
     .modal-footer button {
         width: 100%;
         justify-content: center;
+    }
+
+    .radio-group {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header h1 {
+        font-size: 22px;
+    }
+
+    .address-card {
+        padding: 16px;
+    }
+
+    .card-actions {
+        gap: 12px;
+    }
+
+    .empty-state {
+        padding: 48px 16px;
     }
 }
