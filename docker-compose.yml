@@ -27,6 +27,7 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+    
 
   mysql:
     image: mysql:8.4 # Using 8.4 to stay modern with your PHP version
