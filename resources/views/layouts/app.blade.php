@@ -689,18 +689,19 @@
         .footer-links { list-style: none; }
         .footer-links li { margin-bottom: 12px; }
         .footer-links a { font-size: 13px; color: var(--text-secondary); }
+        
         .footer-bottom {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding-top: 24px;
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid var(--text-secondary);
         }
         .social-links { display: flex; gap: 20px; }
-        .social-links a { color: white; font-size: 18px; }
+        .social-links a { color:var(--surface-color); font-size: 18px; }
 
         .copyright{
-            color : white ; 
+            color : var(--surface-color) ; 
         }
 
         /* ==========================================================================
@@ -922,54 +923,54 @@
     </main>
 
     <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <h4>Aura Journal</h4>
-                    <p>Subscribe to our irregular dispatches on design, architecture, and slow living.</p>
-                    <form class="newsletter-form" onsubmit="event.preventDefault();">
-                        <input type="email" placeholder="Email address">
-                        <button type="submit" class="btn-filled">Join</button>
-                    </form>
-                </div>
-                <div class="footer-col">
-                    <h4>Shop</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">New arrivals</a></li>
-                        <li><a href="#">Objects</a></li>
-                        <li><a href="#">Textiles</a></li>
-                        <li><a href="#">Furniture</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Assistance</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Shipping & returns</a></li>
-                        <li><a href="#">Care guide</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Studio</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">About us</a></li>
-                        <li><a href="#">Journal</a></li>
-                        <li><a href="#">Stockists</a></li>
-                        <li><a href="#">Terms & conditions</a></li>
-                    </ul>
-                </div>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Aura Studio</h4>
+                <p>A final‑year internship project showcasing a complete e‑commerce platform with role‑based access and an approval workflow.</p>
+                <form class="newsletter-form" onsubmit="event.preventDefault();">
+                    <input type="email" placeholder="Email address">
+                    <button type="submit" class="btn-filled">Join</button>
+                </form>
             </div>
-            <div class="footer-bottom">
-                <div class="copyright">&copy; {{ date('Y') }} Aura Studio. All rights reserved.</div>
-                <div class="social-links">
-                    <a href="#"><i class="iconoir-instagram"></i></a>
-                    <a href="#"><i class="iconoir-pinterest"></i></a>
-                    <a href="#"><i class="iconoir-twitter"></i></a>
-                </div>
+            <div class="footer-col">
+                <h4>Shop</h4>
+                <ul class="footer-links">
+                    <li><a href="#">All products</a></li>
+                    <li><a href="#">Tuna cans</a></li>
+                    <li><a href="#">Tuna fillets</a></li>
+                    <li><a href="#">Seafood spreads</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Assistance</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Order tracking</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Returns policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Project</h4>
+                <ul class="footer-links">
+                    <li><a href="#">About the project</a></li>
+                    <li><a href="#">GitHub repository</a></li>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Terms & conditions</a></li>
+                </ul>
             </div>
         </div>
-    </footer>
+        <div class="footer-bottom">
+            <div class="copyright">&copy; {{ date('Y') }} Aura Studio — Internship Project. All rights reserved.</div>
+            <div class="social-links">
+                <a href="#"><i class="iconoir-github"></i></a>
+                <a href="#"><i class="iconoir-linkedin"></i></a>
+                <a href="#"><i class="iconoir-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
 
     @stack('scripts')
 <script>
