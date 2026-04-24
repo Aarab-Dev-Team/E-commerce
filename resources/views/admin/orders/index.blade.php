@@ -3,6 +3,34 @@
 @section('title', 'Orders — Aura. Admin')
 @section('page-title', 'Orders')
 
+@push('styles')
+<style>
+    .tabs {
+        border-bottom: none !important;
+        gap: 12px !important;
+        margin-bottom: 32px !important;
+    }
+    .tab {
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border-subtle) !important;
+        border-radius: 4px !important;
+        padding: 8px 16px !important;
+        margin-bottom: 0 !important;
+        font-size: 13px;
+        transition: all 0.2s ease;
+    }
+    .tab:hover {
+        border-color: var(--text-secondary) !important;
+        color: var(--text-primary) !important;
+    }
+    .tab.active {
+        border-color: var(--text-primary) !important;
+        color: var(--text-primary) !important;
+        background-color: var(--bg-base);
+    }
+</style>
+@endpush
+
 @section('content')
 <div class="page">
     <div class="section-header">
@@ -13,7 +41,7 @@
     </div>
 
     {{-- Status Tabs --}}
-    <div class="tabs" style="margin-bottom: 24px;">
+    <div class="tabs">
         <a href="{{ route('admin.orders.index', ['status' => 'all']) }}" class="tab {{ request('status', 'all') === 'all' ? 'active' : '' }}">
             All ({{ $counts['all'] }})
         </a>
@@ -39,7 +67,7 @@
         @if(request('status'))
             <input type="hidden" name="status" value="{{ request('status') }}">
         @endif
-        <div class="search-container" style="width: 320px; border-bottom: 1px solid var(--border-subtle);">
+        <div class="search-boxed" style="width: 320px;">
             <i class="iconoir-search"></i>
             <input type="text" name="search" placeholder="Search order no. or customer..." value="{{ request('search') }}">
         </div>
