@@ -13,29 +13,37 @@
         <button class="btn btn-primary" onclick="openModal('productModal')">+ Add product</button>
     </div>
 
-    {{-- Search and Filter --}}
-    <form method="GET" action="{{ route('admin.products.index') }}" style="display: flex; gap: 24px; margin-bottom: 24px; flex-wrap: wrap;">
-        <div class="search-container" style="width: 300px; border-bottom: 1px solid var(--border-subtle);">
-            <i class="iconoir-search"></i>
-            <input type="text" name="search" placeholder="Search by name..." value="{{ request('search') }}">
-        </div>
-        <select name="category" onchange="this.form.submit()" style="width: 200px; padding-bottom: 4px;">
-            <option value="">All categories</option>
-            @foreach($categories as $category)
-                <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
-                    {{ $category->name }}
-                </option>
-            @endforeach
-        </select>
-        <select name="pending" onchange="this.form.submit()" style="width: 200px; padding-bottom: 4px;">
-            <option value="">All statuses</option>
-            <option value="pending_creation"  {{ request('pending') === 'pending_creation'  ? 'selected' : '' }}>Pending creation</option>
-            <option value="pending_update"    {{ request('pending') === 'pending_update'    ? 'selected' : '' }}>Pending update</option>
-            <option value="pending_deletion"  {{ request('pending') === 'pending_deletion'  ? 'selected' : '' }}>Pending deletion</option>
-            <option value="approved"          {{ request('pending') === 'approved'          ? 'selected' : '' }}>Approved</option>
-        </select>
-        <button type="submit" class="btn btn-ghost" style="padding: 6px 16px;">Filter</button>
-    </form>
+    {{-- Search and Filter Bar --}}
+<form method="GET" action="{{ route('admin.products.index') }}" class="admin-filter-form">
+    
+    {{-- Search --}}
+    <div class="search-boxed">
+        <i class="iconoir-search"></i>
+        <input type="text" name="search" placeholder="Search by name..." value="{{ request('search') }}">
+    </div>
+
+    {{-- Category Select --}}
+    <select name="category" onchange="this.form.submit()" class="input-styled" style="width: 200px;">
+        <option value="">All categories</option>
+        @foreach($categories as $category)
+            <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                {{ $category->name }}
+            </option>
+        @endforeach
+    </select>
+
+    {{-- Status Select --}}
+    <select name="pending" onchange="this.form.submit()" class="input-styled" style="width: 200px;">
+        <option value="">All statuses</option>
+        <option value="pending_creation" {{ request('pending') === 'pending_creation' ? 'selected' : '' }}>Pending creation</option>
+        <option value="pending_update"   {{ request('pending') === 'pending_update'   ? 'selected' : '' }}>Pending update</option>
+        <option value="pending_deletion" {{ request('pending') === 'pending_deletion' ? 'selected' : '' }}>Pending deletion</option>
+        <option value="approved"         {{ request('pending') === 'approved'         ? 'selected' : '' }}>Approved</option>
+    </select>
+
+    {{-- Submit Button --}}
+    <button type="submit" class="btn-ghost">Filter</button>
+</form>
 
     {{-- Products Table --}}
     <div class="table-wrapper">
@@ -133,7 +141,7 @@
 
     {{-- Pagination --}}
     <div class="pagination">
-        {{ $products->links('pagination.admin') }}
+        {{ $products->links('pagination.custom') }}
     </div>
 </div>
 

@@ -9,9 +9,9 @@
     --text-secondary: #6B6A66;
     --border-subtle: #E8E6E0;
 
-    --accent-terracotta: #D95835;  /* ← was #C4613A */
-    --accent-sage:       #4E8C5A;  /* ← was #7A9E7E */
-    --accent-sand:       #C4A06A;  /* ← was #D4C5A9 */
+    --accent-terracotta: #F04A20; 
+    --accent-sage:       #4E8C5A;  
+    --accent-sand:       #C4A06A;  
 
     --font-family: 'DM Sans', sans-serif;
     --radius-sm: 2px;
@@ -19,6 +19,9 @@
     --radius-lg: 4px;
     --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.05);
     --transition-smooth: all 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+
+
 }
 
 * {
@@ -58,7 +61,7 @@ p { color: var(--text-secondary); margin-bottom: 16px; font-weight: 300; }
 
 /* Layout */
 .sidebar {
-    width: 260px;
+    width: 280px;
     background-color: var(--bg-base);
     border-right: 1px solid var(--border-subtle);
     display: flex;
@@ -66,6 +69,7 @@ p { color: var(--text-secondary); margin-bottom: 16px; font-weight: 300; }
     padding: 40px 24px;
     flex-shrink: 0;
     z-index: 20;
+    /* overflow-y: scroll; */
 }
 
 .main-wrapper {
@@ -93,14 +97,24 @@ p { color: var(--text-secondary); margin-bottom: 16px; font-weight: 300; }
     width: 100%;
 }
 
-/* Sidebar Elements */
-.brand {
-    font-size: 24px;
-    font-weight: 500;
-    letter-spacing: -0.04em;
-    margin-bottom: 64px;
-    display: inline-block;
-}
+    .logo > * {
+          font-size: 30px;
+        font-weight: 500;
+        letter-spacing: -0.04em;
+        margin-bottom: 50px;
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+    .aura-text {
+        color: var(--accent-terracotta);
+    }
+
+    .dot {
+        color: black;     
+        font-size: 10px;    
+        margin: 0 1px
+    }
 
 .nav-menu {
     list-style: none;
@@ -128,13 +142,15 @@ p { color: var(--text-secondary); margin-bottom: 16px; font-weight: 300; }
     background-color: var(--bg-surface); 
     color: var(--text-primary); 
     border: 1px solid var(--border-subtle);
-    box-shadow: var(--shadow-subtle);
+    /* box-shadow: var(--shadow-subtle); */
 }
 
 .nav-divider {
     height: 1px;
     background-color: var(--border-subtle);
     margin: 16px 0;
+
+    
 }
 
 .sidebar-footer {
@@ -349,7 +365,7 @@ td { font-weight: 300; }
     position: absolute;
     right: -10px;
     bottom: -10px;
-    opacity: 0.26;
+    opacity: 0.85;
     width: 120px;
     height: 120px;
     pointer-events: none;
@@ -669,3 +685,160 @@ input:focus, select:focus, textarea:focus {
     fill: var(--accent-terracotta);
     stroke: none;
 }
+
+
+
+/* Custom Styled Inputs for Admin */
+.admin-filter-form {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.input-styled {
+    background-color: var(--bg-surface); /* White background */
+    border: 1px solid var(--border-subtle);          /* Solid black border */
+    padding: 10px 16px;
+    font-family: var(--font-family);
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text-primary);
+    outline: none;
+    border-radius: 4px;                   /* Sharp corners for editorial look */
+    transition: var(--transition-smooth);
+}
+
+.input-styled:focus {
+    background-color: var(--bg-base);   /* Slight change on focus */
+}
+
+/* Search Container with Boxed Style */
+.search-boxed {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    padding: 0 16px;
+    height: 41px; /* Matches the select height */
+    width: 300px;
+    border-radius: 4px;
+}
+
+.search-boxed i {
+    font-size: 16px;
+    margin-right: 12px;
+    color: var(--text-primary);
+}
+
+.search-boxed input {
+    border: none;
+    background: transparent;
+    outline: none;
+    width: 100%;
+    font-family: var(--font-family);
+    font-size: 13px;
+}
+
+/* Ensure the button matches the height */
+.admin-filter-form .btn-ghost {
+    height: 41px;
+    border: 1px solid var(--text-primary);
+    border-radius: 0;
+    padding: 0 24px;
+    background: transparent;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    border-radius: 4px;
+}
+
+.admin-filter-form .btn-ghost:hover {
+    background: var(--text-primary);
+    color: #FFFFFF;
+}
+
+
+
+
+
+
+
+/* Apply consistent boxed style to all modal inputs */
+.modal-content input[type="text"],
+.modal-content input[type="number"],
+.modal-content input[type="email"],
+.modal-content select,
+.modal-content textarea {
+    width: 100%;
+    background-color: var(--bg-surface);    /* White background */
+    border: 1px solid var(--border-subtle); /* Subtle border color */
+    padding: 12px 16px;
+    font-family: var(--font-family);
+    font-size: 14px;
+    color: var(--text-primary);
+    border-radius: var(--radius-md);        /* 4px radius */
+    transition: var(--transition-smooth);
+    outline: none;
+    appearance: none; /* Removes default browser styling on selects */
+}
+
+/* Focus State */
+.modal-content input:focus, 
+.modal-content select:focus, 
+.modal-content textarea:focus {
+    border-color: var(--text-primary); /* Border darkens on focus */
+    background-color: var(--bg-surface);
+}
+
+/* Label Styling */
+.modal-content label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+
+
+
+   /* pagination*/
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin-top: 64px;
+        }
+        .page-link {
+             width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-subtle);
+      background: var(--surface-bg);
+      border-radius: 4px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: var(--transition-smooth);
+        }
+        .page-link.active {
+            background: var(--text-primary); color: var(--bg-base); border-color: var(--text-primary); 
+            font-weight: 500;
+        }
+        .page-link:not(.disabled):hover {
+            background: var(--border-subtle);
+            color: var(--text-primary);
+        }
+        .page-link.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+

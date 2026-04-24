@@ -873,8 +873,8 @@
             </button>
 
             <a href="{{ url('/') }}" class="logo">
-    <span class="aura-text">Aura</span><span class="dot">◼</span>
-</a>
+                <span class="aura-text">Aura</span><span class="dot">◼</span>
+            </a>
             
             <nav class="nav-links">
                 <a href="{{ route('shop.catalog') }}" class="{{ request()->routeIs('shop.catalog') ? 'active' : '' }}">Shop</a>
