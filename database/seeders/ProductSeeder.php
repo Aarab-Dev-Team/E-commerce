@@ -44,6 +44,24 @@ class ProductSeeder extends Seeder
             "https://sitecore-web-prod.simplot-cdn.com/-/media/project/sapl/brands/australia/johnwest/product/tuna/classic-tuna/jw-web-duplicate-036-transform.png?h=4080&iar=0&w=4080&rev=b04cf8ef108d434c9c2c99283a1db918" , 
             "https://sitecore-web-prod.simplot-cdn.com/-/media/project/sapl/brands/australia/johnwest/product/tuna/yellowfin-tuna/jw-npi-yellowfin-italian-style-oil-can-label-transform.png?h=4000&iar=0&w=4000&rev=587540ecc6d0485eb8c888b08bc33698" ,
             "https://sitecore-web-prod.simplot-cdn.com/-/media/project/sapl/brands/australia/johnwest/product/tuna/tuna-slices/09300462340401_c1l1_3d-transform.png?h=3550&iar=0&w=3550&rev=710baf208f6e4f15aa42bfaaf88be689",
+            "http://fr.futurefoodltd.com/uploads/202232781/canned-chunk-light-tuna52103659835.jpg" , 
+            "https://www.miamland.com/bundles/miamland/images/visuel/600/5060234260033-600.webp" , 
+            "https://www.tratagreece.gr/wp-content/uploads/2018/05/Product-main-photo-Tuna-Smoked-EN.png",
+            "https://dm.emea.cms.aldi.cx/is/image/aldiprodeu/product/jpg/scaleWidth/500/e3c13578-a711-4900-9b8b-8a9eff89ad30/Garlic%20%20Chilli%20Flavoured%20Tuna" , 
+            "https://littleitalyltd.com/cdn/shop/products/tunariomare_500x.jpg?v=1744288242" , 
+            "https://www.safcol.com.au/content/uploads/safcol-tuna-smoked-95g-1.png" ,
+            "https://api.grocerjy.com/thumbs/product/https://files.grocerjy.com/files/628097463.jpg",
+            "https://api.grocerjy.com/thumbs/product_medium/https://files.grocerjy.com/files/240510366.jpg",
+            "https://api.grocerjy.com/thumbs/product_medium/https://files.grocerjy.com/files/446752663.jpg",
+            "https://api.grocerjy.com/thumbs/product_medium/https://files.grocerjy.com/files/402325692.jpg" , 
+            "https://api.grocerjy.com/thumbs/product_medium/https://files.grocerjy.com/files/837496915.jpg" , 
+            "https://api.grocerjy.com/thumbs/product_medium/https://files.grocerjy.com/files/418690965.jpg" , 
+            "https://www.smsm.market/storage/app/public/product/2025-01-05-677a9158e2cb1.webp",
+            "https://img08.weeecdn.net/product/image/737/040/2EF23EC0C298814D.png!c432x0_q80.auto",
+            "https://img08.weeecdn.net/product/image/250/103/3026269B498BAB2A.png!c432x0_q80.auto",
+            "https://palmyraorders.com/cdn/shop/files/al-alali-skip-jack-tuna-solid-pack-in-sunflower-oil-170g-shop-your-daily-fresh-products-free-delivery-1.jpg?v=1723633272&width=675" , 
+            "https://img08.weeecdn.net/product/image/799/100/3490F3675B4AAE5.png!c432x0_q80.auto"
+
         ];
 
         // 4. Loop exactly 50 times to create 50 products
