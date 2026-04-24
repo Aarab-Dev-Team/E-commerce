@@ -3,53 +3,40 @@
 @section('title', 'Orders — Aura. Admin')
 @section('page-title', 'Orders')
 
-@push('styles')
-<style>
-    .tabs {
-        border-bottom: none !important;
-        gap: 12px !important;
-        margin-bottom: 32px !important;
-    }
-    .tab {
-        background-color: var(--bg-surface);
-        border: 1px solid var(--border-subtle) !important;
-        border-radius: 4px !important;
-        padding: 8px 16px !important;
-        margin-bottom: 0 !important;
-        font-size: 13px;
-        transition: all 0.2s ease;
-    }
-    .tab:hover {
-        border-color: var(--text-secondary) !important;
-        color: var(--text-primary) !important;
-    }
-    .tab.active {
-        border-color: var(--text-primary) !important;
-        color: var(--text-primary) !important;
-        background-color: var(--bg-base);
-    }
-</style>
-@endpush
 
 @section('content')
 <div class="page">
-    <div class="section-header">
-        <div>
-            <h1>Order management</h1>
-            <p>Process and track customer purchases.</p>
-        </div>
-    </div>
+    {{-- Breadcrumbs --}}
+    <nav class="breadcrumbs" style="margin-bottom: 24px; font-size: 13px; color: var(--text-secondary);">
+        <a href="{{ route('admin.dashboard') }}" style="color: var(--text-secondary);">Admin</a>
+        <span style="margin: 0 8px;">/</span>
+        <span style="color: var(--text-primary);">Orders</span>
+    </nav>
+
+    {{-- Editorial Hero --}}
+    <header class="editorial-hero" style="position: relative; margin-bottom: 80px;">
+        <h1 style="max-width: 600px; margin-bottom: 16px;">Order management</h1>
+        <p style="font-size: 18px; max-width: 500px;">Process and track customer purchases with ease.</p>
+        
+        {{-- Hand-drawn Illustration --}}
+        <svg class="hero-decor" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.8;">
+            <path d="M50 40 C 55 38, 65 37, 70 40 C 75 43, 130 43, 135 40 C 140 37, 145 38, 150 40 L 155 160 C 150 163, 140 165, 135 162 C 130 159, 75 159, 70 162 C 65 165, 55 163, 50 160 Z" 
+                  stroke="var(--text-primary)" stroke-width="1.2" fill="none" />
+            <path d="M70 70 L 130 70 M 70 95 L 130 95 M 70 120 L 105 120" 
+                  stroke="var(--accent-clay)" stroke-width="1" fill="none" stroke-linecap="round" />
+        </svg>
+    </header>
 
     {{-- Status Tabs --}}
-    <div class="tabs">
+    <div class="tabs" style="margin-bottom: 48px;">
         <a href="{{ route('admin.orders.index', ['status' => 'all']) }}" class="tab {{ request('status', 'all') === 'all' ? 'active' : '' }}">
-            All ({{ $counts['all'] }})
+            All orders ({{ $counts['all'] }})
         </a>
         <a href="{{ route('admin.orders.index', ['status' => 'pending']) }}" class="tab {{ request('status') === 'pending' ? 'active' : '' }}">
-            Pending ({{ $counts['pending'] }})
+            Pending  ({{ $counts['pending'] }})
         </a>
         <a href="{{ route('admin.orders.index', ['status' => 'processing']) }}" class="tab {{ request('status') === 'processing' ? 'active' : '' }}">
-            Processing ({{ $counts['processing'] }})
+            Processing   ({{ $counts['processing'] }})
         </a>
         <a href="{{ route('admin.orders.index', ['status' => 'shipped']) }}" class="tab {{ request('status') === 'shipped' ? 'active' : '' }}">
             Shipped ({{ $counts['shipped'] }})
@@ -58,21 +45,31 @@
             Delivered ({{ $counts['delivered'] }})
         </a>
         <a href="{{ route('admin.orders.index', ['status' => 'cancelled']) }}" class="tab {{ request('status') === 'cancelled' ? 'active' : '' }}">
-            Cancelled ({{ $counts['cancelled'] }})
+            Cancelled  ({{ $counts['cancelled'] }})
         </a>
     </div>
 
-    {{-- Search bar --}}
-    <form method="GET" action="{{ route('admin.orders.index') }}" style="display: flex; gap: 16px; margin-bottom: 24px;">
-        @if(request('status'))
-            <input type="hidden" name="status" value="{{ request('status') }}">
-        @endif
-        <div class="search-boxed" style="width: 320px;">
-            <i class="iconoir-search"></i>
-            <input type="text" name="search" placeholder="Search order no. or customer..." value="{{ request('search') }}">
-        </div>
-        <button type="submit" class="btn btn-ghost" style="padding: 6px 16px;">Search</button>
-    </form>
+    {{-- Filter & Search Bar --}}
+    <div class="filter-controls" style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px;">
+        <form method="GET" action="{{ route('admin.orders.index') }}" style="display: flex; gap: 24px; align-items: flex-end;">
+            @if(request('status'))
+                <input type="hidden" name="status" value="{{ request('status') }}">
+            @endif
+            
+            <div class="form-group" style="margin-bottom: 0;">
+                <label>Search orders</label>
+                <div class="search-boxed">
+                    <i class="iconoir-search"></i>
+                    <input type="text" name="search" placeholder="Order no. or customer..." value="{{ request('search') }}">
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Search</button>
+            @if(request('search'))
+                <a href="{{ route('admin.orders.index', ['status' => request('status')]) }}" class="btn btn-ghost">Clear</a>
+            @endif
+        </form>
+    </div>
 
     {{-- Orders Table --}}
     <div class="table-wrapper">
