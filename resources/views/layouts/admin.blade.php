@@ -83,12 +83,21 @@
         </ul>
 
         <div class="sidebar-footer">
-            <p>{{ auth()->user()->name }}</p>
-            <p>{{ auth()->user()->email }}</p>
-            <br>
+            <div class="sidebar-user-info">
+                <span class="sidebar-user-label">Logged in as</span>
+                <p class="sidebar-user-name">
+                    {{ auth()->user()->name }}
+                    <span class="badge badge-{{ auth()->user()->role }}" style="margin-left: 8px; font-size: 9px; vertical-align: middle;">
+                        {{ ucfirst(auth()->user()->role) }}
+                    </span>
+                </p>
+                <p class="sidebar-user-email">{{ auth()->user()->email }}</p>
+            </div>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="submit" style="background: none; border: none; padding: 0; color: var(--text-secondary); cursor: pointer; text-decoration: underline;">Sign out</button>
+                <button type="submit" class="logout-btn">
+                    Sign out
+                </button>
             </form>
         </div>
     </aside>
