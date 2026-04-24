@@ -476,9 +476,6 @@ input:focus, select:focus, textarea:focus {
 
 /* Actions Cell */
 .actions-cell { display: flex; align-items: center; gap: 16px;  height: 110px; }
-.action-icon { cursor: pointer; color: var(--text-secondary); transition: var(--transition-smooth); font-size: 18px; margin : 0 10px}
-.action-icon:hover { color: var(--text-primary); }
-.action-icon.danger:hover { color: var(--accent-terracotta); }
 
 /* Modals */
 .modal-overlay {
@@ -756,6 +753,25 @@ input:focus, select:focus, textarea:focus {
 
 .input-styled:focus {
     background-color: var(--bg-base);   /* Slight change on focus */
+}
+
+.btn-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    transition: all 0.15s;
+    background: transparent;
+    cursor: pointer;
+}
+
+.btn-icon:hover {
+    border-color: var(--text-secondary);
+    background-color: var(--bg-base);
 }
 
 /* Search Container with Boxed Style */
