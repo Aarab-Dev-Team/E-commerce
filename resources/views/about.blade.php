@@ -74,48 +74,61 @@
             <h2>The developers</h2>
             
             <div class="team-grid">
+               <div class="team-card card">
+                    <img src="/assets/aarab-abderrahmane.png" alt="Team Member 1" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 8px; margin-bottom: 24px; border: 1px solid var(--border-color);">
+                    
+                    <h4>Your Name</h4>
+                    <span class="role">Project Architect & System Designer</span>
+                    <p>Defined the project foundation, organized task distribution, designed the database structure, and established the overall design system.</p>
+                    <div class="team-socials">
+                        <a href="#"><i class="iconoir-github"></i></a>
+                        <a href="#"><i class="iconoir-linkedin"></i></a>
+                    </div>
+                </div>
+
+                 <div class="team-card card">
+                    <img src="/assets/d.png" alt="Your Name" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 8px; margin-bottom: 24px; border: 1px solid var(--border-color);">
+                    
+                    <h4>Oussama</h4>
+                    <span class="role">Quality Assurance & Debugging</span>
+                    <p>Tested system functionality, identified issues, and ensured stability by fixing bugs and validating features.</p>
+                    <div class="team-socials">
+                        <a href="#"><i class="iconoir-github"></i></a>
+                        <a href="#"><i class="iconoir-linkedin"></i></a>
+                    </div>
+                </div>
+
+                 <div class="team-card card">
+                    <img src="/assets/mouad.png" alt="Your Name" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 8px; margin-bottom: 24px; border: 1px solid var(--border-color);">
+                    
+                    <h4>Mouad</h4>
+                        <span class="role">System Analyst & UML Designer</span>
+                        <p>Created system diagrams including UML, use case, class, and activity diagrams to model the application structure and workflows.</p>
+                        <div class="team-socials">
+                            <a href="#"><i class="iconoir-github"></i></a>
+                            <a href="#"><i class="iconoir-linkedin"></i></a>
+                    </div>
+                </div>
+
+                 <div class="team-card card">
+                    <img src="" alt="Your Name" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 8px; margin-bottom: 24px; border: 1px solid var(--border-color);">
+                    
+                     <h4>Hajar</h4>
+                        <span class="role">Presentation & Communication</span>
+                        <p>Prepared and delivered the project presentation, ensuring clear communication of concepts, features, and system design.</p>
+                        <div class="team-socials">
+                            <a href="#"><i class="iconoir-github"></i></a>
+                            <a href="#"><i class="iconoir-linkedin"></i></a>
+                    </div>
+
+                </div>
+
                 <div class="team-card card">
-                    <img src="https://avatars.githubusercontent.com/u/185629273?s=400&u=abacc8aa5cbf77d2b4b3fdf42045251b2af8c081&v=4" alt="Your Name" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 8px; margin-bottom: 24px; border: 1px solid var(--border-color);">
+                    <img src="/assets/member-5.png" alt="Team Member 5" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 8px; margin-bottom: 24px; border: 1px solid var(--border-color);">
                     
-                    <h4>Aarab Abderrahmane</h4>
-                    <span class="role">Full Stack Developer</span>
-                    <p>Designed and developed the entire e‑commerce platform using Laravel, Blade, and vanilla CSS.</p>
-                    <div class="team-socials">
-                        <a href="#"><i class="iconoir-github"></i></a>
-                        <a href="#"><i class="iconoir-linkedin"></i></a>
-                    </div>
-                </div>
-
-                 <div class="team-card card">
-                    <img src="" alt="Your Name" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 8px; margin-bottom: 24px; border: 1px solid var(--border-color);">
-                    
-                    <h4>Your Name</h4>
-                    <span class="role">Full Stack Developer</span>
-                    <p>Designed and developed the entire e‑commerce platform using Laravel, Blade, and vanilla CSS.</p>
-                    <div class="team-socials">
-                        <a href="#"><i class="iconoir-github"></i></a>
-                        <a href="#"><i class="iconoir-linkedin"></i></a>
-                    </div>
-                </div>
-
-                 <div class="team-card card">
-                    <img src="" alt="Your Name" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 8px; margin-bottom: 24px; border: 1px solid var(--border-color);">
-                    
-                    <h4>Your Name</h4>
-                    <span class="role">Full Stack Developer</span>
-                    <p>Designed and developed the entire e‑commerce platform using Laravel, Blade, and vanilla CSS.</p>
-                    <div class="team-socials">
-                        <a href="#"><i class="iconoir-github"></i></a>
-                        <a href="#"><i class="iconoir-linkedin"></i></a>
-                    </div>
-                </div>
-
-                 <div class="team-card card">
-                    <img src="" alt="Your Name" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 8px; margin-bottom: 24px; border: 1px solid var(--border-color);">
-                    
-                    <h4>Your Name</h4>
-                    <span class="role">Full Stack Developer</span>
-                    <p>Designed and developed the entire e‑commerce platform using Laravel, Blade, and vanilla CSS.</p>
+                    <h4>Zeinb</h4>
+                    <span class="role">Documentation & Internship Report</span>
+                    <p>Responsible for writing and organizing the internship report, documenting the project development process and outcomes.</p>
                     <div class="team-socials">
                         <a href="#"><i class="iconoir-github"></i></a>
                         <a href="#"><i class="iconoir-linkedin"></i></a>

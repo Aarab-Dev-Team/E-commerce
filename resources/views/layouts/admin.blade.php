@@ -83,15 +83,23 @@
         </ul>
 
         <div class="sidebar-footer">
-            <div class="sidebar-user-info">
-                <span class="sidebar-user-label">Logged in as</span>
-                <p class="sidebar-user-name">
-                    {{ auth()->user()->name }}
-                    <span class="badge badge-{{ auth()->user()->role }}" style="margin-left: 8px; font-size: 9px; vertical-align: middle;">
-                        {{ ucfirst(auth()->user()->role) }}
-                    </span>
-                </p>
-                <p class="sidebar-user-email">{{ auth()->user()->email }}</p>
+            <div class="sidebar-user-card">
+                <div class="sidebar-avatar">
+                    <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 8 C 16 8, 13 11, 13 15 C 13 19, 16 22, 20 22 C 24 22, 27 19, 27 15 C 27 11, 24 8, 20 8 M 8 32 C 8 28, 12 25, 20 25 C 28 25, 32 28, 32 32" 
+                              fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <div class="sidebar-user-info">
+                    <span class="sidebar-user-label">Logged in as</span>
+                    <p class="sidebar-user-name">
+                        {{ auth()->user()->name }}
+                        <span class="badge badge-{{ auth()->user()->role }}">
+                            {{ ucfirst(auth()->user()->role) }}
+                        </span>
+                    </p>
+                    <p class="sidebar-user-email">{{ auth()->user()->email }}</p>
+                </div>
             </div>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
