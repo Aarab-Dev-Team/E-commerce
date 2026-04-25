@@ -1,58 +1,102 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# E-commerce Platform
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A professional, full-featured e-commerce solution built with **Laravel 13**, **Tailwind CSS 4**, and **Alpine.js**. This platform provides a seamless shopping experience for customers and a robust management system for administrators and employees.
 
-## About Laravel
+## 🚀 Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 🛍️ Shopping Experience
+- **Catalog & Discovery**: Browse products with advanced filtering and categories. High-quality product images and detailed descriptions.
+- **Smart Cart**: Real-time cart updates, quantity management, and intelligent subtotal calculation.
+- **Secure Checkout**: Streamlined multi-step checkout process with integrated order and address management.
+- **User Dashboard**: Dedicated profile section where customers can track orders, manage wishlists, update addresses, and modify profile settings.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 🔐 Multi-Role Access Control
+- **Admin (`admin`)**: Full control over the platform. Manages users, settings, product approvals, categories, coupons, and overarching business logic.
+- **Employee (`employee`)**: Manages products (creates/edits requiring admin approval) and views orders with restricted administrative access. Has a dedicated Approval Workflow.
+- **Customer (`customer`)**: Standard shopping, ordering, and account management capabilities.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 🛠️ Administrative & Management Power
+- **Product Approval Workflow**: Integrated system where employees submit product creations, updates, or deletions for Admin review, ensuring data integrity.
+- **Order Management**: Real-time status updates, order tracking, and lifecycle management (pending -> processing -> shipped -> delivered).
+- **Coupon & Discount System**: Create and manage customizable discount codes (fixed amount or percentage, with usage limits and expiration dates) to boost sales.
+- **Analytics Dashboard**: Comprehensive overview of platform performance, pending tasks, and sales metrics at a glance.
 
-## Learning Laravel
+## 🧱 Architecture & Tech Stack
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Backend Framework**: [Laravel 13](https://laravel.com) - Providing robust routing, ORM (Eloquent), and authentication (Breeze).
+- **Frontend Styling**: [Tailwind CSS 4](https://tailwindcss.com) - For a modern, responsive, and highly customizable UI.
+- **Frontend Interactivity**: [Alpine.js](https://alpinejs.dev) - Lightweight JavaScript framework for dynamic UI components without the overhead of larger frameworks.
+- **Asset Bundling**: [Vite](https://vitejs.dev) - Fast, modern build tool for serving and bundling assets.
+- **Database**: SQLite (default for development/testing), fully compatible with MySQL/PostgreSQL via Laravel's Eloquent ORM.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 📋 Prerequisites
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+Before you begin, ensure you have the following installed on your system:
+- **PHP 8.3+**
+- **Composer** (PHP dependency manager)
+- **Node.js & NPM** (For frontend asset compilation)
+- **Git**
 
-## Agentic Development
+## ⚙️ Installation & Setup
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+1. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+   cd E-commerce
+   ```
 
+2. **Run the automated setup**:
+   This project includes a handy helper script in `composer.json` to install dependencies, set up the `.env` file, generate the app key, run migrations, and build frontend assets all in one go:
+   ```bash
+   composer run setup
+   ```
+   *(Alternatively, run these manually: `composer install`, copy `.env.example` to `.env`, `php artisan key:generate`, `npm install`, `npm run build`, `php artisan migrate`).*
+
+3. **Database Seeding (Required for Demo)**:
+   To populate the store with categories, products, coupons, and test users (Admin & Employee):
+   ```bash
+   php artisan db:seed --class=DatabaseSeeder
+   ```
+   *Note: `DatabaseSeeder` automatically runs all necessary seeders including `CategorySeeder`, `ProductSeeder`, `AdminUserSeeder`, `EmployeeUserSeeder`, `CouponSeeder`, and `DemoDataSeeder`.*
+
+## 🔐 Default Test Credentials
+
+After running the seeders, you can use these accounts to test the different roles and the approval workflow:
+
+| Role | Email | Password | Access Level |
+| :--- | :--- | :--- | :--- |
+| **Admin** | `abdu@gmail.com` | `abderrahmane` | Full system access, approves/rejects changes. |
+| **Employee** | `employee@gmail.com` | `employeeadmin` | Manages products (pending approval), views orders. |
+| **Customer** | *(Generated by Faker)* | `password` | Shopping and profile management. |
+
+## 🖥️ Development
+
+To start the development environment efficiently, run:
 ```bash
-composer require laravel/boost --dev
+composer run dev
+```
+This single command concurrently launches:
+1. The Laravel Artisan serve process (`http://localhost:8000`).
+2. The Vite development server for hot-module replacement (HMR).
+3. The Laravel Queue listener (for background tasks).
 
-php artisan boost:install
+The application will be available at [http://localhost:8000](http://localhost:8000).
+
+## 📁 Key Directory Structure
+
+- `app/Http/Controllers/Admin/` - Controllers handling the admin panel logic (Dashboards, Product Approval, Categories, etc.).
+- `app/Http/Controllers/Shop/` - Controllers handling public-facing store logic (Catalog, Cart, Checkout).
+- `app/Models/` - Eloquent models defining database relationships (User, Product, Order, Cart, etc.).
+- `resources/views/` - Blade templates organized logically (`admin/`, `shop/`, `profile/`, etc.).
+- `database/seeders/` - Contains the robust seeding logic for demo data, products (with images), categories, and users.
+
+## 🧪 Testing
+
+To run the automated PHPUnit test suite:
+```bash
+composer run test
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## 📄 License
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced software licensed under the [MIT license](LICENSE).
