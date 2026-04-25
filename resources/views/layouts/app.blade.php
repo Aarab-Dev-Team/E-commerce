@@ -16,7 +16,7 @@
         /* ==========================================================================
           variables 
            ========================================================================== */
-        :root {
+    :root {
     --bg-color: #F5F4F0;
     --surface-color: #FFFFFF;
     --text-main: #1A1A18;
@@ -285,6 +285,7 @@
             pointer-events: none;
         }
 
+      
         .organic-path {
             fill: none;
             stroke: var(--text-secondary);

@@ -22,9 +22,9 @@
             --text-main: #1A1A18;
             --text-secondary: #6B6A66;
             --border-color: #E8E6E0;
-            --accent-clay: #D95835;        /* ← was #C4613A */
-            --accent-sage: #4E8C5A;        /* ← was #7A9E7E */
-            --accent-sand: #C4A06A;        /* ← was #D4C5A9 */
+            --accent-clay: #F04A20;       
+            --accent-sage: #4E8C5A;       
+            --accent-sand: #C4A06A;        
             --font-primary: 'DM Sans', sans-serif;
             --transition-speed: 150ms;
         }
@@ -33,6 +33,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            text-decoration: none  ; 
         }
 
         body {
@@ -76,13 +77,23 @@
             padding: 24px 0;
         }
 
-        .logo {
-            font-size: 1.25rem;
-            font-weight: 500;
-            text-decoration: none;
-            color: var(--text-main);
-            flex-shrink: 0;
+        .logo > * {
+        font-size: 24px;
+        font-weight: 500;
+        letter-spacing: -0.04em;
         }
+
+        .aura-text {
+            color: var(--accent-clay);
+        }
+
+        .dot {
+            color: black;     
+            font-size: 10px;    
+            margin: 0 1px
+        }
+
+
 
         .header-nav {
             display: flex;
@@ -252,6 +263,7 @@
             font-size: 0.875rem;
             gap: 16px;
             flex-wrap: wrap;
+           
         }
 
         .footer-links {
@@ -267,6 +279,8 @@
         }
 
         .footer-links a:hover { color: var(--text-main); }
+
+
 
         /* ── Responsive: Tablet (≤ 900px) ─────────────────── */
         @media (max-width: 900px) {
@@ -352,7 +366,9 @@
         <header class="profile-header">
 
             <div class="header-inner">
-                <a href="{{ url('/') }}" class="logo">Aura.</a>
+               <a href="{{ url('/') }}" class="logo">
+                <span class="aura-text">Aura</span><span class="dot">◼</span>
+             </a>
 
                 {{-- Desktop nav --}}
                 <nav class="header-nav">

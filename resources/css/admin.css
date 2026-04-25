@@ -483,18 +483,19 @@ td { font-weight: 300; }
 .section-header p { margin-bottom: 0; }
 
 /* Stats Cards specific */
-.stat-label { font-size: 13px; color: var(--text-secondary); margin-bottom: 12px; }
-.stat-value { font-size: 32px; font-weight: 400; color: var(--text-primary); line-height: 1; margin-bottom: 0; }
+.stat-label { font-size: 13px; color: var(--text-secondary); margin-bottom: 12px; position: relative; z-index: 1; }
+.stat-value { font-size: 32px; font-weight: 400; color: var(--text-primary); line-height: 1; margin-bottom: 0; position: relative; z-index: 1; }
 
 /* Organic Illustration overlay for cards */
 .card-svg-bg {
     position: absolute;
-    right: -10px;
-    bottom: -10px;
-    opacity: 0.85;
-    width: 120px;
-    height: 120px;
+    right: -15px;
+    bottom: -15px;
+    opacity: 0.8;
+    width: 80px;
+    height: 80px;
     pointer-events: none;
+    z-index: 0;
 }
 
 /* Filters Bar */
@@ -633,13 +634,13 @@ input:focus, select:focus, textarea:focus {
 /* Decorative Hero Art */
 .hero-decor {
     position: absolute;
-    top: 60px;
+    top: -60px;
     right: 5%;
-    width: 350px;
-    height: 350px;
+    width: 300px;
+    height: 300px;
     pointer-events: none;
     z-index: -10;
-    opacity: 0.72;
+    opacity: 0.8;
 }
 
 /* Tabs */
@@ -1109,8 +1110,10 @@ input:focus, select:focus, textarea:focus {
     }
 
     .card-svg-bg {
-        width: 80px;
-        height: 80px;
+        width: 60px;
+        height: 60px;
+        right: -10px;
+        bottom: -10px;
     }
 }
 

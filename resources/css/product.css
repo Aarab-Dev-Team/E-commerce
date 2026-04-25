@@ -313,6 +313,16 @@
     display: none;
 }
 
+
+.star-icon{
+    width: 30px;
+    height: 30px;
+}
+.star-icon-review{
+    width: 20px;
+    height: 20px;
+}
+
 /* Responsive */
 @media (max-width: 992px) {
     .product-page .related-products-grid {
