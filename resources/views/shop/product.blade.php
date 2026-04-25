@@ -182,7 +182,9 @@
             <p>Thoughts from those who live with our objects.</p>
         </div>
         @auth
-            @if($canReview)
+            @if(in_array(auth()->user()->role, ['admin', 'employee']))
+                {{-- Admin/employee admins do not review --}}
+            @elseif($canReview)
                 <button class="btn btn-ghost" onclick="openReviewModal()">Write a review</button>
             @elseif($userReview)
                 <span class="btn btn-ghost" style="opacity:0.6; cursor:default;">You already reviewed</span>
@@ -204,7 +206,7 @@
                         @php
                             $reviewerPurchased = $review->user->orders()
                                 ->where('status', 'delivered')
-                                ->whereHas('items', fn($q) => $q->where('product_id', $product->id))
+                                ->whereHas('items', fn($q) => $q->where('product_id', $review->product_id))
                                 ->exists();
                         @endphp
                         @if($reviewerPurchased)
@@ -219,6 +221,36 @@
                     @endfor
                 </div>
                 <p>"{{ $review->comment }}"</p>
+
+                {{-- Admin reply display --}}
+                @if($review->admin_reply)
+                    <div class="admin-reply" style="margin-top: 15px; padding: 15px; background: var(--surface-color); border-left: 3px solid var(--accent-sage); border-radius: 4px;">
+                        <div style="font-weight: 500; font-size: 0.9em; color: var(--text-main); margin-bottom: 5px;">Aura Studio Response</div>
+                        <p style="font-size: 0.9em; margin: 0; color: var(--text-light);">{{ $review->admin_reply }}</p>
+                        @if($review->admin_reply_at)
+                            <div style="font-size: 0.75em; color: var(--text-lighter); margin-top: 8px;">{{ $review->admin_reply_at->format('F d, Y') }}</div>
+                        @endif
+                    </div>
+                @endif
+
+                {{-- Admin/Employee Reply Form --}}
+                @auth
+                    @if(in_array(auth()->user()->role, ['admin', 'employee']))
+                        <div style="margin-top: 15px;">
+                            <button class="btn btn-ghost btn-sm" style="font-size: 0.85em; padding: 4px 8px;" onclick="toggleReplyForm({{ $review->id }})">
+                                {{ $review->admin_reply ? 'Edit reply' : 'Reply to review' }}
+                            </button>
+                            <form id="reply-form-{{ $review->id }}" action="{{ route('admin.reviews.reply', $review->id) }}" method="POST" style="display: none; margin-top: 10px;">
+                                @csrf
+                                <textarea name="admin_reply" rows="3" required style="width:100%; padding:10px; border:1px solid var(--border-color); border-radius:4px; font-size: 0.9em;" placeholder="Write official response...">{{ $review->admin_reply }}</textarea>
+                                <div style="display:flex; gap:8px; margin-top: 8px;">
+                                    <button type="submit" class="btn btn-primary" style="padding: 6px 12px; font-size: 0.85em;">Post reply</button>
+                                    <button type="button" class="btn btn-ghost" style="padding: 6px 12px; font-size: 0.85em;" onclick="toggleReplyForm({{ $review->id }})">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    @endif
+                @endauth
             </div>
         @empty
             <p>No reviews yet. Be the first to share your thoughts.</p>
@@ -271,37 +303,6 @@
         </div>
     </section>
     @endif
-
-    {{-- Review Modal (simplified) --}}
-    @auth
-    <div id="reviewModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
-        <div style="background:var(--surface-color); padding:40px; border-radius:4px; max-width:500px; width:90%;">
-            <h3>Share your perspective</h3>
-            {{-- {{ route('reviews.store', $product->id) }} --}}
-            <form action="#" method="POST">
-                @csrf
-                <div style="margin:20px 0;">
-                    <label>Rating</label>
-                    <select name="rating" required style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:4px;">
-                        <option value="5">★★★★★ (5)</option>
-                        <option value="4">★★★★☆ (4)</option>
-                        <option value="3">★★★☆☆ (3)</option>
-                        <option value="2">★★☆☆☆ (2)</option>
-                        <option value="1">★☆☆☆☆ (1)</option>
-                    </select>
-                </div>
-                <div style="margin:20px 0;">
-                    <label>Your thoughts</label>
-                    <textarea name="comment" rows="4" required style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:4px;"></textarea>
-                </div>
-                <div style="display:flex; gap:12px;">
-                    <button type="submit" class="btn btn-primary">Submit review</button>
-                    <button type="button" class="btn btn-ghost" onclick="closeReviewModal()">Cancel</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    @endauth
 
 </div>
 @endsection
@@ -410,6 +411,12 @@
     }
     function closeReviewModal() {
         document.getElementById('reviewModal').style.display = 'none';
+    }
+    
+    // Toggle reply form
+    function toggleReplyForm(id) {
+        const form = document.getElementById(`reply-form-${id}`);
+        form.style.display = form.style.display === 'none' ? 'block' : 'none';
     }
     @endauth
 </script>
