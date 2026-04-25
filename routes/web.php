@@ -23,6 +23,7 @@ use App\Http\Controllers\OrderController; // Customer Orders
 use App\Http\Controllers\ProductController; // Product detail
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -103,6 +104,11 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
 
     // Additional profile tabs for customer only (Orders already covered)
     Route::get('/profile/orders', [OrderController::class, 'index'])->name('profile.orders');
+
+    // Reviews — only customers can add/edit/delete reviews
+    Route::post('/product/{product}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+    Route::patch('/reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update');
+    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 });
 
 /*
@@ -128,6 +134,9 @@ Route::middleware(['auth', 'role:admin,employee'])->prefix('admin')->name('admin
         Route::post('/{product}/approve', [ApprovalController::class, 'approve'])->name('approve');
         Route::post('/{product}/reject', [ApprovalController::class, 'reject'])->name('reject');
     });
+
+    // Review replies — admin & employee can reply to customer reviews
+    Route::post('reviews/{review}/reply', [ReviewController::class, 'reply'])->name('reviews.reply');
 
     // Categories (admin only)
     Route::resource('categories', CategoryController::class)->except(['show', 'create', 'edit']);

@@ -12,6 +12,12 @@ class Review extends Model
         'rating',
         'comment',
         'is_approved',
+        'admin_reply',
+        'admin_reply_at',
+    ];
+
+    protected $casts = [
+        'admin_reply_at' => 'datetime',
     ];
 
     public function user() { return $this->belongsTo(User::class); }
