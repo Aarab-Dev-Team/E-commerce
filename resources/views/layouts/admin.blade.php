@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css">
 
     {{-- Admin Styles --}}
-    @vite(['resources/css/admin.css'])
+    @vite(['resources/css/admin.css', 'resources/js/app.js'])
     @stack('styles')
 </head>
 <body>

@@ -200,11 +200,20 @@
     border-radius: 4px;
     cursor: pointer;
     transition: var(--transition-speed);
+    text-decoration: none;
 }
 
 .btn-filled:hover {
     background: var(--text-secondary);
     border-color: var(--text-secondary);
+}
+
+.svg-icon {
+         
+            opacity: 1;
+            width: 100px;
+            height: 100px;
+            pointer-events: none;
 }
 
 /* Responsive */

@@ -54,6 +54,7 @@ class CartService
 
         if ($guestCart && $guestCart->id !== $userCart->id) {
             $this->mergeCarts($guestCart, $userCart);
+            session()->forget('old_session_id');
         }
     }
 

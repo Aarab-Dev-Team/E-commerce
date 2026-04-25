@@ -346,6 +346,16 @@
     border-radius: 0 0 4px 4px;
 }
 
+
+  .svg-icon {
+         
+            opacity: 1;
+            width: 100px;
+            height: 100px;
+            pointer-events: none;
+    }
+
+
 /* Responsive */
 @media (max-width: 900px) {
     .address-grid {

@@ -25,9 +25,9 @@ class CouponController extends Controller
         }
 
         // Calculate current cart total
-        $cart = session('cart', []);
-        $cartTotal = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
-
+        // $cart = app(\App\Services\CartService::class)->getCart();
+        $items =app(\App\Services\CartService::class)->items();
+        $cartTotal = $items->sum(fn($item) => $item->price_at_time * $item->quantity);
         if (!$coupon->isValid((float) $cartTotal)) {
             $message = 'This coupon is not valid';
             if ($coupon->min_order_amount && $cartTotal < $coupon->min_order_amount) {
