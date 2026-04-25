@@ -349,6 +349,16 @@
     font-size: 14px;
     color: var(--text-secondary);
     font-style: italic;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.testimonial-section svg {
+    display: inline-block;
+    vertical-align: middle;
+    width: 100px;
+    height: auto;
+    margin-left: 10px;
 }
 
 /* ==========================================================================

@@ -77,7 +77,7 @@
                <div class="team-card card">
                     <img src="/assets/aarab-abderrahmane.png" alt="Team Member 1" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 8px; margin-bottom: 24px; border: 1px solid var(--border-color);">
                     
-                    <h4>Your Name</h4>
+                    <h4>َAarab Abderrahmane</h4>
                     <span class="role">Project Architect & System Designer</span>
                     <p>Defined the project foundation, organized task distribution, designed the database structure, and established the overall design system.</p>
                     <div class="team-socials">

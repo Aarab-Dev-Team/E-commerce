@@ -94,7 +94,7 @@
 
     {{-- Pagination --}}
     <div class="pagination">
-        {{ $users->links('pagination.admin') }}
+        {{ $users->links('pagination.custom') }}
     </div>
 </div>
 @endsection
