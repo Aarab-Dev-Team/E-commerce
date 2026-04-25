@@ -173,6 +173,15 @@
                 @endforeach
             </div>
 
+            @php
+                $appliedCouponCode = session('applied_coupon');
+                $appliedCoupon     = $appliedCouponCode ? \App\Models\Coupon::where('code', $appliedCouponCode)->first() : null;
+                $discountAmount    = 0;
+                if ($appliedCoupon && $appliedCoupon->isValid((float) $subtotal)) {
+                    $discountAmount = $appliedCoupon->calculateDiscount((float) $subtotal);
+                }
+                $orderTotal = max(0, $subtotal - $discountAmount);
+            @endphp
             <div class="totals">
                 <div class="total-line">
                     <span>Subtotal</span>
@@ -182,9 +191,20 @@
                     <span>Shipping</span>
                     <span>Free</span>
                 </div>
+                @if($discountAmount > 0)
+                <div class="total-line" style="color: var(--accent-clay);">
+                    <span>Discount ({{ $appliedCoupon->code }})</span>
+                    <span>−${{ number_format($discountAmount, 2) }}</span>
+                </div>
+                @endif
                 <div class="total-line grand-total">
                     <span>Total</span>
-                    <span>${{ number_format($subtotal, 2) }}</span>
+                    <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                        @if($discountAmount > 0)
+                            <span style="color: #ff0000; text-decoration: line-through; font-size: 0.85em; margin-bottom: 2px;">${{ number_format($subtotal, 2) }}</span>
+                        @endif
+                        <span>${{ number_format($orderTotal, 2) }}</span>
+                    </div>
                 </div>
             </div>
         </aside>

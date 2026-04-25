@@ -87,16 +87,6 @@
                         <span>Calculated at checkout</span>
                     </div>
                     
-                    <div class="summary-row total">
-                        <span>Total</span>
-                        <span id="summary-total">${{ number_format($subtotal, 2) }}</span>
-                    </div>
-                    
-                    {{-- {{ route('checkout.index') }} --}}
-                    <a href="{{ route('checkout.index') }}" class="btn btn-primary" style="display: block; margin-bottom: 16px;">Proceed to checkout</a>
-                    <a href="{{ route('shop.catalog') }}" class="btn btn-ghost" style="display: block;">Continue shopping</a>
-
-                    {{-- Coupon Code --}}
                     @php
                         $appliedCouponCode = session('applied_coupon');
                         $appliedCoupon     = $appliedCouponCode ? \App\Models\Coupon::where('code', $appliedCouponCode)->first() : null;
@@ -109,6 +99,22 @@
                         }
                         $orderTotal = max(0, $subtotal - $discountAmount);
                     @endphp
+
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                            @if($discountAmount > 0)
+                                <span id="summary-original-total" style="color: #ff0000; text-decoration: line-through; font-size: 0.85em; margin-bottom: 2px;">${{ number_format($subtotal, 2) }}</span>
+                            @endif
+                            <span id="summary-total">${{ number_format($orderTotal, 2) }}</span>
+                        </div>
+                    </div>
+                    
+                    {{-- {{ route('checkout.index') }} --}}
+                    <a href="{{ route('checkout.index') }}" class="btn btn-primary" style="display: block; margin-bottom: 16px;">Proceed to checkout</a>
+                    <a href="{{ route('shop.catalog') }}" class="btn btn-ghost" style="display: block;">Continue shopping</a>
+
+                    {{-- Coupon Code --}}
 
                     <div class="coupon-section">
                         @if($appliedCoupon)
@@ -230,10 +236,13 @@
             if (priceEl) priceEl.textContent = fmt(price * qty);
 
             // update summary
-            const sub = document.getElementById('summary-subtotal');
-            const tot = document.getElementById('summary-total');
-            if (sub) sub.textContent = fmt(data.subtotal);
-            if (tot) tot.textContent = fmt(data.subtotal);
+            const sub  = document.getElementById('summary-subtotal');
+            const tot  = document.getElementById('summary-total');
+            const orig = document.getElementById('summary-original-total');
+
+            if (sub)  sub.textContent = fmt(data.subtotal);
+            if (tot)  tot.textContent = fmt(data.subtotal);
+            if (orig) orig.style.display = 'none';
 
             // update nav badge if present
             document.querySelectorAll('[data-cart-count]').forEach(el => {
@@ -284,10 +293,13 @@
             }
 
             // update summary
-            const sub = document.getElementById('summary-subtotal');
-            const tot = document.getElementById('summary-total');
-            if (sub) sub.textContent = fmt(data.subtotal);
-            if (tot) tot.textContent = fmt(data.subtotal);
+            const sub  = document.getElementById('summary-subtotal');
+            const tot  = document.getElementById('summary-total');
+            const orig = document.getElementById('summary-original-total');
+
+            if (sub)  sub.textContent = fmt(data.subtotal);
+            if (tot)  tot.textContent = fmt(data.subtotal);
+            if (orig) orig.style.display = 'none';
 
             // update nav badge
             document.querySelectorAll('[data-cart-count]').forEach(el => {
