@@ -114,25 +114,21 @@
                         <h2>Saved addresses</h2>
                         <p>Where we send your orders.</p>
                     </div>
-                    <button class="btn btn-ghost" style="padding: 8px 16px; font-size: 0.875rem;"><i class="iconoir-plus"></i> Add new</button>
+                    <a href="{{ route("profile.addresses.index") }}" class="btn btn-ghost" style="padding: 8px 16px; font-size: 0.875rem;"><i class="iconoir-plus"></i> Add new</a href="">
                 </div>
 
                 <div class="address-grid">
                     @forelse(auth()->user()->addresses as $address)
+                           <a href="{{ route("profile.addresses.index") }}">
                         <div class="address-card">
                             <h3>{{ $address->type === 'shipping' ? 'Shipping' : 'Billing' }}</h3>
                             <p>{{ $address->address_line_1 }}</p>
                             @if($address->address_line_2)<p>{{ $address->address_line_2 }}</p>@endif
                             <p>{{ $address->city }}, {{ $address->state }} {{ $address->postal_code }}</p>
                             <p>{{ $address->country }}</p>
-                            <div class="address-actions">
-                                <a href="#">Edit</a>
-                                <form action="#" method="POST" style="display: inline;">
-                                    @csrf @method('DELETE')
-                                    <button type="submit" style="background: none; border: none; padding: 0;">Remove</button>
-                                </form>
-                            </div>
+                           
                         </div>
+                        </a>
                     @empty
                         <p>No saved addresses yet.</p>
                     @endforelse

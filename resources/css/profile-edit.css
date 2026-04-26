@@ -154,6 +154,11 @@
     padding: 24px;
 }
 
+.address-card:hover{
+    background-color: var(--border-color);
+    cursor: pointer;
+}
+
 .address-card h3 {
     margin-bottom: 8px;
     font-weight: 500;
