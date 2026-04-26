@@ -25,7 +25,7 @@
                 </div>
 
                 @if($items->isEmpty())
-                    <div class="cart-empty" style="padding: 60px 0; text-align: center;">
+                    <div class="cart-empty" >
                         <p>Your cart is empty.</p>
                         <a href="{{ route('shop.catalog') }}" class="btn btn-primary" style="margin-top: 20px; display: inline-block; width: auto;">Continue shopping</a>
                     </div>
@@ -64,7 +64,7 @@
                                 <button type="button" class="remove-btn" aria-label="Remove item"
                                         data-remove-url="{{ route('cart.remove', $item->id) }}"
                                         onclick="removeItem(this)">
-                                    <i class="iconoir-cancel"></i>
+                                    <i class="iconoir-xmark-square" style="font-size: 28px;"></i>
                                 </button>
                             </div>
                         @endforeach

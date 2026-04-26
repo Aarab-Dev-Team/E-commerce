@@ -34,19 +34,33 @@ class UserController extends Controller
     public function updateRole(Request $request, User $user)
     {
         $request->validate([
-            'role' => 'required|in:admin,employee,customer',
+            'role' => 'required|in:employee,customer',
+            'admin_password' => 'required|string',
         ]);
+
+        if (!\Illuminate\Support\Facades\Hash::check($request->admin_password, auth()->user()->password)) {
+            return back()->with('alert', ['type' => 'error', 'message' => 'Invalid admin password.']);
+        }
 
         // Prevent admin from changing their own role if they are the only admin
         if ($user->id === auth()->id() && $request->role !== 'admin') {
             $adminCount = User::where('role', 'admin')->count();
             if ($adminCount <= 1) {
-                return back()->with('error', 'Cannot change role of the only admin.');
+                return back()->with('alert', ['type' => 'error', 'message' => 'Cannot change role of the only admin.']);
             }
+        }
+
+        if ($request->role === 'employee' && $user->role !== 'employee') {
+            if ($user->orders()->exists()) {
+                return back()->with('alert', ['type' => 'error', 'message' => 'Cannot switch to employee: User has existing orders.']);
+            }
+
+            $user->addresses()->delete();
+            $user->wishlist()->delete();
         }
 
         $user->update(['role' => $request->role]);
 
-        return back()->with('success', 'User role updated.');
+        return back()->with('alert', ['type' => 'success', 'message' => 'User role updated.']);
     }
 }
