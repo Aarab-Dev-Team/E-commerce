@@ -84,7 +84,7 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
 
     // Customer Orders
     Route::get('/my-orders', [OrderController::class, 'index'])->name('orders.index');
-    Route::get('/my-orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+    Route::get('/my-orders/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::post('/my-orders', [OrderController::class, 'store'])->name('orders.store');
 
     // Addresses (Profile tab)

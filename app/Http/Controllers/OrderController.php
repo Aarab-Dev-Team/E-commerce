@@ -10,7 +10,6 @@ use App\Models\Product ;
 class OrderController extends Controller
 {
     
-
         /**
      * show orders
      */
@@ -38,9 +37,9 @@ class OrderController extends Controller
     /**
      * order detail
      */
-    public function show( $order)
+    public function show( Order $order)
     {    
-        $order = Order::findOrFail($order) ; 
+
         if ($order->user_id !== auth()->id()) {
             abort(403);
         }
