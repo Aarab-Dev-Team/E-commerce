@@ -46,7 +46,7 @@
                     <span class="badge badge-{{ $order->status }}">{{ ucfirst($order->status) }}</span>
                 </div>
                 <div class="col col-action">
-                    <a href="{{ route('orders.show', $order->id) }}" class="btn-link">View Details</a>
+                    <a href="{{ route('orders.show', $order->order_number) }}" class="btn-link">View Details</a>
                 </div>
             </div>
         @empty

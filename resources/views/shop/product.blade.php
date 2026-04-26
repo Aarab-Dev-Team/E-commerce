@@ -48,7 +48,7 @@
             <div class="product-info">
                 <div class="breadcrumb">
                     <a href="{{ url('/') }}">Home</a> <span>/</span>
-                    <a href="{{ route('shop.catalog') }}">Objects</a> <span>/</span>
+                    <a href="{{ route('shop.catalog') }}">Shop</a> <span>/</span>
                     {{ $product->name }}
                 </div>
 
@@ -367,8 +367,8 @@
             const data = await res.json();
             if (data.success) {
                 btn.textContent = 'Added to cart ✓';
-                btn.style.background = 'var(--accent-sage, #6b8f71)';
-                btn.style.borderColor = 'var(--accent-sage, #6b8f71)';
+                btn.style.background = 'var(--accent-sage)';
+                btn.style.borderColor = 'var(--accent-sage)';
                 // update nav badge
                 document.querySelectorAll('[data-cart-count]').forEach(el => {
                     el.textContent = data.cart_count;
