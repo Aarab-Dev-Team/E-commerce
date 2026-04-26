@@ -29,7 +29,7 @@
                 <div class="thumbnail-list">
                     @if($product->images && count($product->images) > 1)
                         @foreach($product->images as $index => $image)
-                            @if($index > 0 && $index < 4)
+                            @if($index >= 0 && $index < 4)
                                 <div class="image-placeholder thumbnail" onclick="changeMainImage('{{ $image }}')">
                                     <img src="{{ $image }}" alt="Thumbnail {{ $index }}" style="width:100%; height:100%; object-fit:cover;">
                                 </div>
@@ -391,6 +391,23 @@
     // Image gallery
     function changeMainImage(src) {
         document.querySelector('.main-image img').src = src;
+    }
+
+    // Image Zoom Effect
+    const mainImageContainer = document.querySelector('.main-image');
+    const zoomImage = mainImageContainer?.querySelector('img');
+
+    if (mainImageContainer && zoomImage) {
+        mainImageContainer.addEventListener('mousemove', (e) => {
+            const { left, top, width, height } = mainImageContainer.getBoundingClientRect();
+            const x = ((e.clientX - left) / width) * 100;
+            const y = ((e.clientY - top) / height) * 100;
+            zoomImage.style.transformOrigin = `${x}% ${y}%`;
+        });
+
+        mainImageContainer.addEventListener('mouseleave', () => {
+            zoomImage.style.transformOrigin = 'center center';
+        });
     }
 
     // Accordion
