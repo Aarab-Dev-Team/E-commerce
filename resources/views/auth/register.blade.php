@@ -45,7 +45,7 @@
         <label class="checkbox-container" style="margin-bottom: 24px;">
             <input type="checkbox" name="terms">
             <div class="custom-check"></div>
-            <span style="line-height: 1.4;">I agree to the <a href="#" class="text-link">Terms of Service</a> and <a href="#" class="text-link">Privacy Policy</a></span>
+            <span style="line-height: 1.4;">I agree to the <a href="#"  >Terms of Service</a> and <a href="#" >Privacy Policy</a></span>
         </label>
         @error('terms')
             <p style="color:red; font-size: 12px; font-weight: 500;">{{ $message }}</p>
@@ -56,6 +56,6 @@
 
     <p style="margin-top: 32px; text-align: center; font-size: 14px;">
         Already have an account? 
-        <a href="{{ route('login') }}" class="text-link" style="font-weight: 500;">Sign in</a>
+        <a href="{{ route('login') }}"  style="font-weight: 500; color:var(--accent-clay)">Sign in</a>
     </p>
 @endsection

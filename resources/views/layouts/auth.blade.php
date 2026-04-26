@@ -16,13 +16,15 @@
             --surface-color: #FFFFFF;
             --text-main: #1A1A18;
             --text-secondary: #6B6A66;
+
+            --accent-clay: #F04A20;
             --border-color: #E8E6E0;
             --accent-sage: #7A9E7E;
             --font-family: 'DM Sans', sans-serif;
             --transition: 150ms ease-out;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box;text-decoration: none }
 
         body {
             font-family: var(--font-family);
@@ -47,12 +49,22 @@
             background-color: var(--surface-color);
         }
 
-        .logo {
-            font-size: 24px;
+        .logo > * {
+            font-size: 28px;
             font-weight: 500;
-            color: var(--text-main);
             letter-spacing: -0.04em;
-            text-decoration: none;
+        }
+
+        .aura-text {
+            color: var(--accent-clay);
+            
+
+        }
+
+        .dot {
+            color: black;     
+            font-size: 10px;    
+            margin: 0 1px
         }
 
         .auth-container {
@@ -100,7 +112,7 @@
         .input-icon {
             position: absolute;
             right: 16px;
-            top: 42px;
+            top: 50px;
             color: var(--text-secondary);
             cursor: pointer;
             font-size: 18px;
@@ -149,8 +161,8 @@
 
         /* Utilities */
         .flex-between { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .text-link { font-size: 13px; color: var(--text-secondary); text-decoration: underline; text-underline-offset: 3px; }
-        .text-link:hover { color: var(--text-main); }
+        .text-link { font-size: 13px; color: var(--bg-color); text-decoration: underline; text-underline-offset: 3px; }
+        .text-link:hover { color: var(--accent-clay); }
         
         .divider {
             display: flex;
@@ -172,6 +184,7 @@
             text-align: center;
             border-top: 1px solid var(--border-color);
             font-size: 12px;
+            background-color: black  ; 
         }
 
         /* Organic Illustration Placeholder */
@@ -179,6 +192,10 @@
             display: flex;
             justify-content: center;
             margin-bottom: 24px;
+        }
+
+        .sketch-wrap svg{
+            width: 100px;
         }
 
         .auth-state { display: none; }
@@ -222,7 +239,9 @@
 <body>
 
     <header class="auth-header">
-        <a href="{{ url('/') }}" class="logo">Aura.</a>
+        <a href="{{ url('/') }}" class="logo">
+                <span class="aura-text">Aura</span><span class="dot">◼</span>
+        </a>
     </header>
 
     <div class="auth-container">
