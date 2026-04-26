@@ -74,6 +74,26 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        /* Custom Scrollbar — Aura Editorial Style */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 0px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-secondary);
+        }
+        /* Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--text-main) transparent;
+        }
+
         body {
             font-family: var(--font-primary);
             background-color: var(--bg-color);

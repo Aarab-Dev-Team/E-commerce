@@ -265,7 +265,7 @@
                     @endauth
                 </div>
             @empty
-                <div style="grid-column: span 2; text-align: center; padding: 60px; color: #6B6A66; font-weight: 300;">
+                <div class="empty-reviews">
                     No perspectives shared yet. Be the first to tell us your story.
                 </div>
             @endforelse
@@ -276,26 +276,26 @@
 {{-- Review Modal --}}
 @auth
 @if($canReview)
-<div id="reviewModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(26,26,24,0.4); z-index:1000; align-items:center; justify-content:center; backdrop-filter: blur(4px);">
-    <div style="background:#FFFFFF; padding:60px; border-radius:12px; max-width:560px; width:90%; border: 1px solid #E8E6E0; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
-        <h3 style="margin-bottom: 32px; font-weight: 400; letter-spacing: -0.01em;">Share your perspective</h3>
+<div id="reviewModal" class="modal-overlay">
+    <div class="modal-content review-modal-content">
+        <h3 class="modal-title">Share your perspective</h3>
         <form action="{{ route('reviews.store', $product->id) }}" method="POST">
             @csrf
-            <div style="margin-bottom:24px;">
-                <label style="display: block; font-size: 13px; color: #6B6A66; margin-bottom: 8px;">Rating</label>
-                <select name="rating" required style="width:100%; padding:14px; border:1px solid #E8E6E0; border-radius:8px; background: #FAFAF8; font-size: 14px;">
-                    <option value="5">Excellent — 5 stars</option>
-                    <option value="4">Very Good — 4 stars</option>
-                    <option value="3">Good — 3 stars</option>
-                    <option value="2">Fair — 2 stars</option>
-                    <option value="1">Poor — 1 star</option>
+            <div class="form-group">
+                <label class="form-label">Rating</label>
+                <select name="rating" required class="form-select">
+                    <option value="5">Excellent — ★★★★★ (5)</option>
+                    <option value="4">Very Good — ★★★★☆ (4)</option>
+                    <option value="3">Good — ★★★☆☆ (3)</option>
+                    <option value="2">Fair — ★★☆☆☆ (2)</option>
+                    <option value="1">Poor — ★☆☆☆☆ (1)</option>
                 </select>
             </div>
-            <div style="margin-bottom:32px;">
-                <label style="display: block; font-size: 13px; color: #6B6A66; margin-bottom: 8px;">Your thoughts</label>
-                <textarea name="comment" rows="4" required style="width:100%; padding:16px; border:1px solid #E8E6E0; border-radius:8px; background: #FAFAF8; font-size: 14px; line-height: 1.6;" placeholder="Tell us about your experience..."></textarea>
+            <div class="form-group">
+                <label class="form-label">Your thoughts</label>
+                <textarea name="comment" rows="4" required class="form-textarea" placeholder="Tell us about your experience..."></textarea>
             </div>
-            <div style="display:flex; gap:16px;">
+            <div class="modal-actions">
                 <button type="submit" class="btn btn-filled">Submit perspective</button>
                 <button type="button" class="btn btn-ghost" onclick="closeReviewModal()">Cancel</button>
             </div>
