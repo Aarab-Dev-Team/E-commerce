@@ -246,6 +246,7 @@
 }
 
 .close-modal {
+    width: 30px;
     cursor: pointer;
     font-size: 24px;
     color: var(--text-secondary);

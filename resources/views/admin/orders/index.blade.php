@@ -126,7 +126,7 @@
 
     {{-- Pagination --}}
     <div class="pagination">
-        {{ $orders->links('pagination.admin') }}
+        {{ $orders->links('pagination.custom') }}
     </div>
 </div>
 

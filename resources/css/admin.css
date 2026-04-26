@@ -216,7 +216,7 @@ p { color: var(--text-secondary); margin-bottom: 16px; font-weight: 300; }
     height: 36px;
     flex-shrink: 0;
     color: var(--text-secondary);
-    opacity: 0.8;
+    opacity: 1;
 }
 
 .sidebar-user-info {
@@ -453,7 +453,7 @@ td { font-weight: 300; }
 .badge-inactive, .badge-cancelled, .badge-failed { background-color: transparent; border: 1px solid var(--accent-clay); color: #9A4A2A; }
 
 /* Role Badges */
-.badge-admin { background-color: transparent; border: 1px solid var(--text-primary); color: var(--text-primary); }
+.badge-admin { background-color: var(--text-primary); border: 1px solid var(--text-primary); color: var(--bg-surface); }
 .badge-employee { background-color: transparent; border: 1px solid var(--accent-sage); color: #4A6B4E; }
 .badge-customer { background-color: transparent; border: 1px solid var(--border-subtle); color: var(--text-secondary); }
 
