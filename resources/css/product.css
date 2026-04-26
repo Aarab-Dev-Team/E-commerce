@@ -26,16 +26,20 @@
 
 .product-page .main-image {
     height: 600px;
-    border-radius: 12px; /* Consistency with cards */
+    border : 2px solid var(--border-color) ; 
+    border-radius: 4px; /* Consistency with cards */
     overflow: hidden;
     background: var(--bg-color);
     position: relative;
     cursor: crosshair;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .product-page .main-image img {
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
     object-fit: cover;
     transition: transform 0.5s cubic-bezier(0.2, 0, 0.2, 1);
     transform-origin: center center;
@@ -163,8 +167,9 @@
 
 /* Product Details Accordion */
 .product-page .product-details {
-    border-top: 1px solid var(--border-color);
-    padding: 80px 0;
+    border-top: 1px solid #E8E6E0;
+    padding: 100px 0;
+    background-color: #FFFFFF;
 }
 
 .product-page .accordion {
@@ -173,23 +178,33 @@
 }
 
 .product-page .accordion-item {
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid #E8E6E0;
 }
 
 .product-page .accordion-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 24px 0;
+    padding: 32px 0;
     cursor: pointer;
     background: none;
     border: none;
     width: 100%;
     text-align: left;
+    color: #1A1A18;
+    transition: color 0.2s ease-out;
+}
+
+.product-page .accordion-header:hover h3 {
+    color: #6B6A66;
 }
 
 .product-page .accordion-header h3 {
-    font-size: 20px;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    text-transform: none;
+    transition: color 0.2s ease-out;
 }
 
 .product-page .accordion-content {
@@ -199,7 +214,11 @@
 }
 
 .product-page .accordion-content p {
-    padding-bottom: 24px;
+    padding-bottom: 32px;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #6B6A66;
+    font-weight: 300;
 }
 
 /* Visual Info Highlights */
@@ -229,7 +248,6 @@
 /* Reviews Section — Aura Editorial Style */
 .product-page .reviews {
     background-color: #FAFAF8;
-    padding: 120px 0;
     border-top: 1px solid #E8E6E0;
 }
 
@@ -273,7 +291,7 @@
 .product-page .review-item {
     background: #FFFFFF;
     border: 1px solid #E8E6E0;
-    border-radius: 12px;
+    border-radius: 5px;
     padding: 40px;
     transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
     display: flex;
@@ -443,7 +461,7 @@
     padding: 12px 24px;
     font-size: 14px;
     font-weight: 500;
-    border-radius: 8px;
+    border-radius: 4px;
     cursor: pointer;
     transition: border-color 0.2s ease-out, background 0.2s ease-out;
     display: inline-flex;

@@ -21,7 +21,7 @@
             <div class="product-gallery">
                 <div class="image-placeholder main-image">
                     @if($product->images && isset($product->images[0]))
-                        <img src="{{ $product->images[0] }}" alt="{{ $product->name }}" style="width:100%; height:100%; object-fit:cover;">
+                        <img src="{{ $product->images[0] }}" alt="{{ $product->name }}" >
                     @else
                         <i class="iconoir-camera" style="font-size: 48px; opacity: 0.2;"></i>
                     @endif
@@ -97,7 +97,7 @@
     </section>
 
     {{-- Product Details Accordion --}}
-    <section class="product-details bg-light">
+    <section class="product-details">
         <div class="container">
             <div class="accordion">
                 <div class="accordion-item">
@@ -223,10 +223,10 @@
 
                     <div class="rating">
                         @for($i = 1; $i <= 5; $i++)
-                            <svg class="sketch-star" viewBox="0 0 48 48" fill="none" stroke="{{ $i <= $review->rating ? '#1A1A18' : '#E8E6E0' }}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <svg class="sketch-star" viewBox="0 0 48 48" fill="none" stroke="{{ $i <= $review->rating ? '#F04A20' : '#6B6A66' }}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M24 6.5l5.2 10.6 11.7 1.7-8.5 8.3 2 11.6-10.4-5.5-10.4 5.5 2-11.6-8.5-8.3 11.7-1.7z" />
                                 @if($i <= $review->rating)
-                                    <path d="M24 6.5l5.2 10.6 11.7 1.7-8.5 8.3 2 11.6-10.4-5.5-10.4 5.5 2-11.6-8.5-8.3 11.7-1.7z" fill="#1A1A18" fill-opacity="0.05" stroke="none" />
+                                    <path d="M24 6.5l5.2 10.6 11.7 1.7-8.5 8.3 2 11.6-10.4-5.5-10.4 5.5 2-11.6-8.5-8.3 11.7-1.7z" fill="#F04A20" fill-opacity="0.05" stroke="none" />
                                 @endif
                             </svg>
                         @endfor

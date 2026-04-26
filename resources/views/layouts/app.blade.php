@@ -568,8 +568,8 @@
             border-bottom: 1px solid var(--border-color);
         }
         .product-image-container img {
-            width: 100%;
-            height: 100%;
+            width: 80%;
+            height: 80%;
             object-fit :contain;
         }
         .placeholder-icon {
