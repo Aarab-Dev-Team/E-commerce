@@ -320,7 +320,8 @@
                 <div class="party-lbl">Bill to:</div>
                 <div class="party-val">
                     {{ $order->user->name ?? 'Customer' }}<br>
-                    {!! nl2br($order->shipping_address) !!}
+                    @php($clean = e(strip_tags($order->shipping_address)))
+{!! preg_replace('/^([^:]+):/m', '<strong>$1</strong>:', nl2br($clean)) !!}
                 </div>
             </div>
             <div class="party-r">

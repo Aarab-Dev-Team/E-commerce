@@ -87,6 +87,7 @@ class ProductController extends Controller
                   if (auth()->user()->role === 'employee') {
                         $productData['is_active'] = false;
                         $productData['pending_status'] = 'pending_creation';
+                        $productData['submitted_by'] = auth()->id();
                         $message = 'Product submitted for approval.';
                 } else {
                         $productData['is_active'] = $request->boolean('is_active', false);
@@ -156,13 +157,12 @@ class ProductController extends Controller
                         'images' => $imagePaths,
                 ];
                 
-                //only admin can toggle is_active value : 
                  if (auth()->user()->role === 'employee') {
-                        //employee
                         $product->update([
                         'pending_status' => 'pending_update',
                         'pending_data' => $updateData,
                         'original_data' => $product->only(array_keys($updateData)),
+                        'submitted_by' => auth()->id(),
                         ]);
                         $message = 'Product update submitted for approval.';
                 } else {
@@ -192,6 +192,7 @@ class ProductController extends Controller
                         $product->update([
                         'is_active' => false,
                         'pending_status' => 'pending_deletion',
+                        'submitted_by' => auth()->id(),
                         ]);
                         $message = 'Product deletion submitted for approval.';
                 } else {

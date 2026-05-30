@@ -15,7 +15,7 @@ class ApprovalController extends Controller
     public function index(Request $request)
     {
         $query = Product::where('pending_status', '!=', 'approved')
-            ->with('category');
+            ->with('category', 'submittedBy');
 
         // Filter by request type
         if ($request->filled('type')) {
@@ -55,9 +55,11 @@ class ApprovalController extends Controller
             abort(403);
         }
 
+        $reviewData = ['reviewed_by' => auth()->id(), 'reviewed_at' => now()];
+
         switch ($product->pending_status) {
             case 'pending_creation':
-                $product->update(['is_active' => true, 'pending_status' => 'approved']);
+                $product->update(array_merge(['is_active' => true, 'pending_status' => 'approved'], $reviewData));
                 $message = 'Product approved and is now live.';
                 break;
 
@@ -66,16 +68,17 @@ class ApprovalController extends Controller
                 if ($pendingData) {
                     $product->update($pendingData);
                 }
-                $product->update([
+                $product->update(array_merge([
                     'pending_status' => 'approved',
                     'pending_data'   => null,
                     'original_data'  => null,
-                ]);
+                ], $reviewData));
                 $message = 'Product update approved and applied.';
                 break;
 
             case 'pending_deletion':
                 $productName = $product->name;
+                $product->update($reviewData);
                 $product->delete();
                 return redirect()->route('admin.approvals.index')->with('alert', [
                     'type'    => 'success',
@@ -98,8 +101,11 @@ class ApprovalController extends Controller
             abort(403);
         }
 
+        $reviewData = ['reviewed_by' => auth()->id(), 'reviewed_at' => now()];
+
         switch ($product->pending_status) {
             case 'pending_creation':
+                $product->update($reviewData);
                 $product->delete();
                 return redirect()->route('admin.approvals.index')->with('alert', [
                     'type'    => 'success',
@@ -110,19 +116,19 @@ class ApprovalController extends Controller
                 if ($product->original_data) {
                     $product->update($product->original_data);
                 }
-                $product->update([
+                $product->update(array_merge([
                     'pending_status' => 'approved',
                     'pending_data'   => null,
                     'original_data'  => null,
-                ]);
+                ], $reviewData));
                 $message = 'Update rejected. Original data restored.';
                 break;
 
             case 'pending_deletion':
-                $product->update([
+                $product->update(array_merge([
                     'is_active'      => true,
                     'pending_status' => 'approved',
-                ]);
+                ], $reviewData));
                 $message = 'Deletion rejected. Product reactivated.';
                 break;
 

@@ -126,7 +126,8 @@
 
                 <div class="info-block">
                     <h3>Shipping Address</h3>
-                    {!! nl2br($order->shipping_address) !!}
+                    @php($clean = e(strip_tags($order->shipping_address)))
+{!! preg_replace('/^([^:]+):/m', '<strong>$1</strong>:', nl2br($clean)) !!}
                 </div>
 
                 <div class="info-block" style="margin-bottom: 0;">

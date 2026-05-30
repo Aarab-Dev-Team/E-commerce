@@ -34,6 +34,9 @@ class Product extends Model
         'pending_status',
         'pending_data',
         'original_data',
+        'submitted_by',
+        'reviewed_by',
+        'reviewed_at',
     ];
 
     /**
@@ -54,6 +57,16 @@ class Product extends Model
     public function wishlistedBy()
     {
         return $this->hasMany(Wishlist::class);
+    }
+
+    public function submittedBy()
+    {
+        return $this->belongsTo(User::class, 'submitted_by');
+    }
+
+    public function reviewedBy()
+    {
+        return $this->belongsTo(User::class, 'reviewed_by');
     }
 
     // helper method

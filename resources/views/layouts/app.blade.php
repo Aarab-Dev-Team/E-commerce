@@ -23,7 +23,7 @@
         --surface-color: #FFFFFF;
         --text-main: #1A1A18;
         --text-secondary: #6B6A66;
-        --border-color: #E8E6E0;
+        --border-color: #d3d3d3;
         --accent-clay: #F04A20;      
         --accent-sage: #007a15;       
         --accent-sand: #C4A06A;     

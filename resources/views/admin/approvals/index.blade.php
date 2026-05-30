@@ -64,6 +64,7 @@
                 <tr>
                     <th>Product</th>
                     <th>Request type</th>
+                    <th>Submitted by</th>
                     <th>Date</th>
                     <th>Changes</th>
                     @if(auth()->user()->role === 'admin')
@@ -78,7 +79,7 @@
                         <div class="product-cell" style="display: flex; align-items: center; gap: 12px;">
                             <div class="avatar-img" style="width: 36px; height: 36px; border-radius: 4px; background: var(--bg-base); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;">
                                 @if($product->images && isset($product->images[0]))
-                                    <img src="{{ asset('storage/' . $product->images[0]) }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+                                    <img src="{{ str_starts_with($product->images[0], 'http') ? $product->images[0] : asset('storage/' . $product->images[0]) }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
                                 @else
                                     <i class="iconoir-image" style="color: var(--text-muted); font-size: 14px;"></i>
                                 @endif
@@ -101,6 +102,7 @@
                         @endphp
                         <span class="badge {{ $typeClass }}">{{ ucfirst($type) }}</span>
                     </td>
+                    <td class="cell-meta">{{ $product->submittedBy?->name ?? '—' }}</td>
                     <td class="cell-meta">{{ $product->updated_at->format('M d, Y') }}</td>
                     <td class="cell-meta">
                         @if($product->pending_status == 'pending_update')

@@ -9,7 +9,9 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Address;
 use App\Models\Coupon;
+use App\Models\Product;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class CheckoutController extends Controller
 {
@@ -76,74 +78,87 @@ class CheckoutController extends Controller
             'postal_code' => 'required|string|max:20',
             'country' => 'required|string|max:2',
             'payment_method' => 'required|in:cod,cc,paypal',
-            // Credit card fields are optional (mock)
-            'cc_number' => 'nullable|string',
-            'cc_expiry' => 'nullable|string',
-            'cc_cvv' => 'nullable|string',
         ]);
 
-        // Build shipping address string
+        // Build shipping address string (no HTML tags — plain text only)
         $shippingAddress = implode("\n", array_filter([
-            '<b>Name: </b>'.$validated['name'],
-            '<b>Address line 1: </b>'.$validated['address_line_1'],
-            $validated['address_line_2'] ? '<b>Address line 2: </b>'.$validated['address_line_2'] : null,
-            '<b>City: </b>'.$validated['city'] . ', ' . $validated['state'] . ' ' . $validated['postal_code'],
-            '<b>Country: </b>'.$validated['country'],
-            '<b>Phone: </b>' . $validated['phone'],
-            '<b>Email: </b>' . $validated['email'],
+            'Name: ' . $validated['name'],
+            'Address: ' . $validated['address_line_1'],
+            $validated['address_line_2'] ? 'Address 2: ' . $validated['address_line_2'] : null,
+            'City/State/Zip: ' . $validated['city'] . ', ' . $validated['state'] . ' ' . $validated['postal_code'],
+            'Country: ' . $validated['country'],
+            'Phone: ' . $validated['phone'],
+            'Email: ' . $validated['email'],
         ]));
-
 
         $subtotal = $this->cartService->subtotal();
 
-        // Apply coupon from session
-        $couponCode     = null;
-        $discountAmount = 0;
-        if (session('applied_coupon')) {
-            $coupon = Coupon::where('code', session('applied_coupon'))->first();
-            if ($coupon && $coupon->isValid((float) $subtotal)) {
-                $discountAmount = $coupon->calculateDiscount((float) $subtotal);
-                $couponCode     = $coupon->code;
-                $coupon->increment('uses');
+        return DB::transaction(function () use ($cartItems, $validated, $subtotal, $shippingAddress) {
+            // Validate stock for every item
+            $productIds = $cartItems->pluck('product_id')->toArray();
+            $products = Product::whereIn('id', $productIds)->get()->keyBy('id');
+
+            foreach ($cartItems as $item) {
+                $product = $products->get($item->product_id);
+                if (!$product) {
+                    abort(422, 'Product not found: ' . $item->product->name);
+                }
+                if ($product->stock_quantity < $item->quantity) {
+                    return redirect()->route('cart.index')
+                        ->with('error', 'Insufficient stock for "' . $product->name . '". Only ' . $product->stock_quantity . ' left.');
+                }
             }
-            session()->forget('applied_coupon');
-        }
 
-        $total = max(0, $subtotal - $discountAmount);
+            // Apply coupon from session
+            $couponCode     = null;
+            $discountAmount = 0;
+            if (session('applied_coupon')) {
+                $coupon = Coupon::where('code', session('applied_coupon'))->first();
+                if ($coupon && $coupon->isValid((float) $subtotal)) {
+                    $discountAmount = $coupon->calculateDiscount((float) $subtotal);
+                    $couponCode     = $coupon->code;
+                    $coupon->increment('uses');
+                }
+                session()->forget('applied_coupon');
+            }
 
-        // Determine payment status
-        $paymentStatus = ($validated['payment_method'] === 'cod') ? 'pending' : 'paid';
+            $total = max(0, $subtotal - $discountAmount);
 
-        // Create order
-        $order = Order::create([
-            'user_id'          => auth()->id(),
-            'order_number'     => 'ORD-' . strtoupper(Str::random(8)),
-            'total_amount'     => $total,
-            'status'           => 'pending',
-            'payment_status'   => $paymentStatus,
-            'payment_method'   => $validated['payment_method'],
-            'shipping_address' => $shippingAddress,
-            'coupon_code'      => $couponCode,
-            'discount_amount'  => $discountAmount,
-        ]);
+            // Determine payment status
+            $paymentStatus = ($validated['payment_method'] === 'cod') ? 'pending' : 'paid';
 
-        // Move cart items to order items
-        foreach ($cartItems as $item) {
-            OrderItem::create([
-                'order_id' => $order->id,
-                'product_id' => $item->product_id,
-                'product_name' => $item->product->name,
-                'quantity' => $item->quantity,
-                'unit_price' => $item->price_at_time,
-                'total_price' => $item->price_at_time * $item->quantity,
+            // Create order with UUID-based order number
+            $order = Order::create([
+                'user_id'          => auth()->id(),
+                'order_number'     => 'ORD-' . strtoupper(Str::random(8)),
+                'total_amount'     => $total,
+                'status'           => 'pending',
+                'payment_status'   => $paymentStatus,
+                'payment_method'   => $validated['payment_method'],
+                'shipping_address' => $shippingAddress,
+                'coupon_code'      => $couponCode,
+                'discount_amount'  => $discountAmount,
             ]);
-        }
 
-        // Clear the cart
-        $this->cartService->clear();
+            // Move cart items to order items + decrement stock
+            foreach ($cartItems as $item) {
+                OrderItem::create([
+                    'order_id'     => $order->id,
+                    'product_id'   => $item->product_id,
+                    'product_name' => $item->product->name,
+                    'quantity'     => $item->quantity,
+                    'unit_price'   => $item->price_at_time,
+                    'total_price'  => $item->price_at_time * $item->quantity,
+                ]);
 
-        // Redirect to confirmation page (we'll create it next)
-        return redirect()->route('checkout.confirmation', $order)->with('success', 'Order placed successfully!');
+                $products[$item->product_id]->decrement('stock_quantity', $item->quantity);
+            }
+
+            // Clear the cart
+            $this->cartService->clear();
+
+            return redirect()->route('checkout.confirmation', $order)->with('success', 'Order placed successfully!');
+        });
     }
 
     /**
