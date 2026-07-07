@@ -530,6 +530,7 @@
             cursor: pointer;
         }
 
+        /* Product Grid */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
